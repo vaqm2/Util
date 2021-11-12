@@ -44,7 +44,7 @@ while(my $line = $nh->getline)
 
         if(!exists $dict->{$snp})
         {
-            print "ERROR: $snp not found!\n";
+            print STDERR "ERROR: $snp not found!\n";
             exit;
         }
 
