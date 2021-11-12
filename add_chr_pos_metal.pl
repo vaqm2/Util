@@ -42,6 +42,12 @@ while(my $line = $nh->getline)
         my @lineContents = split(/\s+/, $line);
         my $snp          = $lineContents[0];
 
+        if(!exists $dict->{$snp})
+        {
+            print "ERROR: $snp not found!\n";
+            exit;
+        }
+
         print $dict->{$snp}->{chr}."\t";
         print $dict->{$snp}->{pos}."\t";
     }
