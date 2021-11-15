@@ -36,6 +36,7 @@ while(my $line = $nh->getline)
         print "Z"."\t";
         print "P"."\t";
         print "DIRECTION"."\n";
+        next;
     }
     else
     {
@@ -50,9 +51,8 @@ while(my $line = $nh->getline)
 
         print $dict->{$snp}->{chr}."\t";
         print $dict->{$snp}->{pos}."\t";
+        print $line."\n";
     }
-
-    print $line."\n";
 }
 
 $nh->close;
