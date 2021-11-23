@@ -14,7 +14,7 @@ while(<>)
     if(!exists $dict->{$snp_id})
     {
         print $line."\n";
-        $dict->{$snp_id]} = 1;
+        $dict->{$snp_id} = 1;
         next;
     }
     else
