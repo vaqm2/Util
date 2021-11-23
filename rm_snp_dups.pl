@@ -18,5 +18,6 @@ while(<>)
     else
     {
         print $line."\n";
+        $dict->{$snp_id} = 1;
     }
 }
