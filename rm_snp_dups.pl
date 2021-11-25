@@ -11,6 +11,13 @@ while(my $line = $fh->getline)
 {
     chomp($line);
     $line =~ s/^\s+//;
+
+    if($line =~ /^CHR/)
+    {
+        print $line."\n";
+        next;
+    }
+
     my @lineContents = split(/\s+/, $line);
     my $snp_id = $lineContents[1];
     my $a1 = $lineContents[2];
