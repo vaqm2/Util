@@ -10,7 +10,7 @@ my $fh = IO::File->new("$ARGV[0]");
 while(my $line = $fh->getline)
 {
     chomp($line);
-    $line =~ /^\s+//;
+    $line =~ s/^\s+//;
     my @lineContents = split(/\s+/, $line);
     my $snp_id = $lineContents[1];
     my $a1 = $lineContents[2];
