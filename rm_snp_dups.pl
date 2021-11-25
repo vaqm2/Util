@@ -27,6 +27,7 @@ while(my $line = $fh->getline)
     }
 
     print $line."\n";
+    $dict->{$snp_id]} = 1;
 }
 
 $fh->close;
