@@ -2,23 +2,31 @@
 
 use strict;
 use warnings;
+use IO::File;
 
 my $dict = {};
+my $fh = IO::File->new("$ARGV[0]");
 
-while(<>)
+while(my $line = $fh->getline)
 {
-    my $line = chomp($_);
+    chomp($line);
+    $line =~ /^\s+//;
     my @lineContents = split(/\s+/, $line);
     my $snp_id = $lineContents[1];
+    my $a1 = $lineContents[2];
+    my $a2 = $lineContents[3];
 
-    if(!exists $dict->{$snp_id})
-    {
-        print $line."\n";
-        $dict->{$snp_id} = 1;
-        next;
-    }
-    else
+    if(length($a1) > 1 || length($a2) > 1)
     {
         next;
     }
+
+    if(exists $dict->{$snp_id})
+    {
+        next;
+    }
+
+    print $line."\n";
 }
+
+$fh->close;
