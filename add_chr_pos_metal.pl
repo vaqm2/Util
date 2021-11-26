@@ -42,8 +42,8 @@ while(my $line = $nh->getline)
     {
         my @lineContents = split(/\s+/, $line);
         my $snp          = $lineContents[0];
-        my $a1           = $lineContents[1];
-        my $a2           = $lineContents[2];
+        my $a1           = uc $lineContents[1];
+        my $a2           = uc $lineContents[2];
         my $freq         = $lineContents[3];
         my $beta         = $lineContents[7];
         my $se           = $lineContents[8];
