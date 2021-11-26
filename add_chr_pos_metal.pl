@@ -32,16 +32,22 @@ while(my $line = $nh->getline)
         print "SNP"."\t";
         print "A1"."\t";
         print "A2"."\t";
-        print "N"."\t";
-        print "Z"."\t";
-        print "P"."\t";
-        print "DIRECTION"."\n";
+        print "FREQ"."\t";
+        print "BETA"."\t";
+        print "SE"."\t";
+        print "P"."\n";
         next;
     }
     else
     {
         my @lineContents = split(/\s+/, $line);
         my $snp          = $lineContents[0];
+        my $a1           = $lineContents[1];
+        my $a2           = $lineContents[2];
+        my $freq         = $lineContents[3];
+        my $beta         = $lineContents[7];
+        my $se           = $lineContents[8];
+        my $p            = $lineContents[9];
 
         if(!exists $dict->{$snp})
         {
@@ -51,7 +57,13 @@ while(my $line = $nh->getline)
 
         print $dict->{$snp}->{chr}."\t";
         print $dict->{$snp}->{pos}."\t";
-        print $line."\n";
+        print $snp."\t";
+        print $a1."\t";
+        print $a2."\t";
+        print $freq."\t";
+        print $beta."\t";
+        print $se."\t";
+        print $p."\n";
     }
 }
 
