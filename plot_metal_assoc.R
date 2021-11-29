@@ -17,13 +17,20 @@ if("Is.converge" %in% colnames(assoc)) {
     assoc = assoc %>% filter(Is.converge == 1)
 }
 assoc = assoc %>% select(CHR, SNP, BP, P)
+gws_snps = assoc %>% filter(P <= 5e-8)
 
 png(paste(out_prefix, "Manhattan.png", sep = "_"),
     width = 10, 
     height = 5, 
     units = "in", 
     res = 300)
-manhattan(assoc)
+
+if(nrow(gws_snps) > 0) {
+    manhattan(assoc, annotatePval = 5e-8)
+} else {
+    manhattan(assoc)
+}
+
 dev.off()
 
 png(paste(out_prefix, "QQ.png", sep = "_"), 
