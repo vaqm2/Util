@@ -21,14 +21,14 @@ open(IN, "zcat $ARGV[1] |");
 
 while(<IN>)
 {
-    my $line = chomp($_);
-    if($line =~ /^CHR/)
+    chomp($_);
+    if($_ =~ /^CHR/)
     {
         next;
     }
     else
     {
-        my @lineContents = split(/\s+/, $line);
+        my @lineContents = split(/\s+/, $_);
         my $snp = $lineContents[1];
 
         if(exists $dict->{$snp})
