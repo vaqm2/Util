@@ -29,7 +29,7 @@ while(<IN>)
     else
     {
         my @lineContents = split(/\s+/, $_);
-        my $snp = $lineContents[1];
+        my $snp = $lineContents[2];
 
         if(exists $dict->{$snp})
         {
