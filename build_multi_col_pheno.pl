@@ -22,11 +22,11 @@ while(my $line = $fh->getline) {
             next;
         }
         else {
-            print $iid." read\n";
             my @nh_contents = split(/\s+/, $line);
             my $iid = $nh_contents[1];
             my $status = $nh_contents[2];
             $pheno->{$iid}->{$phenotype} = $status;
+            print $iid." read\n";
         }
     }
 
