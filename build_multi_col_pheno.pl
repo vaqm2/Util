@@ -10,7 +10,10 @@ my @phenotypes;
 
 while(my $line = $fh->getline) {
     chomp($line);
-    my ($path, $phenotype) = split(/\s+/, $line);
+
+    my @lineContents = split(/\s+/, $line);
+    my $path         = $lineContents[0];
+    my $phenotype    = $lineContents[1];
     push(@phenotypes, $phenotype);
 
     my $nh = IO::File->new("$path") || die "ERROR: Cannot open pheno file: $path"."!!\n";
@@ -23,10 +26,9 @@ while(my $line = $fh->getline) {
         }
         else {
             my @nh_contents = split(/\s+/, $line);
-            my $iid = $nh_contents[1];
-            my $status = $nh_contents[2];
+            my $iid         = $nh_contents[1];
+            my $status      = $nh_contents[2];
             $pheno->{$iid}->{$phenotype} = $status;
-            print $iid." read\n";
         }
     }
 
