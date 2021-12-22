@@ -1,0 +1,56 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use IO::File;
+
+my $fh = IO::File->new("$ARGV[0]") || die "ERROR: Cannot open file: $ARGV[0]"."!!\n";
+my $pheno = {};
+my @phenotypes;
+
+while(my $line = $fh->getline) {
+    chomp($line);
+    my ($path, $phenotype) = split(/\s+/, $line);
+    push(@phenotypes, $phenotype);
+
+    my $nh = IO::File->new("$path") || die "ERROR: Cannot open pheno file: $path"."!!\n";
+
+    while(my $nh_line = $nh->getline) {
+        chomp($nh_line);
+
+        if($nh_line =~ /^FID/) {
+            next;
+        }
+
+        my @nh_contents = split(/\s+/, $line);
+        my $iid = $nh_contents[1];
+        my $status = $nh_contents[2];
+        $pheno->{iid}->{$phenotype} = $status;
+    }
+
+    $nh->close;
+}
+
+$fh->close;
+
+print "FID"." ";
+print "IID";
+
+for my $index(0..$#phenotypes) {
+    print " ";
+    print $phenotypes[$index];
+}
+
+print "\n";
+
+for my $index(sort keys %$pheno) {    
+    print $index." ";
+    print $index;
+
+    for my $idx2(0..$#phenotypes) {
+        print " ";
+        print $phenotypes[$idx2];
+    }
+
+    print "\n";
+}
