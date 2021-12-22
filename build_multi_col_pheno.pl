@@ -21,11 +21,12 @@ while(my $line = $fh->getline) {
         if($nh_line =~ /^FID/i) {
             next;
         }
-
-        my @nh_contents = split(/\s+/, $line);
-        my $iid = $nh_contents[1];
-        my $status = $nh_contents[2];
-        $pheno->{$iid}->{$phenotype} = $status;
+        else {
+            my @nh_contents = split(/\s+/, $line);
+            my $iid = $nh_contents[1];
+            my $status = $nh_contents[2];
+            $pheno->{$iid}->{$phenotype} = $status;
+        }
     }
 
     $nh->close;
@@ -33,6 +34,7 @@ while(my $line = $fh->getline) {
 
 $fh->close;
 
+@phenotypes = sort @phenotypes;
 print "FID"." ";
 print "IID";
 
@@ -44,7 +46,7 @@ for my $index(0..$#phenotypes) {
 print "\n";
 
 for my $index(sort keys %$pheno) {    
-    print $index." ";
+    print $index."_ _";
     print $index;
 
     for my $idx2(0..$#phenotypes) {
