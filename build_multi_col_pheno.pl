@@ -25,7 +25,7 @@ while(my $line = $fh->getline) {
         my @nh_contents = split(/\s+/, $line);
         my $iid = $nh_contents[1];
         my $status = $nh_contents[2];
-        $pheno->{iid}->{$phenotype} = $status;
+        $pheno->{$iid}->{$phenotype} = $status;
     }
 
     $nh->close;
