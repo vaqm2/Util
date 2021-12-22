@@ -22,6 +22,7 @@ while(my $line = $fh->getline) {
             next;
         }
         else {
+            print $iid." read\n"
             my @nh_contents = split(/\s+/, $line);
             my $iid = $nh_contents[1];
             my $status = $nh_contents[2];
@@ -45,8 +46,8 @@ for my $index(0..$#phenotypes) {
 
 print "\n";
 
-for my $index(sort keys %$pheno) {    
-    print $index."_ _";
+for my $index(sort {$a <=> $b} keys %$pheno) {    
+    print $index." ";
     print $index;
 
     for my $idx2(0..$#phenotypes) {
