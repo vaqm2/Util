@@ -49,7 +49,12 @@ for my $index(sort keys %$pheno) {
 
     for my $idx2(0..$#phenotypes) {
         print " ";
-        print $phenotypes[$idx2];
+        if(exists $pheno->${index}->{$phenotypes[$idx2]}) {
+            print $pheno->${index}->{$phenotypes[$idx2]};
+        }
+        else {
+            print "0";
+        }
     }
 
     print "\n";
