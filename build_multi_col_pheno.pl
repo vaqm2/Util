@@ -18,7 +18,7 @@ while(my $line = $fh->getline) {
     while(my $nh_line = $nh->getline) {
         chomp($nh_line);
 
-        if($nh_line =~ /^FID/) {
+        if($nh_line =~ /^FID/i) {
             next;
         }
 
