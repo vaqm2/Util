@@ -16,6 +16,7 @@ def main():
             lineContents = line.split()
             chromosome = lineContents[0]
             if chromosome.isnumeric():
+                chromosome = int(chromosome)
                 if(chromosome % 2 == 0):
                     even_out.write(line)
                 else:
