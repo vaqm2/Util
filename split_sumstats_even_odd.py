@@ -5,8 +5,8 @@ import sys
 def main():
     sumstats = sys.argv[1]
     fh = open(sumstats, 'r')
-    even_out = open(sys.argv[2] + "even.txt", 'w')
-    odd_out = open(sys.argv[2] + "odd.txt", 'w')
+    even_out = open(sys.argv[2] + "_Even.txt", 'w')
+    odd_out = open(sys.argv[2] + "_Odd.txt", 'w')
 
     for line in fh:
         if(line.startswith("CHR")):
