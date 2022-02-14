@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/sh
 
 #SBATCH --account=cross_disorder_2
 #SBATCH --mem=8g
