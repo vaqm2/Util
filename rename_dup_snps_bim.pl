@@ -30,7 +30,7 @@ while(my $line = $fh->getline)
     {
         if(exists $dict->{$snp})
         {
-            $snp .= "_".$a1;
+            $snp .= "_".$a1."_".$a2;
         }
     }  
 
