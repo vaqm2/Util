@@ -2,10 +2,9 @@
 
 require(dplyr)
 
-args = commandArgs(trailingOnly = T)
-
-cov           = args[1]
-pcs           = args[2]
+args          = commandArgs(trailingOnly = T)
+cov           = read.table(args[1], header = T)
+pcs           = read.table(args[2], header = T)
 out           = args[3]
 colnames(cov) = colnames(cov) %>% tolower()
 colnames(pcs) = colnames(pcs) %>% tolower()
