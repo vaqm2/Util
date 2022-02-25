@@ -58,6 +58,16 @@ my $pheno1_dict = read_phenotypes($pheno1);
 my $pheno2_dict = read_phenotypes($pheno2);
 my $out_fh = IO::File->new("> $out") || die "ERROR: Cannot create output file: $out"."!!\n";
 
+print $out_fh "IID"." ";
+print $out_fh "Age"." ";
+print $out_fh "Sex"." ";
+
+for (my $i = 1; $i <= 10; $i++) { 
+    print $out_fh "PC".$i." ";
+}
+
+print $out_fh "PHENOTYPE"."\n";
+
 for my $index(keys %$pheno1_dict) {
     if(exists $pheno2_dict->{$index}) {
         next;
