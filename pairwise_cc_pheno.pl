@@ -73,7 +73,7 @@ for my $index(keys %$pheno1_dict) {
         next;
     }
     else {
-        $pheno1_dict->{$index} =~ s/\s+/" "/;
+        $pheno1_dict->{$index} =~ s/\s+/ /;
         print $out_fh $pheno1_dict->{$index}."\n";
     }
 }
