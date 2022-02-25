@@ -43,7 +43,7 @@ sub read_phenotypes {
 
 my ($pheno1, $pheno2, $out);
 
-if(!$pheno1 || !$pheno2 || !$out) {
+if(length($pheno1) == 0 || length($pheno2_ == 0 || length($out) == 0) {
     usage();
 }
 
