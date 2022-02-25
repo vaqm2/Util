@@ -43,16 +43,16 @@ sub read_phenotypes {
 
 my ($pheno1, $pheno2, $out);
 
-if(length($pheno1) == 0 || length($pheno2) == 0 || length($out) == 0) {
-    usage();
-}
-
-
 GetOptions(
     "pheno1=s" => \$pheno1,
     "pheno2=s" => \$pheno2,
     "out=s" => \$out
 );
+
+
+if(length($pheno1) == 0 || length($pheno2) == 0 || length($out) == 0) {
+    usage();
+}
 
 my $pheno1_dict = read_phenotypes($pheno1);
 my $pheno2_dict = read_phenotypes($pheno2);
