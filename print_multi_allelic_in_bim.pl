@@ -13,6 +13,7 @@ while(my $line = $fh->getline) {
     chomp($line);
     my @lineContents = split(/\s+/, $line);
     my $chromosome   = $lineContents[0];
+    my $snp          = $lineContents[1];
     my $position     = $lineContents[3];
     my $a1           = $lineContents[4];
     my $a2           = $lineContents[5];
