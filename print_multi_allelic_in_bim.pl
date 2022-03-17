@@ -26,6 +26,7 @@ while(my $line = $fh->getline) {
         print $snp."\n";
     }
     else {
+        $snps->{$key} = 1;
         next;
     }
 }
