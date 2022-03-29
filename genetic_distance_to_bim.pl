@@ -16,12 +16,17 @@ my $fh = IO::File->new("$ARGV[0]") || die "ERROR: Cannot open map file: $ARGV[0]
 
 while(my $line = $fh->getline) {
     chomp($line);
-    my @lineContents = split(/\s+/, $line);
-    my $chromosome = $lineContents[0];
-    my $distance   = $lineContents[2];
-    my $position   = $lineContents[3];
-    my $key        = $chromosome."_".$position;
-    $genetic_distance->{$key} = $distance;
+    if($line !~ /^[0-9]/) {
+        next;
+    }
+    else {
+        my @lineContents = split(/\s+/, $line);
+        my $chromosome = $lineContents[0];
+        my $distance   = $lineContents[2];
+        my $position   = $lineContents[3];
+        my $key        = $chromosome."_".$position;
+        $genetic_distance->{$key} = $distance;
+    }
 }
 
 $fh->close;
