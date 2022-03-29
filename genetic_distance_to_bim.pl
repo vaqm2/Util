@@ -44,7 +44,7 @@ while(my $line = $nh->getline) {
         print $lineContents[5]."\n";
     }
     else {
-        print "WARNING: No match found for: $line\n";
+        print STDERR "WARNING: No match found for: $line\n";
     }
 }
 
