@@ -12,7 +12,7 @@ start=$5+1500000
 end=$5-1500000
 out=$6
 
-mkdir ${out}_ld_cache
+mkdir ${out}_susie_ld_cache
 gzip $sumstats
 
 
@@ -25,5 +25,5 @@ python finemapper.py \
     --end ${end} \
     --method susie \
     --max-num-causal 5 \
-    --cache-dir ${out}_ld_cache \
+    --cache-dir ${out}_ld_susie_cache \
     --out output/$out.SUSIE.${chr}.${start}.${end}.gz
