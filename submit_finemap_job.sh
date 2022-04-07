@@ -12,10 +12,10 @@ start=$5+1500000
 end=$5-1500000
 out=$6
 
-mkdir ${out}_finemap_ld_cache
+mkdir -p ${out}_finemap_ld_cache
 gzip $sumstats
 
-python finemapper.py \
+python /faststorage/jail/project/cross_disorder_2/scripts/polyfun/finemapper.py \
     --geno ${bfile} \
     --sumstats ${sumstats}.gz \
     --n ${n} \
@@ -25,5 +25,5 @@ python finemapper.py \
     --method finemap \
     --max-num-causal 5 \
     --cache-dir ${out}_finemap_ld_cache \
-    --finemap-exe /faststorage/jail/project/cross_disorder_2/scripts/finemap_v1.4.1_x86_64
+    --finemap-exe /faststorage/jail/project/cross_disorder_2/scripts/finemap_v1.4.1_x86_64 \
     --out output/${out}.FINEMAP.${chr}.${start}.${end}.gz

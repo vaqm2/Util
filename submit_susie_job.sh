@@ -12,11 +12,11 @@ start=$5+1500000
 end=$5-1500000
 out=$6
 
-mkdir ${out}_susie_ld_cache
+mkdir -p ${out}_susie_ld_cache
 gzip $sumstats
 
 
-python finemapper.py \
+python /faststorage/jail/project/cross_disorder_2/scripts/polyfun/finemapper.py \
     --geno ${bfile} \
     --sumstats ${sumstats}.gz \
     --n ${n} \
