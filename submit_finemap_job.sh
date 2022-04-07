@@ -19,7 +19,7 @@ python /faststorage/jail/project/cross_disorder_2/scripts/polyfun/finemapper.py 
     --geno ${bfile} \
     --sumstats ${sumstats}.gz \
     --n ${n} \
-    --chr {$chr} \
+    --chr ${chr} \
     --start ${start} \
     --end ${end} \
     --method finemap \
