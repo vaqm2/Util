@@ -8,9 +8,9 @@ sumstats=$1
 bfile=$2
 n=$3
 chr=$4
-start=$5+1500000
-end=$5-1500000
-out=$6
+start=$5
+end=$6
+out=$7
 
 mkdir -p ${out}_finemap_ld_cache
 gzip $sumstats
