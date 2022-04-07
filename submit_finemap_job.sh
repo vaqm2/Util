@@ -26,4 +26,5 @@ python /faststorage/jail/project/cross_disorder_2/scripts/polyfun/finemapper.py 
     --max-num-causal 5 \
     --cache-dir ${out}_finemap_ld_cache \
     --finemap-exe /faststorage/jail/project/cross_disorder_2/scripts/finemap_v1.4.1_x86_64 \
-    --out ${out}.FINEMAP.${chr}.${start}.${end}.gz
+    --out ${out}.FINEMAP.${chr}.${start}.${end}.gz \
+    --non-funct

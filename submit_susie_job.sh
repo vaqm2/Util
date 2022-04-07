@@ -26,4 +26,5 @@ python /faststorage/jail/project/cross_disorder_2/scripts/polyfun/finemapper.py 
     --method susie \
     --max-num-causal 5 \
     --cache-dir ${out}_ld_susie_cache \
-    --out $out.SUSIE.${chr}.${start}.${end}.gz
+    --out $out.SUSIE.${chr}.${start}.${end}.gz \
+    --non-funct
