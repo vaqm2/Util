@@ -12,7 +12,7 @@ start=$5
 end=$6
 out=$7
 
-mkdir -p ${out}_susie_ld_cache
+mkdir -p ${out}_${chr}_${start}_${end}_susie_ld_cache
 gzip $sumstats
 
 
@@ -25,6 +25,6 @@ python /faststorage/jail/project/cross_disorder_2/scripts/polyfun/finemapper.py 
     --end ${end} \
     --method susie \
     --max-num-causal 5 \
-    --cache-dir ${out}_ld_susie_cache \
+    --cache-dir ${out}_${chr}_${start}_${end}_susie_ld_cache \
     --out $out.SUSIE.${chr}.${start}.${end}.gz \
     --non-funct
