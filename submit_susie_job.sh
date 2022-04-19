@@ -13,12 +13,10 @@ end=$6
 out=$7
 
 mkdir -p ${out}_${chr}_${start}_${end}_susie_ld_cache
-gzip $sumstats
-
 
 python /faststorage/jail/project/cross_disorder_2/scripts/polyfun/finemapper.py \
     --geno ${bfile} \
-    --sumstats ${sumstats}.gz \
+    --sumstats ${sumstats} \
     --n ${n} \
     --chr ${chr} \
     --start ${start} \
