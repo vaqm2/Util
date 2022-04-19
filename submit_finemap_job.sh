@@ -2,7 +2,7 @@
 
 #SBATCH --account=cross_disorder_2
 #SBATCH --mem=64g 
-#SBATCH --time=24:00:00
+#SBATCH --time=120:00:00
 
 sumstats=$1
 bfile=$2
