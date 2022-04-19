@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #SBATCH --account=cross_disorder_2
-#SBATCH --mem=64g 
+#SBATCH --mem=32g
 #SBATCH --time=120:00:00
 
 sumstats=$1
@@ -15,7 +15,7 @@ out=$7
 mkdir -p ${out}_${chr}_${start}_${end}_finemap_ld_cache
 
 python /faststorage/jail/project/cross_disorder_2/scripts/polyfun/finemapper.py \
-    --geno ${bfile} \
+    --geno ${bfile}${chr} \
     --sumstats ${sumstats} \
     --n ${n} \
     --chr ${chr} \
