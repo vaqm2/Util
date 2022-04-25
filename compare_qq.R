@@ -8,7 +8,6 @@ assoc_files           = read.table(args[1], header = F)
 colnames(assoc_files) = c("FILE", "CATEGORY")
 snp_metrics           = read.table(args[2], header = T)
 out                   = args[3]
-connection            = file(assoc_files, "r")
 assoc                 = data.frame(matrix(ncol = 3))
 colnames(assoc)       = c("SNP", "P", "IMPUTE")
 
