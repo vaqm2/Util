@@ -63,6 +63,6 @@ ggplot(assoc, aes(sample = -log10(P), color = IMPUTE)) +
     scale_color_manual(values = c("red", "blue", "green", "brown")) +
     theme_bw() + 
     theme(legend.position = "bottom") + 
-    facet_grid(MAF_CATEGORY ~ DR2_CATEGORY, scales = "free")
+    facet_wrap(MAF_CATEGORY ~ DR2_CATEGORY, scales = "free")
 
 dev.off()
