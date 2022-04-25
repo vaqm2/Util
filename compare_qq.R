@@ -61,7 +61,7 @@ png(paste0(out, "_", "QQ.png"),
 ggplot(assoc, aes(sample = -log10(P), color = IMPUTE)) +
     stat_qq() + 
     geom_abline(slope = 1) +
-    facet_grid(MAF_CATEGORY ~ DR2_CATEGORY) +
+    facet_grid(MAF_CATEGORY ~ DR2_CATEGORY, scales = "free") +
     scale_color_manual(values = c("red", "blue", "green", "brown")) +
     theme_bw() + 
     theme(legend.position = "bottom")
