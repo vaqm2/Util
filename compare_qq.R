@@ -40,16 +40,16 @@ assoc = assoc %>%
     select(-AF) %>% 
     mutate(MAF_CATEGORY = cut(MAF, 
                               c(0, 0.01, 0.05, 0.1, 0.5), 
-                              labels = c("MAF_0.01", 
-                                         "MAF_0.05",
-                                         "MAF_0.1",
-                                         "MAF_0.5"))) %>% 
+                              labels = c("MAF < 0.01", 
+                                         "0.01 <= MAF < 0.05",
+                                         "0.05 <= MAF < 0.1",
+                                         "0.1 <= MAF < 0.5"))) %>% 
     mutate(DR2_CATEGORY = cut(DR2,
                               c(0, 0.6, 0.8, 0.9, 1),
-                              labels = c("DR2_0.6",
-                                         "DR2_0.8",
-                                         "DR2_0.9",
-                                         "DR2_1.0")))
+                              labels = c("0 <= DR2 < 0.6",
+                                         "0.6 <= DR2 < 0.8",
+                                         "0.8 <= DR2 < 0.9",
+                                         "0.9 <= DR2 < 1.0")))
 
 png(paste0(out, "_", "QQ.png"), 
     res = 300, 
