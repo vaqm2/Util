@@ -45,9 +45,8 @@ assoc = assoc %>%
                                          "MAF_0.1",
                                          "MAF_0.5"))) %>% 
     mutate(DR2_CATEGORY = cut(DR2,
-                              c(0, 0.3, 0.6, 0.8, 0.9, 1),
-                              labels = c("DR2_0.3",
-                                         "DR2_0.6",
+                              c(0, 0.6, 0.8, 0.9, 1),
+                              labels = c("DR2_0.6",
                                          "DR2_0.8",
                                          "DR2_0.9",
                                          "DR2_1.0")))
