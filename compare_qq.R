@@ -5,9 +5,9 @@ require(ggplot2, quietly = TRUE)
 
 args            = commandArgs(trailingOnly = TRUE)
 assoc_files     = args[1]
-snp_metrics     = args[2]
+snp_metrics     = read.table(args[2], header = T)
 out             = args[3]
-connection      = file(assc_files, "r")
+connection      = file(assoc_files, "r")
 assoc           = data.frame(matrix(ncol = 3))
 colnames(assoc) = c("SNP", "P", "IMPUTE")
 
@@ -68,6 +68,7 @@ png(paste0(out, "_", "QQ_by_MAF.png"),
 ggplot(assoc, aes(sample = -log10(P), color = factor(MAF_CATEGORY))) +
     stat_qq() + 
     geom_abline(slope = 1) +
+    facet_grid(IMPUTE ~ .) +
     scale_color_manual(values = c("red", "blue", "green", "brown")) +
     theme_bw()
 
@@ -82,6 +83,7 @@ png(paste0(out, "_", "QQ_by_DR2.png"),
 ggplot(assoc, aes(sample = -log10(P), color = factor(DR2_CATEGORY))) +
     stat_qq() + 
     geom_abline(slope = 1) +
+    facet_grid(IMPUTE ~ .) +
     scale_color_manual(values = c("red", "blue", "green", "brown", "cyan")) +
     theme_bw()
 
