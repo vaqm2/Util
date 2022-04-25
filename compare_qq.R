@@ -52,32 +52,18 @@ assoc = assoc %>%
                                          "DR2_0.9",
                                          "DR2_1.0")))
 
-png(paste0(out, "_", "QQ_by_MAF.png"), 
+png(paste0(out, "_", "QQ.png"), 
     res = 300, 
     units = "in", 
-    height = 4, 
-    width = 4)
+    height = 12, 
+    width = 12)
 
-ggplot(assoc, aes(sample = -log10(P), color = factor(MAF_CATEGORY))) +
+ggplot(assoc, aes(sample = -log10(P), color = IMPUTE)) +
     stat_qq() + 
     geom_abline(slope = 1) +
-    facet_grid(IMPUTE ~ .) +
+    facet_grid(MAF_CATEGORY ~ DR2_CATEGORY) +
     scale_color_manual(values = c("red", "blue", "green", "brown")) +
-    theme_bw()
-
-dev.off()
-
-png(paste0(out, "_", "QQ_by_DR2.png"), 
-    res = 300, 
-    units = "in", 
-    height = 4, 
-    width = 4)
-
-ggplot(assoc, aes(sample = -log10(P), color = factor(DR2_CATEGORY))) +
-    stat_qq() + 
-    geom_abline(slope = 1) +
-    facet_grid(IMPUTE ~ .) +
-    scale_color_manual(values = c("red", "blue", "green", "brown", "cyan")) +
-    theme_bw()
+    theme_bw() + 
+    theme(legend.position = "bottom")
 
 dev.off()
