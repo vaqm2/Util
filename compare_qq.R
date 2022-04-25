@@ -3,23 +3,18 @@
 require(dplyr, quietly = TRUE)
 require(ggplot2, quietly = TRUE)
 
-args            = commandArgs(trailingOnly = TRUE)
-assoc_files     = args[1]
-snp_metrics     = read.table(args[2], header = T)
-out             = args[3]
-connection      = file(assoc_files, "r")
-assoc           = data.frame(matrix(ncol = 3))
-colnames(assoc) = c("SNP", "P", "IMPUTE")
+args                  = commandArgs(trailingOnly = TRUE)
+assoc_files           = read.table(args[1], header = F)
+colnames(assoc_files) = c("FILE", "CATEGORY")
+snp_metrics           = read.table(args[2], header = T)
+out                   = args[3]
+connection            = file(assoc_files, "r")
+assoc                 = data.frame(matrix(ncol = 3))
+colnames(assoc)       = c("SNP", "P", "IMPUTE")
 
-while(TRUE) {
-    file_name = readLines(connection, 1)
-    if(length(line) == 0) {
-        break
-    }
-    else {
-        line_contents = strsplit(line, "\t")
-        file_name     = line_contents[0]
-        file_label    = line_contents[1] 
+for (i in 1:nrow(assoc_files)) {
+        file_name     = assoc_files[i, 1]
+        file_label    = assoc_files[i, 2] 
         file_contents = read.table(file_name)
         colnames(file_contents) = c("CHROM",
                                     "POS",
@@ -38,7 +33,6 @@ while(TRUE) {
             select(SNP, P) %>% 
             mutate(IMPUTE = file_label)
         assoc = rbind(assoc, file_contents)
-    }
 }
 
 assoc = inner_join(assoc, snp_metrics, by = c("SNP"))
