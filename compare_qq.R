@@ -39,13 +39,13 @@ assoc = assoc %>%
     mutate(MAF = ifelse(AF > 0.5, 1 - AF, AF)) %>% 
     select(-AF) %>% 
     mutate(MAF_CATEGORY = cut(MAF, 
-                              c(0.01, 0.05, 0.1, 0.5), 
+                              c(0, 0.01, 0.05, 0.1, 0.5), 
                               labels = c("MAF_0.01", 
                                          "MAF_0.05",
                                          "MAF_0.1",
                                          "MAF_0.5"))) %>% 
     mutate(DR2_CATEGORY = cut(DR2,
-                              c(0.3, 0.6, 0.8, 0.9, 1),
+                              c(0, 0.3, 0.6, 0.8, 0.9, 1),
                               labels = c("DR2_0.3",
                                          "DR2_0.6",
                                          "DR2_0.8",
