@@ -25,7 +25,7 @@ def main():
     for line in fr:
         if line.startswith("CHR"):
             print("##fileformat=VCFv4.3\n")
-            print("##fileDate=" + date.today.strftime("%y%m%d") + "\n")
+            print("##fileDate=" + date.today().strftime("%y%m%d") + "\n")
             print("##source=saige_to_vcf.py\n")
             print("##FORMAT=<ID=ES>,Number=A,Type=FLOAT,Description=\"Effect Size of ALT\"\n")
             print("##FORMAT=<ID=ES>,Number=A,Type=FLOAT,Description=\"Standard Error of Effect Size\"\n")
