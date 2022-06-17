@@ -2,7 +2,7 @@
 
 import sys
 import argparse
-from cyvcf2 import VCF, Writer
+from cyvcf2 import VCF, Writer, Variant
 
 def main():
     parser = argparse.ArgumentParser(description = "Convert SAIGE association output to gzip'ped VCF")
@@ -28,7 +28,7 @@ def main():
             continue
         else:
             assoc_contents       = line.split()
-            variant              = cyvcf2.cyvcf2.Variant()
+            variant              = Variant()
             variant.CHROM        = assoc_contents[0]
             variant.start        = assoc_contents[1]
             variant.end          = assoc_contents[1]
