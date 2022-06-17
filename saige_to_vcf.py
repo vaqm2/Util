@@ -27,12 +27,12 @@ def main():
             fw.write("##fileformat=VCFv4.3\n")
             fw.write("##fileDate=" + date.today().strftime("%y%m%d") + "\n")
             fw.write("##source=saige_to_vcf.py\n")
-            fw.write("##FORMAT=<ID=ES>,Number=A,Type=FLOAT,Description=\"Effect Size of ALT\"\n")
-            fw.write("##FORMAT=<ID=ES>,Number=A,Type=FLOAT,Description=\"Standard Error of Effect Size\"\n")
-            fw.write("##FORMAT=<ID=LP>,Number=A,Type=FLOAT,Description=\"Negative log of P-value for Effect Size\"\n")
-            fw.write("##FORMAT=<ID=AFKG>,Number=A,Type=FLOAT,Description=\"Frequency of ALT\"\n")
-            fw.write("##FORMAT=<ID=DR2>,Number=A,Type=FLOAT,Description=\"Imputation INFO score\"\n")
-            fw.write("##FORMAT=<ID=SS>,Number=A,Type=FLOAT,Description=\"Sample Size\"\n")
+            fw.write("##FORMAT=<ID=ES,Number=A,Type=FLOAT,Description=\"Effect Size of ALT\">\n")
+            fw.write("##FORMAT=<ID=ES,Number=A,Type=FLOAT,Description=\"Standard Error of Effect Size\">\n")
+            fw.write("##FORMAT=<ID=LP,Number=A,Type=FLOAT,Description=\"Negative log of P-value for Effect Size\">\n")
+            fw.write("##FORMAT=<ID=AFKG,Number=A,Type=FLOAT,Description=\"Frequency of ALT\">\n")
+            fw.write("##FORMAT=<ID=DR2,Number=A,Type=FLOAT,Description=\"Imputation INFO score\">\n")
+            fw.write("##FORMAT=<ID=SS,Number=A,Type=FLOAT,Description=\"Sample Size\">\n")
             fw.write("#CHR\tBP\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\t")
             fw.write(args.out + "\n")
         else:
@@ -42,7 +42,6 @@ def main():
             snp                  = assoc_contents[2]
             ref_allele           = assoc_contents[3]
             alt_allele           = assoc_contents[4]
-            qual                 = "."
             filter               = "PASS"
             alt_allele_frequency = assoc_contents[6]
             imputation_info      = assoc_contents[7]
@@ -56,7 +55,7 @@ def main():
             fw.write(snp + "\t")
             fw.write(ref_allele + "\t")
             fw.write(alt_allele + "\t")
-            fw.write(qual + "\t")
+            fw.write("." + "\t")
             fw.write(filter + "\t")
             fw.write("." + "\t")
             fw.write("ES:SE:EP:AFKG:DR2:SS"+ "\t")
