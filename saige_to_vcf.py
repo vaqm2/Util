@@ -17,8 +17,8 @@ def main():
         print("ERROR: When opening SAIGE association file: ", sys.exc_info()[0], "has occurred!")
 
     try:
-        out_vcf = args.out + ".vcf.gz"
-        fw = open(out_vcf, "wz")
+        out_vcf = args.out + ".vcf"
+        fw = open(out_vcf, "w")
     except:
         print("ERROR: When creating output VCF: ", sys.exc_info()[0], "has occurred!")
 
