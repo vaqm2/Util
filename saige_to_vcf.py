@@ -25,7 +25,7 @@ def main():
     for line in fr:
         if line.startswith("CHR"):
             fw.write("##fileformat=VCFv4.3\n")
-            fw.write("##fileDate=" + date.today().strftime("%y%m%d") + "\n")
+            fw.write("##fileDate=" + date.today().strftime("%Y%m%d") + "\n")
             fw.write("##source=saige_to_vcf.py\n")
             fw.write("##FORMAT=<ID=ES,Number=A,Type=FLOAT,Description=\"Effect Size of ALT\">\n")
             fw.write("##FORMAT=<ID=ES,Number=A,Type=FLOAT,Description=\"Standard Error of Effect Size\">\n")
@@ -33,7 +33,7 @@ def main():
             fw.write("##FORMAT=<ID=AFKG,Number=A,Type=FLOAT,Description=\"Frequency of ALT\">\n")
             fw.write("##FORMAT=<ID=DR2,Number=A,Type=FLOAT,Description=\"Imputation INFO score\">\n")
             fw.write("##FORMAT=<ID=SS,Number=A,Type=FLOAT,Description=\"Sample Size\">\n")
-            fw.write("#CHR\tBP\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\t")
+            fw.write("#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\t")
             fw.write(args.out + "\n")
         else:
             assoc_contents       = line.split()
