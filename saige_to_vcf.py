@@ -49,7 +49,7 @@ def main():
             sample_size          = assoc_contents[8]
             effect_size          = assoc_contents[9]
             standard_error       = assoc_contents[10]
-            negative_logp        = -1 * log10(float(assoc_contents[12]))
+            negative_logp        = str(-1 * log10(float(assoc_contents[12])))
 
             fw.write(chromosome + "\t")
             fw.write(position + "\t")
