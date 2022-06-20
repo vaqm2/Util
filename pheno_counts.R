@@ -16,5 +16,12 @@ n_2015i = inner_join(fam_2015i, pheno, by = c("IID")) %>% unique()
 cases_2012 = table(n_2012[ncol(n_2012)])[2]
 cases_2015i = table(n_2015i[ncol(n_2015i)])[2]
 
-print(paste0("iPSYCH2012 N: ", nrow(n_2012), " Cases : ", cases_2012))
-print(paste0("iPSYCH2015i N: ", nrow(n_2015i), " Cases : ",cases_2015i))
+print(paste0(args[1], 
+             " iPSYCH2012 N: ", 
+             nrow(n_2012), 
+             " Cases : ", 
+             cases_2012,
+             " iPSYCH2015i N: ", 
+             nrow(n_2015i), 
+             " Cases : ",
+             cases_2015i))
