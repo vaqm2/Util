@@ -16,7 +16,7 @@ while(my $line = $fh->getline) {
     my $n            = $lineContents[2];
     my $n_cases      = $lineContents[3];
 
-    print \"sbatch \
+    print "sbatch \
     --mem=8g \
     --time=48:00:00 \
     --account=cross_disorder_2 \
@@ -24,7 +24,7 @@ while(my $line = $fh->getline) {
     --output=${reference}.out \
     --job-name=${reference} \
     --chdir=${work_dir_prefix}/${reference}/ \
-    --wrap="nextflow run ${pipeline_dir}/main.nf \
+    --wrap=\"nextflow run ${pipeline_dir}/main.nf \
     --ref ${work_dir_prefix}/${reference}/${reference}.vcf.gz \
     --target ${target} \
     --trait ${reference} \
