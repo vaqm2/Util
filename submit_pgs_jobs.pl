@@ -34,7 +34,7 @@ while(my $line = $fh->getline) {
     --binary T \
     --prevalence 0.01 \
     --n $n \
-    --n_cases $n_cases"`
+    --n_cases $n_cases"`;
 
     print "Done!\n";
 }
