@@ -20,11 +20,11 @@ n_2015i = inner_join(fam_2015i, pheno, by = c("IID")) %>%
     nrow()
 n_cases_2012 = inner_join(fam_2012, pheno, by = c("IID")) %>% 
     unique() %>% 
-    filter(PHENOTYPE == 1) %>% 
+    filter(phenotype == 1) %>% 
     nrow()
 n_cases_2015i = inner_join(fam_2015i, pheno, by = c("IID")) %>% 
     unique() %>% 
-    filter(PHENOTYPE == 1) %>% 
+    filter(phenotype == 1) %>% 
     nrow()
 
 print(paste0("iPSYCH2012 N: ", n_2012, "Cases : ", n_cases_2012))
