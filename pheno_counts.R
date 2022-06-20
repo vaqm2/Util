@@ -6,8 +6,10 @@ args = commandArgs(trailingOnly = TRUE)
 
 pheno = read.table(args[1], header = T)
 fam_2012 = read.table(args[2], header = T)
-colnames(fam_2012) = c("FID", "IID", "M", "F", "GENDER", "PHENO")
 fam_2015i = read.table(args[3], header = T)
+phenotype = args[4]
+
+colnames(fam_2012) = c("FID", "IID", "M", "F", "GENDER", "PHENO")
 colnames(fam_2015i) = c("FID", "IID", "M", "F", "GENDER", "PHENO")
 
 n_2012 = inner_join(fam_2012, pheno, by = c("IID")) %>% 
