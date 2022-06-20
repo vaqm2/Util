@@ -29,7 +29,7 @@ def main():
             fw.write("##source=saige_to_vcf.py\n")
             fw.write("##FORMAT=<ID=ES,Number=A,Type=Float,Description=\"Effect Size of ALT\">\n")
             fw.write("##FORMAT=<ID=SE,Number=A,Type=Float,Description=\"Standard Error of Effect Size\">\n")
-            fw.write("##FORMAT=<ID=EP,Number=A,Type=Float,Description=\"Negative log of P-value for Effect Size\">\n")
+            fw.write("##FORMAT=<ID=EP,Number=A,Type=Float,Description=\"P-value of Effect Size\">\n")
             fw.write("##FORMAT=<ID=AFKG,Number=A,Type=Float,Description=\"Frequency of ALT\">\n")
             fw.write("##FORMAT=<ID=DR2,Number=A,Type=Float,Description=\"Imputation INFO score\">\n")
             fw.write("##FORMAT=<ID=SS,Number=A,Type=Float,Description=\"Sample Size\">\n")
@@ -48,7 +48,7 @@ def main():
             sample_size          = assoc_contents[8]
             effect_size          = assoc_contents[9]
             standard_error       = assoc_contents[10]
-            negative_logp        = str(-1 * log10(float(assoc_contents[12])))
+            p_value              = assoc_contents[12]
 
             fw.write(chromosome + "\t")
             fw.write(position + "\t")
@@ -61,7 +61,7 @@ def main():
             fw.write("ES:SE:EP:AFKG:DR2:SS"+ "\t")
             fw.write(effect_size + ":")
             fw.write(standard_error + ":")
-            fw.write(negative_logp + ":")
+            fw.write(p_value + ":")
             fw.write(alt_allele_frequency + ":")
             fw.write(imputation_info + ":")
             fw.write(sample_size + "\n")
