@@ -16,9 +16,7 @@ while(my $line = $fh->getline) {
     my $n            = $lineContents[2];
     my $n_cases      = $lineContents[3];
 
-    print "Submitting $reference ..";
-
-    `sbatch \
+    print \"sbatch \
     --mem=8g \
     --time=48:00:00 \
     --account=cross_disorder_2 \
@@ -34,7 +32,5 @@ while(my $line = $fh->getline) {
     --binary T \
     --prevalence 0.01 \
     --n $n \
-    --n_cases $n_cases"`;
-
-    print "Done!\n";
+    --n_cases $n_cases\"\n";
 }
