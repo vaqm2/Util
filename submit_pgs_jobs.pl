@@ -16,6 +16,8 @@ while(my $line = $fh->getline) {
     my $n            = $lineContents[2];
     my $n_cases      = $lineContents[3];
 
+    print "Submitting $reference ..";
+
     `sbatch \
     --mem=8g \
     --time=48:00:00 \
@@ -33,4 +35,6 @@ while(my $line = $fh->getline) {
     --prevalence 0.01 \
     --n $n \
     --n_cases $n_cases"`
+
+    print "Done!\n";
 }
