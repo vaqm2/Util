@@ -23,7 +23,7 @@ p = 0
 args = commandArgs(trailingOnly = TRUE)
 scores = read.table(args[1], header = T)
 pheno_cov = read.table(args[2], header = T)
-p = args[3]
+p = as.numeric(args[3])
 
 scores = scores %>% select("IID", "sBayesR_UKBB_2.8M") %>% 
     rename(SCORE = sBayesR_UKBB_2.8M)
