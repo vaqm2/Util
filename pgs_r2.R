@@ -36,7 +36,7 @@ null_model = glm(data = eval_df, Phenotype ~ . -IID -SCORE)
 pgs_model = glm(data = eval_df, Phenotype ~ . -IID)
 r2 = NagelkerkeR2(pgs_model)$R2 - NagelkerkeR2(null_model)$R2
 
-if(k != 0 && p != 0) {
+if(p > 0) {
     r2_L = liability_transform(r2, k, p)
 }
 
