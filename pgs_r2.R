@@ -35,8 +35,9 @@ k = sum(eval_df$Phenotype)/nrow(eval_df)
 null_model = glm(data = eval_df, Phenotype ~ . -IID -SCORE)
 pgs_model = glm(data = eval_df, Phenotype ~ . -IID)
 r2 = NagelkerkeR2(pgs_model)$R2 - NagelkerkeR2(null_model)$R2
-p_val = pchisq(deviance(fit_null) - deviance(fit_bin), 
-               df.residual(fit_null) - df.residual(fit_bin), lower.tail = F)
+p_val = pchisq(deviance(null_model) - deviance(pgs_model), 
+               df.residual(null_model) - df.residual(pgs_model), 
+               lower.tail = F)
 
 if(p > 0) {
     r2_L = liability_transform(r2, k, p)
