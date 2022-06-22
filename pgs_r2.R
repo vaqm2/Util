@@ -30,7 +30,7 @@ scores = scores %>% select("IID", "sBayesR_UKBB_2.8M") %>%
 colnames(pheno_cov) = c("IID", "Age", "gender", "PC1", "PC2", "PC3", "PC4", 
                         "PC5", "PC6", "PC7", "PC8", "PC9", "PC10", "Phenotype")
 eval_df = inner_join(pheno_cov, scores, by = c("IID")) %>% unique()
-k = sum(eval_df$Phenotype)/nrow(eval_df$Phenotype)
+k = sum(eval_df$Phenotype)/nrow(eval_df)
 
 null_model = glm(data = eval_df, Phenotype ~ . -IID -SCORE)
 pgs_model = glm(data = eval_df, Phenotype ~ . -IID)
