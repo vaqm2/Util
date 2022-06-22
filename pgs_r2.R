@@ -23,14 +23,14 @@ p = 0
 args = commandArgs(trailingOnly = TRUE)
 scores = read.table(args[1], header = T)
 pheno_cov = read.table(args[2], header = T)
-k = args[3]
-p = args[4]
+p = args[3]
 
 scores = scores %>% select("IID", "sBayesR_UKBB_2.8M") %>% 
     rename(SCORE = sBayesR_UKBB_2.8M)
 colnames(pheno_cov) = c("IID", "Age", "gender", "PC1", "PC2", "PC3", "PC4", 
                         "PC5", "PC6", "PC7", "PC8", "PC9", "PC10", "Phenotype")
 eval_df = inner_join(pheno_cov, scores, by = c("IID")) %>% unique()
+k = sum(eval_df$Phenotype)/nrow(eval_df$Phenotype)
 
 null_model = glm(data = eval_df, Phenotype ~ . -IID -SCORE)
 pgs_model = glm(data = eval_df, Phenotype ~ . -IID)
