@@ -13,8 +13,8 @@ colnames(pheno_cov) = c("IID", "Age", "gender", "PC1", "PC2", "PC3", "PC4",
                         "PC5", "PC6", "PC7", "PC8", "PC9", "PC10", "Phenotype")
 eval_df = inner_join(pheno_cov, scores, by = c("IID")) %>% unique()
 
-null_model = glm(data = eval_df, SCORE ~ . -IID -SCORE)
-pgs_model = glm(data = eval_df, SCORE ~ . -IID)
+null_model = glm(data = eval_df, Phenotype ~ . -IID -SCORE)
+pgs_model = glm(data = eval_df, Phenotype ~ . -IID)
 r2 = NagelkerkeR2(pgs_model)$R2 - NagelkerkeR2(null_model)$R2
 
-print(paste0(args[1], "\t", args[2], "\t", r2))
+print(paste0("R2: ", r2))
