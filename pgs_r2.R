@@ -7,8 +7,10 @@ args = commandArgs(trailingOnly = TRUE)
 scores = read.table(args[1], header = T)
 pheno_cov = read.table(args[2], header = T)
 
-scores = scores %>% select("IID", "sBayesR_UKBB_2.8M") %>% rename(SCORE = sBayesR_UKBB_2.8M)
-colnames(pheno_cov) = c("IID", "PC1", "PC2", "PC3", "PC4", "PC5", "PC6", "PC7", "PC8", "PC9", "PC10", "Phenotype")
+scores = scores %>% select("IID", "sBayesR_UKBB_2.8M") %>% 
+    rename(SCORE = sBayesR_UKBB_2.8M)
+colnames(pheno_cov) = c("IID", "Age", "gender", "PC1", "PC2", "PC3", "PC4", 
+                        "PC5", "PC6", "PC7", "PC8", "PC9", "PC10", "Phenotype")
 eval_df = inner_join(pheno_cov, scores, by = c("IID")) %>% unique()
 
 null_model = glm(eval_df ~ . -IID -SCORE)
