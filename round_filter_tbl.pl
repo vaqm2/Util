@@ -26,7 +26,7 @@ while(my $line = $fh->getline) {
 
         if($freq > 0.5) {
             $freq =  1 - $freq;
-            $freq = sprintf("%.2f", $lineContents[5]);
+            $freq = sprintf("%.2f", $freq);
         }
 
         if($freq >= 0.01) {
