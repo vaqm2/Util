@@ -9,7 +9,7 @@ my $fh = IO::File->new($ARGV[0]);
 while(my $line = $fh->getline) {
     chomp($line);
     if($line =~ /^CHR/) {
-        print $line."\n";
+        print "CHR BP POS A1 A2 FREQ BETA SE P\n";
         next;
     }
     else {
@@ -24,7 +24,11 @@ while(my $line = $fh->getline) {
         my $se           = $lineContents[7];
         my $p            = $lineContents[8];
 
-        if($freq >= 0.01 && $freq <= 0.99) {
+        if($freq > 0.5) {
+            $freq =  1 - $freq;
+        }
+
+        if($freq >= 0.01) {
             print $chromosome." ";
             print $position." ";
             print $snp." ";
