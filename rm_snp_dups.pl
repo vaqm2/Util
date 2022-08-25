@@ -14,7 +14,7 @@ while(<IN>)
     chomp($line);
     $line =~ s/^\s+//;
 
-    if($line =~ /^CHR/)
+    if($line =~ /^SNP/)
     {
         print $line."\n";
         next;
