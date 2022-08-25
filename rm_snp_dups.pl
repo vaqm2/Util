@@ -5,10 +5,12 @@ use warnings;
 use IO::File;
 
 my $dict = {};
-my $fh = IO::File->new("$ARGV[0]");
 
-while(my $line = $fh->getline)
+open(IN, "zcat $ARGV[0] |");
+
+while(<IN>)
 {
+    my $line = $_;
     chomp($line);
     $line =~ s/^\s+//;
 
@@ -19,9 +21,9 @@ while(my $line = $fh->getline)
     }
 
     my @lineContents = split(/\s+/, $line);
-    my $snp_id = $lineContents[1];
-    my $a1 = $lineContents[2];
-    my $a2 = $lineContents[3];
+    my $snp_id       = $lineContents[0];
+    my $a1           = $lineContents[3];
+    my $a2           = $lineContents[4];
 
     if(length($a1) > 1 || length($a2) > 1)
     {
@@ -37,4 +39,4 @@ while(my $line = $fh->getline)
     $dict->{$snp_id} = 1;
 }
 
-$fh->close;
+close(IN);
