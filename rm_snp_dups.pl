@@ -14,16 +14,16 @@ while(<IN>)
     chomp($line);
     $line =~ s/^\s+//;
 
-    if($line =~ /^SNP/)
+    if($line =~ /^CHR/)
     {
         print $line."\n";
         next;
     }
 
     my @lineContents = split(/\s+/, $line);
-    my $snp_id       = $lineContents[0];
-    my $chr          = $lineContents[1];
-    my $position     = $lineContents[2];
+    my $snp_id       = $lineContents[2];
+    my $chr          = $lineContents[0];
+    my $position     = $lineContents[1];
     my $a1           = $lineContents[3];
     my $a2           = $lineContents[4];
     my $key          = $chr."_".$position."_".$a1."_".$a2;
