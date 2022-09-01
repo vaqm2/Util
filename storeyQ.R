@@ -8,7 +8,7 @@ args = commandArgs(trailingOnly = TRUE)
 assoc = fread(args[1], header = T)
 assoc = assoc %>% 
     mutate(MAF = ifelse(FREQ > 0.5, 1 - FREQ, FREQ)) %>% 
-    mutate(CLASS = ifelse(FREQ >= 0.05, "COMMON", "RARE"))
+    mutate(CLASS = ifelse(MAF >= 0.05, "COMMON", "RARE"))
 
 rare_assoc = assoc %>% 
     filter(CLASS == "RARE") %>%
