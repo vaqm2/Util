@@ -1,8 +1,9 @@
 #!/usr/bin/env Rscript
 
-require(qvalue)
-require(dplyr)
-require(data.table)
+require(qvalue, quietly = TRUE)
+require(dplyr, quietly = TRUE)
+require(data.table, quietly = TRUE)
+require(ggplot2, quietly = TRUE)
 
 args = commandArgs(trailingOnly = TRUE)
 assoc = fread(args[1], header = T)
