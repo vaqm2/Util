@@ -54,7 +54,7 @@ p = ggplot(logp, aes(x = Expected, y = Observed)) +
     geom_abline(slope = 1) +
     theme_bw()
 
-if(sFDR_threshold_common) {
+if(isTRUE(sFDR_threshold_common)) {
 p = p + geom_vline(xintercept = sFDR_threshold_common, lty = 2, color = "blue") +
     annotate("text", 
              label = "sFDR Common SNPs = 0.05", 
@@ -64,7 +64,7 @@ p = p + geom_vline(xintercept = sFDR_threshold_common, lty = 2, color = "blue") 
              color = "blue")
 }
 
-if(sFDR_threshold_rare) {
+if(isTRUE(sFDR_threshold_rare)) {
 p = p + geom_vline(xintercept = sFDR_threshold_rare, lty = 2, color = "red") + 
     annotate("text", 
              label = "sFDR Common SNPs = 0.05", 
