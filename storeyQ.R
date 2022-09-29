@@ -49,10 +49,11 @@ sFDR_threshold_rare = rare_assoc %>%
     select(P) %>%
     head(1)
 
-p = ggplot(logp, aes(x = Expected, y = Observed)) + 
+p = ggplot(logp, aes(x = Expected, y = Observed, color = CLASS)) + 
     geom_point() +
     geom_abline(slope = 1) +
-    theme_bw()
+    theme_bw() + 
+    scale_color_manual(values = c("blue", "red"))
 
 if(isTRUE(sFDR_threshold_common)) {
 p = p + geom_vline(xintercept = sFDR_threshold_common, lty = 2, color = "blue") +
