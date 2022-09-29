@@ -39,13 +39,15 @@ logp = rbind(logp_common, logp_rare)
 
 sFDR_threshold_common = common_assoc %>% 
     arrange(Q) %>% 
-    filter(Q <= 0.05) %>% 
-    tail(1)
+    filter(Q <= 0.05) %>%
+    select(P) %>%
+    head(1)
 
 sFDR_threshold_rare = rare_assoc %>% 
     arrange(Q) %>% 
     filter(Q <= 0.05) %>% 
-    tail(1)
+    select(P) %>%
+    head(1)
 
 p = ggplot(logp, aes(x = Expected, y = Observed)) + 
     geom_point() +
