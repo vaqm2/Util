@@ -35,7 +35,41 @@ colnames(logp_expected_rare_df)   = c("Expected")
 logp_common = cbind(logp_observed_common_df, logp_expected_common_df)
 logp_rare   = cbind(logp_observed_rare_df, logp_expected_rare_df)
 logp = rbind(logp_common, logp_rare)
-logp = logp %>% mutate(sFDR_0.05 = ifelse(Q <= 0.05, 1, 0))
+
+sFDR_threshold_common = common_assoc %>% 
+    arrange(Q) %>% 
+    filter(Q <= 0.05) %>% 
+    tail(1)
+
+sFDR_threshold_rare = rare_assoc %>% 
+    arrange(Q) %>% 
+    filter(Q <= 0.05) %>% 
+    tail(1)
+
+p = ggplot(logp, aes(x = Expected, y = Observed)) + 
+    geom_point() +
+    geom_abline(slope = 1) +
+    theme_bw()
+
+if(!is.na(sFDR_threshold_common)) {
+p = p + geom_vline(xintercept = sFDR_threshold_common, lty = 2, color = "blue") +
+    annotate("text", 
+             label = "sFDR Common SNPs = 0.05", 
+             x = sFDR_threshold_common, 
+             y = 0, 
+             angle = 90,
+             color = "blue")
+}
+
+if(!is.na(sFDR_threshold_rare)) {
+p = p + geom_vline(xintercept = sFDR_threshold_rare, lty = 2, color = "red") + 
+    annotate("text", 
+             label = "sFDR Common SNPs = 0.05", 
+             x = sFDR_threshold_rare, 
+             y = 0, 
+             angle = 90,
+             color = "red")
+}
 
 png(paste(args[2], "_QQ.png", sep = ""), 
     width = 8, 
@@ -43,11 +77,7 @@ png(paste(args[2], "_QQ.png", sep = ""),
     units = "in", 
     res = 300)
 
-ggplot(logp, aes(x = Expected, y = Observed, shape = sFDR_0.05, color = sFDR_0.05)) + 
-    geom_point() +
-    geom_abline(slope = 1) +
-    theme_bw() + 
-    scale_color_manual(values = c("blue", "red"))
+p
 
 dev.off()
 
