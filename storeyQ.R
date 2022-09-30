@@ -42,13 +42,15 @@ sFDR_threshold_common = common_assoc %>%
     arrange(Q) %>% 
     filter(Q <= 0.05) %>%
     select(P) %>%
-    head(1)
+    head(1) %>%
+    as.data.frame()
 
 sFDR_threshold_rare = rare_assoc %>% 
     arrange(Q) %>% 
     filter(Q <= 0.05) %>% 
     select(P) %>%
-    head(1)
+    head(1) %>%
+    as.data.frame()
 
 p = ggplot(assoc, aes(x = Expected, y = Observed, color = CLASS, shape = CLASS)) + 
     geom_point() +
