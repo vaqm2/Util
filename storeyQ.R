@@ -19,23 +19,24 @@ common_assoc = assoc %>%
     filter(CLASS == "COMMON") %>%
     mutate(Q = qvalue(p = P)$qvalues)
 
-assoc = rbind(common_assoc, rare_assoc) %>% arrange(CHR, BP)
+common_assoc = common_assoc %>% 
+    mutate(Observed = -1 * log10(P)) %>% 
+    arrange(desc(Observed))
 
-logp_observed_common_df = -1 * log10(sort(common_assoc$P)) %>% as.data.frame()
-logp_expected_common_df = -1 * log10(qunif(ppoints(nrow(logp_observed_common_df)))) %>% 
-    as.data.frame()
-logp_observed_rare_df   = -1 * log10(sort(rare_assoc$P)) %>% as.data.frame()
-logp_expected_rare_df   = -1 * log10(qunif(ppoints(nrow(logp_observed_rare_df)))) %>% 
-    as.data.frame()
+rare_assoc = rare_assoc %>% 
+    mutate(Observed = -1 * log10(P)) %>% 
+    arrange(desc(Observed))
 
-colnames(logp_observed_common_df) = c("Observed")
+logp_expected_common_df = -1 * log10(qunif(ppoints(nrow(common_assoc)))) %>% 
+    as.data.frame()
+logp_expected_rare_df   = -1 * log10(qunif(ppoints(nrow(rare_assoc)))) %>% 
+    as.data.frame()
 colnames(logp_expected_common_df) = c("Expected")
-colnames(logp_observed_rare_df)   = c("Observed")
 colnames(logp_expected_rare_df)   = c("Expected")
 
-logp_common = cbind(logp_observed_common_df, logp_expected_common_df)
-logp_rare   = cbind(logp_observed_rare_df, logp_expected_rare_df)
-logp = rbind(logp_common, logp_rare)
+common_assoc = cbind(common_assoc, logp_expected_common_df)
+rare_assoc   = cbind(rare_assoc, logp_expected_rare_df)
+assoc        = rbind(common_assoc, rare_assoc)
 
 sFDR_threshold_common = common_assoc %>% 
     arrange(Q) %>% 
@@ -49,7 +50,7 @@ sFDR_threshold_rare = rare_assoc %>%
     select(P) %>%
     head(1)
 
-p = ggplot(logp, aes(x = Expected, y = Observed, color = CLASS)) + 
+p = ggplot(assoc, aes(x = Expected, y = Observed, color = CLASS, shape = CLASS)) + 
     geom_point() +
     geom_abline(slope = 1) +
     theme_bw() + 
