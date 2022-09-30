@@ -72,7 +72,7 @@ p = p + geom_vline(xintercept = sFDR_threshold_common$Expected, lty = 2, color =
 if(nrow(sFDR_threshold_rare) == 1) {
 p = p + geom_vline(xintercept = sFDR_threshold_rare$Expected, lty = 2, color = "red") + 
     annotate("text", 
-             label = "sFDR Common SNPs = 0.05", 
+             label = "sFDR Rare SNPs = 0.05", 
              x = sFDR_threshold_rare$Expected - 0.1, 
              y = 2, 
              angle = 90,
