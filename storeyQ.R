@@ -41,16 +41,14 @@ assoc        = rbind(common_assoc, rare_assoc)
 sFDR_threshold_common = common_assoc %>% 
     arrange(Q) %>% 
     filter(Q <= 0.05) %>%
-    select(P) %>%
-    head(1) %>%
-    as.data.frame()
+    select(Expected) %>%
+    head(1)
 
 sFDR_threshold_rare = rare_assoc %>% 
     arrange(Q) %>% 
     filter(Q <= 0.05) %>% 
-    select(P) %>%
-    head(1) %>%
-    as.data.frame()
+    select(Expected) %>%
+    head(1)
 
 p = ggplot(assoc, aes(x = Expected, y = Observed, color = CLASS, shape = CLASS)) + 
     geom_point() +
@@ -62,20 +60,20 @@ p = ggplot(assoc, aes(x = Expected, y = Observed, color = CLASS, shape = CLASS))
     theme(legend.title = element_blank())
 
 if(nrow(sFDR_threshold_common) == 1) {
-p = p + geom_vline(xintercept = sFDR_threshold_common, lty = 2, color = "blue") +
+p = p + geom_vline(xintercept = sFDR_threshold_common$Expected, lty = 2, color = "blue") +
     annotate("text", 
              label = "sFDR Common SNPs = 0.05", 
-             x = sFDR_threshold_common$P, 
+             x = sFDR_threshold_common$Expected - 0.75, 
              y = 0, 
              angle = 90,
              color = "blue")
 }
 
 if(nrow(sFDR_threshold_rare) == 1) {
-p = p + geom_vline(xintercept = sFDR_threshold_rare, lty = 2, color = "red") + 
+p = p + geom_vline(xintercept = sFDR_threshold_rare$Expected, lty = 2, color = "red") + 
     annotate("text", 
              label = "sFDR Common SNPs = 0.05", 
-             x = sFDR_threshold_rare$P, 
+             x = sFDR_threshold_rare$Expected - 0.75, 
              y = 0, 
              angle = 90,
              color = "red")
