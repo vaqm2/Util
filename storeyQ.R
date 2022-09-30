@@ -54,23 +54,26 @@ p = ggplot(assoc, aes(x = Expected, y = Observed, color = CLASS, shape = CLASS))
     geom_point() +
     geom_abline(slope = 1) +
     theme_bw() + 
-    scale_color_manual(values = c("blue", "red"))
+    scale_color_manual(values = c("blue", "red")) +
+    scale_x_continuous(breaks = seq(0, max(assoc$Expected), 1)) +
+    scale_y_continuous(breaks = seq(0, max(assoc$Observed), 1)) +
+    theme(legend.title = element_blank())
 
-if(isTRUE(sFDR_threshold_common)) {
+if(nrow(sFDR_threshold_common) == 1) {
 p = p + geom_vline(xintercept = sFDR_threshold_common, lty = 2, color = "blue") +
     annotate("text", 
              label = "sFDR Common SNPs = 0.05", 
-             x = sFDR_threshold_common, 
+             x = sFDR_threshold_common$P, 
              y = 0, 
              angle = 90,
              color = "blue")
 }
 
-if(isTRUE(sFDR_threshold_rare)) {
+if(nrow(sFDR_threshold_rare) == 1) {
 p = p + geom_vline(xintercept = sFDR_threshold_rare, lty = 2, color = "red") + 
     annotate("text", 
              label = "sFDR Common SNPs = 0.05", 
-             x = sFDR_threshold_rare, 
+             x = sFDR_threshold_rare$P, 
              y = 0, 
              angle = 90,
              color = "red")
