@@ -42,13 +42,13 @@ sFDR_threshold_common = common_assoc %>%
     arrange(Q) %>% 
     filter(Q <= 0.05) %>%
     select(Expected) %>%
-    head(1)
+    tail(1)
 
 sFDR_threshold_rare = rare_assoc %>% 
     arrange(Q) %>% 
     filter(Q <= 0.05) %>% 
     select(Expected) %>%
-    head(1)
+    tail(1)
 
 p = ggplot(assoc, aes(x = Expected, y = Observed, color = CLASS, shape = CLASS)) + 
     geom_point() +
@@ -64,7 +64,7 @@ p = p + geom_vline(xintercept = sFDR_threshold_common$Expected, lty = 2, color =
     annotate("text", 
              label = "sFDR Common SNPs = 0.05", 
              x = sFDR_threshold_common$Expected - 0.1, 
-             y = 1, 
+             y = 2, 
              angle = 90,
              color = "blue")
 }
@@ -74,7 +74,7 @@ p = p + geom_vline(xintercept = sFDR_threshold_rare$Expected, lty = 2, color = "
     annotate("text", 
              label = "sFDR Common SNPs = 0.05", 
              x = sFDR_threshold_rare$Expected - 0.1, 
-             y = 1, 
+             y = 2, 
              angle = 90,
              color = "red")
 }
