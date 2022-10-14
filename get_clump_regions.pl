@@ -26,8 +26,7 @@ while(my $line = $fh->getline) {
     chomp($line);
     my @lineContents = split(/\s+/, $line);
     my $snp = $lineContents[1];
-    $snp_coordinates->{$snp}->{chrom} = $lineContents[0];
-    $snp_coordinates->{$snp}->{bp} = $lineContents[3];
+    $snp_coordinates->{$snp} = $lineContents[3];
 }
 
 $fh->close;
@@ -65,9 +64,12 @@ while(my $line = $nh->getline) {
 
             for my $index(0..$#tags) {
                 $tags[$index] =~ s/\(.*$//;
-                print $tags[$index]."\n";
-                my $coordinate = $snp_coordinates->{$tags[$index]}->{bp};
-                push(@tag_coordinates, $coordinate);
+                if(exists $snp_coordinates->{$tags[$index]}) {
+                    $tag_coordinates[$index] = $snp_coordinates->{$tags[$index]};
+                }
+                else {
+                    die "FATAL: Cannot find coordinate for tag SNP: $tags[$index]"."!!\n";
+                }
             }
 
             my $start = max(@tag_coordinates);
@@ -76,7 +78,6 @@ while(my $line = $nh->getline) {
             print $start." ";
             print $end;
         }
-
         print "\n";
     }
 }
