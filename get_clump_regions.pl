@@ -72,8 +72,8 @@ while(my $line = $nh->getline) {
                 }
             }
 
-            my $start = max(@tag_coordinates);
-            my $end = min(@tag_coordinates);
+            my $start = min(@tag_coordinates);
+            my $end = max(@tag_coordinates);
 
             print $start." ";
             print $end;
