@@ -26,7 +26,6 @@ while(my $line = $fh->getline) {
     chomp($line);
     my @lineContents = split(/\s+/, $line);
     my $snp = $lineContents[1];
-    print "Loading SNP: $snp\n";
     $snp_coordinates->{$snp} = $lineContents[3];
 }
 
