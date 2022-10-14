@@ -35,13 +35,11 @@ $fh->close;
 
 my $nh = IO::File->new($clump) || die "FATAL: Cannot open clumped file: $clump"."!!\n";
 
-print "CHR"." ";
-print "BUFFER_START"." ";
-print "BUFFER_END"." ";
-print "START"." ";
-print "END";
-print "INDEX_SNP"." ";
-print "BP"." ";
+print "#CHR"."\t";
+print "START"."\t";
+print "END"."\t";
+print "INDEX_SNP"."\t";
+print "BP"."\t";
 print "P"."\n";
 
 while(my $line = $nh->getline) {
@@ -56,8 +54,6 @@ while(my $line = $nh->getline) {
         my $bp           = $lineContents[3];
         my $start        = $bp; # Defaults
         my $end          = $bp; # Defaults
-        my $buffer_start = $bp - 50000; # Defaults
-        my $buffer_end   = $bp + 50000; #Defaults
         my $p            = $lineContents[4];
 
         if($lineContents[11] ne "NONE") {
@@ -75,19 +71,15 @@ while(my $line = $nh->getline) {
                 }
             }
 
-            $start        = min(@tag_coordinates);
-            $end          = max(@tag_coordinates);
-            $buffer_start = $start - 50000;
-            $buffer_end   = $end + 50000;
+            $start = min(@tag_coordinates);
+            $end   = max(@tag_coordinates);
         }
 
-        print $chromosome." ";
-        print $buffer_start." ";
-        print $buffer_end." ";
-        print $start." ";
-        print $end." ";
-        print $index_snp." ";
-        print $bp." ";
+        print $chromosome."\t";
+        print $start."\t";
+        print $end."\t";
+        print $index_snp."\t";
+        print $bp."\t";
         print $p."\n";
     }
 }
