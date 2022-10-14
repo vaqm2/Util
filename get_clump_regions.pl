@@ -65,6 +65,7 @@ while(my $line = $nh->getline) {
 
             for my $index(0..$#tags) {
                 $tags[$index] =~ s/\(.*$//;
+                print $tags[$index]."\n";
                 my $coordinate = $snp_coordinates->{$tags[$index]}->{bp};
                 push(@tag_coordinates, $coordinate);
             }
