@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use IO::File;
 use Getopt::Long;
-use List::Util qw(min, max);
+use List::Util qw(min max);
 
 my ($clump, $bim);
 
