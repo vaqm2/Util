@@ -12,4 +12,4 @@ finemap_assoc     = left_join(assoc, regions, by = c("SNP")) %>%
     select(CHR, BP, START, END, A1, A2, MAF, BETA, SE, P, Q) %>%
     arrange(Q)
 
-write.table(args[3], row.names = F, quote = F, sep = " ")
+write.table(finemap_assoc, args[3], row.names = F, quote = F, sep = " ")
