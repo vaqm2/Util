@@ -3,6 +3,7 @@
 suppressPackageStartupMessages(require(dplyr))
 suppressPackageStartupMessages(require(data.table))
 
+args              = commandArgs(trailingOnly = TRUE)
 assoc             = fread(args[1], header = T)
 regions           = fread(args[2], header = F)
 colnames(regions) = c("CHROMOSOME", "START", "END", "SNP", "BP", "P")
