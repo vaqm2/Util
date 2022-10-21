@@ -20,11 +20,7 @@ while(my $line = $fh->getline) {
     my $start        = $lineContents[1];
     my $end          = $lineContents[2];
 
-    `bcftools view \
-    -S $eur_unrel \
-    -r $chr:$start-$end \
-    -Oz -o ${out_prefix}_chr${chr}_${start}_${end}.vcf.gz \
-    $vcf_dir/${vcf_prefix}${chr}.${vcf_suffix}`;
+    `bcftools view -S $eur_unrel -r $chr:$start-$end -Oz -o ${out_prefix}_chr${chr}_${start}_${end}.vcf.gz $vcf_dir/${vcf_prefix}${chr}.${vcf_suffix}`;
 }
 
 $fh->close;
