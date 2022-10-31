@@ -35,4 +35,4 @@ while(my $line = $fh->getline)
     $dict->{$key} = 1;
 }
 
-close(IN);
+$fh->close;
