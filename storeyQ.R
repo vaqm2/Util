@@ -50,7 +50,10 @@ sFDR_threshold_rare = rare_assoc %>%
     select(Expected) %>%
     tail(1)
 
-p = ggplot(assoc, aes(x = Expected, y = Observed, color = CLASS, shape = CLASS)) + 
+p = ggplot(assoc, aes(x = Expected, 
+                      y = Observed, 
+                      color = CLASS, 
+                      shape = CLASS)) + 
     geom_point() +
     geom_abline(slope = 1) +
     theme_bw() + 
@@ -60,7 +63,9 @@ p = ggplot(assoc, aes(x = Expected, y = Observed, color = CLASS, shape = CLASS))
     theme(legend.title = element_blank())
 
 if(nrow(sFDR_threshold_common) == 1) {
-p = p + geom_vline(xintercept = sFDR_threshold_common$Expected, lty = 2, color = "blue") +
+p = p + geom_vline(xintercept = sFDR_threshold_common$Expected, 
+                   lty = 2, 
+                   color = "blue") +
     annotate("text", 
              label = "sFDR Common SNPs = 0.05", 
              x = sFDR_threshold_common$Expected - 0.1, 
@@ -70,7 +75,9 @@ p = p + geom_vline(xintercept = sFDR_threshold_common$Expected, lty = 2, color =
 }
 
 if(nrow(sFDR_threshold_rare) == 1) {
-p = p + geom_vline(xintercept = sFDR_threshold_rare$Expected, lty = 2, color = "red") + 
+p = p + geom_vline(xintercept = sFDR_threshold_rare$Expected, 
+                   lty = 2, 
+                   color = "red") + 
     annotate("text", 
              label = "sFDR Rare SNPs = 0.05", 
              x = sFDR_threshold_rare$Expected - 0.1, 

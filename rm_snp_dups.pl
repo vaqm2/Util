@@ -6,11 +6,10 @@ use IO::File;
 
 my $dict = {};
 
-open(IN, "zcat $ARGV[0] |");
+my $fh = IO::File->new($ARGV[0]) || die "ERROR: Cannot open assoc file: $ARGV[0]!!\n";
 
-while(<IN>)
+while(my $line = $fh->getline)
 {
-    my $line = $_;
     chomp($line);
     $line =~ s/^\s+//;
 
