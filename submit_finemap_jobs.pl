@@ -19,7 +19,7 @@ if($start < 0) {
 }
 
 my $sys_command = "sbatch --error=$ld_mat_prefix.err --output=$ld_mat_prefix.out --job-name=$ld_mat_prefix";
-$sys_command   .= " --mem=32g --time=24:00:00 --account=cross_disorder_2";
+$sys_command   .= " --mem=32g --time=48:00:00 --account=cross_disorder_2";
 $sys_command   .= " --wrap=\"python /faststorage/jail/project/cross_disorder_2/scripts/polyfun/finemapper.py";
 $sys_command   .= " --sumstats $sumstats --chr $chr --n $n --start $start --end $end --method susie";
 $sys_command   .= " --max-num-causal 5 --out ${ld_mat_prefix}.PIPs.txt --non-funct --memory 32";
