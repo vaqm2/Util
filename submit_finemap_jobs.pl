@@ -25,7 +25,7 @@ while(my $line = $fh->getline) {
     }
 
     my $sys_command = "sbatch --error=${ext}.err --output=${ext}.out --job-name=$ext";
-    $sys_command   .= " --mem=32g --time=12:00:00 --account=cross_disorder_2";
+    $sys_command   .= " --mem=64g --time=12:00:00 --account=cross_disorder_2";
     $sys_command   .= " --wrap=\"python /faststorage/jail/project/cross_disorder_2/scripts/polyfun/finemapper.py";
     $sys_command   .= " --sumstats $sumstats --chr $chr --n $n --start $start --end $end --method susie";
     $sys_command   .= " --max-num-causal 5 --out ${ext}.PIPs.txt --non-funct --memory 32";
