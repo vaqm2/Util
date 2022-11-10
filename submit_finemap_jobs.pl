@@ -34,4 +34,5 @@ while(my $line = $fh->getline) {
     $sys_command   .= "iPSYCH2012.PhaseBEAGLE5.1PhaseStates560ImputeBEAGLE5.1.chr${chr}.SNP_SAMPLE_QC.UpdatedRSID.1\"";
 
     print "$sys_command"."\n";
+    $prefix = "";
 }
