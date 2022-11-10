@@ -18,17 +18,17 @@ while(my $line = $fh->getline) {
     my $chr          = $lineContents[0];
     my $start        = $lineContents[1];
     my $end          = $lineContents[2];
-    $prefix         .= "_".$chr."_".$start."_".$end;
+    my $ext          = $prefix."_".$chr."_".$start."_".$end;
 
     if($start < 0) {
         $start = 0;
     }
 
-    my $sys_command = "sbatch --error=${prefix}.err --output=${prefix}.out --job-name=$prefix";
+    my $sys_command = "sbatch --error=${ext}.err --output=${ext}.out --job-name=$ext";
     $sys_command   .= " --mem=32g --time=12:00:00 --account=cross_disorder_2";
     $sys_command   .= " --wrap=\"python /faststorage/jail/project/cross_disorder_2/scripts/polyfun/finemapper.py";
     $sys_command   .= " --sumstats $sumstats --chr $chr --n $n --start $start --end $end --method susie";
-    $sys_command   .= " --max-num-causal 5 --out ${prefix}.PIPs.txt --non-funct --memory 32";
+    $sys_command   .= " --max-num-causal 5 --out ${ext}.PIPs.txt --non-funct --memory 32";
     $sys_command   .= " --cache-dir Finemapper_LD_Cache --verbose --allow-missing";
     $sys_command   .= " --geno /faststorage/jail/project/ibp_data_ipsych/ipsych_2012/iPSYCH_IBP_Imputed_v_2.1/qced/plink1/";
     $sys_command   .= "iPSYCH2012.PhaseBEAGLE5.1PhaseStates560ImputeBEAGLE5.1.chr${chr}.SNP_SAMPLE_QC.UpdatedRSID.1\"";
