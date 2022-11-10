@@ -14,8 +14,15 @@ my $fh = IO::File->new($ARGV[1]) || die "ERROR: Cannot open regions file: $ARGV[
 
 while(my $line = $fh->getline) {
     chomp($line);
-    my ($chr, $start, $end) = split(/\s+/, $line);
-    $prefix .= $chr."_".$start."_".$end;
+    my @lineContents = split(/\s+/, $line);
+    my $chr          = $lineContents[0];
+    my $start        = $lineContents[1];
+    my $end          = $lineContents[2];
+    $prefix         .= "_".$chr."_".$start."_".$end;
+
+    if($start < 0) {
+        $start = 0;
+    }
 
     my $sys_command = "sbatch --error=${prefix}.err --output=${prefix}.out --job-name=$prefix";
     $sys_command   .= " --mem=32g --time=12:00:00 --account=cross_disorder_2";
@@ -26,5 +33,5 @@ while(my $line = $fh->getline) {
     $sys_command   .= " --geno /faststorage/jail/project/ibp_data_ipsych/ipsych_2012/iPSYCH_IBP_Imputed_v_2.1/qced/plink1/";
     $sys_command   .= "iPSYCH2012.PhaseBEAGLE5.1PhaseStates560ImputeBEAGLE5.1.chr${chr}.SNP_SAMPLE_QC.UpdatedRSID.1\"";
 
-`$sys_command`;
+    print "$sys_command"."\n";
 }
