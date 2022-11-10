@@ -33,6 +33,5 @@ while(my $line = $fh->getline) {
     $sys_command   .= " --geno /faststorage/jail/project/ibp_data_ipsych/ipsych_2012/iPSYCH_IBP_Imputed_v_2.1/qced/plink1/";
     $sys_command   .= "iPSYCH2012.PhaseBEAGLE5.1PhaseStates560ImputeBEAGLE5.1.chr${chr}.SNP_SAMPLE_QC.UpdatedRSID.1\"";
 
-    print "$sys_command"."\n";
-    $prefix = "";
+    `$sys_command`;
 }
