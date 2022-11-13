@@ -38,7 +38,7 @@ z_comp = rbind(z_comp, z_comp_tmp)
 
 z_comp %>% mutate(VarType = ifelse(MAF <= 0.05, "RARE", "COMMON"))
 
-png("iPSYCH2015_EUR_vs_EUR_UNREL_Zscore.png", 
+png("iPSYCH2015_EUR_vs_EUR_UNREL_Zscore_Facetted.png", 
     res = 300, 
     width = 12, 
     height = 12, 
