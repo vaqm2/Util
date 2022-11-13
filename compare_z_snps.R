@@ -49,7 +49,9 @@ ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType, shape = GWAS)) +
     geom_abline(slope = 1, lty = 2) + 
     theme_bw() +
     scale_color_manual(values = c("red", "blue")) +
-    scale_shape_manual(values = c(LETTERS))
+    scale_shape_manual(values = c(LETTERS)) +
+    scale_x_continuous(breaks = seq(-10, 10, 1)) + 
+    scale_y_continuous(breaks = seq(-10, 10, 1))
 
 dev.off()
 
@@ -65,6 +67,8 @@ ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType, shape = GWAS)) +
     theme_bw() +
     scale_color_manual(values = c("red", "blue")) +
     scale_shape_manual(values = c(LETTERS)) + 
-    facet_grid(GWAS ~ .)
+    facet_grid(GWAS ~ .) + 
+    scale_x_continuous(breaks = seq(-10, 10, 1)) + 
+    scale_y_continuous(breaks = seq(-10, 10, 1))
 
 dev.off()
