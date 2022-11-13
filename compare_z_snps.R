@@ -29,7 +29,7 @@ eur_unrel_assoc = eur_unrel_assoc %>%
     mutate(Z_EUR_UNREL = Effect/StdErr) %>% 
     mutate(MAF = ifelse(Freq1 <= 0.5, Freq1, 1 - Freq1)) %>% 
     rename(SNP = MarkerName) %>%
-    select(SNP, MAF, Z_EUR_UNREL)
+    select(SNP, Z_EUR_UNREL)
 eur_unrel_assoc_index = semi_join(eur_unrel_assoc, index_snps, by = c("SNP"))
 z_comp_tmp = inner_join(eur_assoc_index, eur_unrel_assoc_index, by = c("SNP")) %>% 
     mutate(GWAS = i)
