@@ -40,8 +40,8 @@ z_comp %>% mutate(VarType = ifelse(MAF <= 0.05, "RARE", "COMMON"))
 
 png("iPSYCH2015_EUR_vs_EUR_UNREL_Zscore.png", 
     res = 300, 
-    width = 8, 
-    height = 8, 
+    width = 12, 
+    height = 12, 
     units = "in")
 
 ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType, shape = GWAS)) + 
