@@ -36,7 +36,22 @@ z_comp_tmp = inner_join(eur_assoc_index, eur_unrel_assoc_index, by = c("SNP")) %
 z_comp = rbind(z_comp, z_comp_tmp)
 }
 
-z_comp %>% mutate(VarType = ifelse(MAF <= 0.05, "RARE", "COMMON"))
+z_comp = z_comp %>% mutate(VarType = ifelse(MAF <= 0.05, "RARE", "COMMON"))
+
+png("iPSYCH2015_EUR_vs_EUR_UNREL_Zscore.png", 
+    res = 300, 
+    width = 12, 
+    height = 12, 
+    units = "in")
+
+ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType, shape = GWAS)) + 
+    geom_point() + 
+    geom_abline(slope = 1, lty = 2) + 
+    theme_bw() +
+    scale_color_manual(values = c("red", "blue")) +
+    scale_shape_manual(values = c(LETTERS))
+
+dev.off()
 
 png("iPSYCH2015_EUR_vs_EUR_UNREL_Zscore_Facetted.png", 
     res = 300, 
