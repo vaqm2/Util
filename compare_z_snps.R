@@ -14,7 +14,7 @@ eur_assoc_index       = semi_join(eur_assoc, index_snps, by = c("SNP")) %>%
     select(SNP, Z_EUR)
 eur_unrel_assoc       = fread(args[3], header = T)
 eur_unrel_assoc       = eur_unrel_assoc %>% mutate(Z_EUR_UNREL = BETA/SE)
-eur_unrel_assoc_index = semi_join(eur_unrel_assoc_index , index_snps, by = c("SNP")) %>%
+eur_unrel_assoc_index = semi_join(eur_unrel_assoc, index_snps, by = c("SNP")) %>%
     select(SNP, Z_EUR_UNREL)
 z_comp = inner_join(eur_assoc_index, eur_unrel_assoc_index, by = c("SNP"))
 
