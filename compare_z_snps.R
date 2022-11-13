@@ -23,7 +23,7 @@ eur_assoc = eur_assoc %>%
     rename(SNP = MarkerName) %>%
     select(SNP, MAF, Z_EUR)
 eur_assoc_index = semi_join(eur_assoc, index_snps, by = c("SNP"))
-eur_unrel_assoc = fread(args[3], header = T)
+eur_unrel_assoc = fread(paste0(base_dir, "SAIGE_MLM/iPSYCH2015_EUR_UNREL_", i, "_META_1.tbl"), header = T)
 eur_unrel_assoc = eur_unrel_assoc %>% 
     mutate(Z_EUR_UNREL = Effect/StdErr) %>% 
     mutate(MAF = ifelse(Freq1 <= 0.5, Freq1, 1 - Freq1)) %>% 
