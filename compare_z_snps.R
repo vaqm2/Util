@@ -49,6 +49,7 @@ ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType, shape = GWAS)) +
     geom_abline(slope = 1, lty = 2) + 
     theme_bw() +
     scale_color_manual(values = c("red", "blue")) +
-    scale_shape_manual(values = c(LETTERS))
+    scale_shape_manual(values = c(LETTERS)) + 
+    facet_grid(GWAS ~ .)
 
 dev.off()
