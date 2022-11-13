@@ -14,7 +14,7 @@ z_comp = data.table(SNP = character(),
                     Z_EUR_UNREL = numeric(), 
                     MAF = numeric())
 for (i in traits) {
-index_snps = fread(paste0(base_dir, "CLUMP/iPSYCH2015_EUR_", i, ".indexSNPs.txt"), header = F)
+index_snps = fread(paste0(base_dir, "CLUMP/Log/iPSYCH2015_EUR_", i, ".indexSNPs.txt"), header = F)
 colnames(index_snps) = c("CHR", "START", "END", "SNP", "BP", "P")
 eur_assoc = fread(paste0(base_dir, "SAIGE_MLM/iPSYCH2015_EUR_", i, "_META_1.tbl"), header = T)
 eur_assoc = eur_assoc %>% 
