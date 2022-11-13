@@ -12,7 +12,8 @@ base_dir = "/faststorage/jail/project/cross_disorder_2/people/vivapp/"
 z_comp = data.table(SNP = character(), 
                     Z_EUR = numeric(), 
                     Z_EUR_UNREL = numeric(), 
-                    MAF = numeric())
+                    MAF = numeric(), 
+                    GWAS = character())
 for (i in traits) {
 index_snps = fread(paste0(base_dir, "CLUMP/Log/iPSYCH2015_EUR_", i, ".indexSNPs.txt"), header = F)
 colnames(index_snps) = c("CHR", "START", "END", "SNP", "BP", "P")
@@ -30,7 +31,8 @@ eur_unrel_assoc = eur_unrel_assoc %>%
     rename(SNP = MarkerName) %>%
     select(SNP, MAF, Z_EUR_UNREL)
 eur_unrel_assoc_index = semi_join(eur_unrel_assoc, index_snps, by = c("SNP"))
-z_comp_tmp = inner_join(eur_assoc_index, eur_unrel_assoc_index, by = c("SNP"))
+z_comp_tmp = inner_join(eur_assoc_index, eur_unrel_assoc_index, by = c("SNP")) %>% 
+    mutate(GWAS = i)
 z_comp = rbind(z_comp, z_comp_tmp)
 }
 
@@ -42,10 +44,11 @@ png("iPSYCH2015_EUR_vs_EUR_UNREL_Zscore.png",
     height = 8, 
     units = "in")
 
-ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType)) + 
+ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType, shape = GWAS)) + 
     geom_point() + 
     geom_abline(slope = 1, lty = 2) + 
     theme_bw() +
-    scale_color_manual(values = c("red", "blue"))
+    scale_color_manual(values = c("red", "blue")) +
+    scale_shape_manual(values = c(LETTERS))
 
 dev.off()
