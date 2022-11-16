@@ -46,6 +46,7 @@ png("iPSYCH2015_EUR_vs_EUR_UNREL_Zscore.png",
 
 ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType, shape = GWAS)) + 
     geom_point() + 
+    geom_smooth(method = "lm") +
     geom_abline(slope = 1, lty = 2) + 
     theme_bw() +
     scale_color_manual(values = c("red", "blue")) +
@@ -64,10 +65,11 @@ png("iPSYCH2015_EUR_vs_EUR_UNREL_Zscore_Facetted.png",
 ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType, shape = GWAS)) + 
     geom_point() + 
     geom_abline(slope = 1, lty = 2) + 
+    geom_smooth(method = "lm") +
     theme_bw() +
     scale_color_manual(values = c("red", "blue")) +
     scale_shape_manual(values = c(LETTERS)) + 
-    facet_grid(GWAS ~ .) + 
+    facet_wrap(GWAS ~ .) + 
     scale_x_continuous(breaks = seq(-10, 10, 1)) + 
     scale_y_continuous(breaks = seq(-10, 10, 1))
 
