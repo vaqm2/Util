@@ -44,7 +44,7 @@ png("iPSYCH2015_EUR_vs_EUR_UNREL_Zscore.png",
     height = 12, 
     units = "in")
 
-ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType, shape = GWAS)) + 
+ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType)) + 
     geom_point() + 
     geom_smooth(method = "lm", formula = y ~ 0 + x) +
     geom_abline(slope = 1, lty = 2) + 
@@ -61,7 +61,7 @@ png("iPSYCH2015_EUR_vs_EUR_UNREL_Zscore_Facetted.png",
     height = 12, 
     units = "in")
 
-ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType, shape = GWAS)) + 
+ggplot(z_comp, aes(x = Z_EUR, y = Z_EUR_UNREL, color = VarType)) + 
     geom_point() + 
     geom_abline(slope = 1, lty = 2) + 
     geom_smooth(method = "lm", formula = y ~ 0 + x) +
