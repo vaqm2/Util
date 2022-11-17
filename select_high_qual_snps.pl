@@ -65,22 +65,24 @@ while(<IN>) {
 
 close(IN);
 
-print "SNP CHR BP A1 A2 Z"."\n";
+print "SNP CHR BP A1 A2 MAF BETA SE P Z"."\n";
 
 my $fh = IO::File->new($ARGV[2]);
 
 while(my $line = $fh->getline) {
     chomp($line);
-    my @lineContents = split(/\s+/, $line);
-    my $chromosome   = $lineContents[0];
-    my $snp_id       = $lineContents[2];
-    my $bp           = $lineContents[1];
-    my $a1           = $lineContents[3];
-    my $a2           = $lineContents[4];
-    my $beta         = $lineContents[5];
-    my $se           = $lineContents[6];
-    my $z_a1_saige   = -1 * $beta/$se;
-    $z_a1_saige      = sprintf("%0.4f", $z_a1_saige);
+    my @lineContents  = split(/\s+/, $line);
+    my $chromosome    = $lineContents[0];
+    my $bp            = $lineContents[1];
+    my $snp_id        = $lineContents[2];
+    my $a1            = $lineContents[3];
+    my $a2            = $lineContents[4];
+    my $beta_a1_saige = -1 * $lineContents[6];
+    my $se            = $lineContents[7];
+    my $p_val         = $lineContents[8];
+    my $z_a1_saige    = -1 * $beta/$se;
+    $z_a1_saige       = sprintf("%0.4f", $z_a1_saige);
+    my $maf           = $lineContents[9];
 
     if(!exists $high_quality_snps->{$snp_id}) {
         next;
@@ -100,6 +102,10 @@ while(my $line = $fh->getline) {
         print $bp." ";
         print $a1." ";
         print $a2." ";
+        print $maf." ";
+        print $beta_a1_saige." ";
+        print $se." ";
+        print $p_val." ";
         print $z_a1_saige."\n";
     }
 }
