@@ -80,7 +80,7 @@ while(my $line = $fh->getline) {
     my $beta_a1_saige = -1 * $lineContents[6];
     my $se            = $lineContents[7];
     my $p_val         = $lineContents[8];
-    my $z_a1_saige    = -1 * $beta/$se;
+    my $z_a1_saige    = $beta_a1_saige/$se;
     $z_a1_saige       = sprintf("%0.4f", $z_a1_saige);
     my $maf           = $lineContents[9];
 
