@@ -4,6 +4,13 @@ use strict;
 use warnings;
 use IO::File;
 
+my $usage = "\n\nUSAGE: perl $0 snp_metrics1.txt snp_metrics2.txt GWAS.assoc\n\n";
+
+if(!$ARGV[0] || !$ARGV[1] || !$ARGV[2]) {
+    print $usage;
+    exit;
+}
+
 my $high_quality_snps = {};
 
 open(IN, "zcat $ARGV[0] |");
@@ -23,7 +30,7 @@ while(<IN>) {
         $maf = 1 - $maf;
     }
 
-    if($maf >= 0.01 && $dr2 >= 0.8) {
+    if($maf >= 0.01 && $dr2 >= 0.6) {
         $high_quality_snps->{$snp_id} = 1; 
     }
 }
@@ -51,7 +58,7 @@ while(<IN>) {
         $maf = 1 - $maf;
     }
 
-    if($maf > 0.01 && $dr2 >= 0.8) {
+    if($maf > 0.01 && $dr2 >= 0.6) {
         $high_quality_snps->{$snp_id} += 1;
     }
 }
