@@ -50,7 +50,7 @@ while(<IN>) {
     if($_ =~ /^CHROM/) {
         next;
     }
-    
+
     my @lineContents = split(/\s+/, $_);
     my $chrom        = $lineContents[0];
     my $position     = $lineContents[1];
@@ -81,6 +81,11 @@ my $fh = IO::File->new($ARGV[2]);
 
 while(my $line = $fh->getline) {
     chomp($line);
+
+    if($line =~ /^CHR/) {
+        next;
+    }
+
     my @lineContents  = split(/\s+/, $line);
     my $chromosome    = $lineContents[0];
     my $bp            = $lineContents[1];
