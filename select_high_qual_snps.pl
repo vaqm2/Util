@@ -65,12 +65,22 @@ while(<IN>) {
 
 close(IN);
 
+print "SNP CHR BP A1 A2 Z"."\n";
+
 my $fh = IO::File->new($ARGV[2]);
 
 while(my $line = $fh->getline) {
     chomp($line);
     my @lineContents = split(/\s+/, $line);
-    my $snp_id = $lineContents[2];
+    my $chromosome   = $lineContents[0];
+    my $snp_id       = $lineContents[2];
+    my $bp           = $lineContents[1];
+    my $a1           = $lineContents[3];
+    my $a2           = $lineContents[4];
+    my $beta         = $lineContents[5];
+    my $se           = $lineContents[6];
+    my $z_a1_saige   = -1 * $beta/$se;
+    $z_a1_saige      = sprintf("%0.4f", $z_a1_saige);
 
     if(!exists $high_quality_snps->{$snp_id}) {
         next;
@@ -85,7 +95,12 @@ while(my $line = $fh->getline) {
     }
 
     if($high_quality_snps->{$snp_id} == 2) {
-        print $line."\n";
+        print $snp_id." ";
+        print $chromosome." ";
+        print $bp." ";
+        print $a1." ";
+        print $a2." ";
+        print $z_a1_saige."\n";
     }
 }
 
