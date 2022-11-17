@@ -17,6 +17,11 @@ open(IN, "zcat $ARGV[0] |");
 
 while(<IN>) {
     chomp($_);
+
+    if($_ =~ /^CHROM/) {
+        next;
+    }
+
     my @lineContents = split(/\s+/, $_);
     my $chrom        = $lineContents[0];
     my $position     = $lineContents[1];
@@ -41,6 +46,11 @@ open(IN, "zcat $ARGV[1] |");
 
 while(<IN>) {
     chomp($_);
+
+    if($_ =~ /^CHROM/) {
+        next;
+    }
+    
     my @lineContents = split(/\s+/, $_);
     my $chrom        = $lineContents[0];
     my $position     = $lineContents[1];
