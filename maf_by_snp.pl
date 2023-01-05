@@ -8,7 +8,7 @@ use IO::File;
 my @name = split(/\_/, $ARGV[0]);
 my $chr  = $name[$#name - 2];
 
-my $vcf_file = "/faststorage/jail/project/ibp_data_ipsych/ipsych_2012/iPSYCH_IBP_Imputed_v_2.1/qced/vcf/"
+my $vcf_file = "/faststorage/jail/project/ibp_data_ipsych/ipsych_2012/iPSYCH_IBP_Imputed_v_2.1/qced/vcf/";
 $vcf_file   .= "iPSYCH2012.PhaseBEAGLE5.1PhaseStates560ImputeBEAGLE5.1.chr".$chr;
 $vcf_file   .= ".SNP_SAMPLE_QC.UpdatedRSID.1.vcf.gz";
 
