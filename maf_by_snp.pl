@@ -23,7 +23,9 @@ while(my $line = $fh->getline) {
             my @matchContents = split(/\t/, $match);
             my @infoContents = split(/\;/, $matchContents[7]);
             my $alleleCount  = $infoContents[2];
+            $alleleCount     =~ s/^AC\=//;
             my $alleleNumber = $infoContents[3];
+            $alleleNumber    =~ s/^AN\=//;
             my $maf          = $alleleCount/$alleleNumber;
 
             if($maf > 0.5) {
