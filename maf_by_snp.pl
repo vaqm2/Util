@@ -15,6 +15,7 @@ while(my $line = $fh->getline) {
     }
     else {
         my @lineContents = split(/\s+/, $line);
+        my $snp          = $lineContents[0];
         my $chromosome   = $lineContents[1];
         my $position     = $lineContents[2];
         my $query        = $vcf->query("$chromosome:$position-$position");
@@ -32,7 +33,9 @@ while(my $line = $fh->getline) {
                 $maf = 1 - $maf;
             }
 
-            print $line." ".$maf."\n";
+            if($maf >= 0.01) {
+                print $snp."\n";
+            }
         }
     }
 }
