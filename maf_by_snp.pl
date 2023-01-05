@@ -22,9 +22,9 @@ while(my $line = $fh->getline) {
         while(my $match = $query->next) {
             my @matchContents = split(/\t/, $match);
             my @infoContents = split(/\;/, $matchContents[7]);
-            my $alleleCount  = $infoContents[2];
+            my $alleleCount  = $infoContents[$#infoContents - 1];
             $alleleCount     =~ s/^AC\=//;
-            my $alleleNumber = $infoContents[3];
+            my $alleleNumber = $infoContents[$#infoContents];
             $alleleNumber    =~ s/^AN\=//;
             my $maf          = $alleleCount/$alleleNumber;
 
