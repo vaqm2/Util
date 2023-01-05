@@ -20,7 +20,7 @@ while(my $line = $fh->getline) {
         my $query        = $vcf->query("$chromosome:$position-$position");
 
         while(my $match = $query->next) {
-            my @matchContents = split(/\t/, $match_line);
+            my @matchContents = split(/\t/, $match);
             my @infoContents = split(/\;/, $matchContents[7]);
             my $alleleCount  = $infoContents[2];
             my $alleleNumber = $infoContents[3];
