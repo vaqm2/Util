@@ -16,8 +16,8 @@ while(my $line = $fh->getline) {
 
     `mv $line.z $alt_name.z`;
     `mv $line.bgen $alt_name.bgen`;
-    `mv $file.rsids.txt $alt_name.rsids.txt`;
-    `mv $file.bgen.bgi $alt_name.bgen.bgi`;
+    `mv $line.rsids.txt $alt_name.rsids.txt`;
+    `mv $line.bgen.bgi $alt_name.bgen.bgi`;
 }
 
 $fh->close;
