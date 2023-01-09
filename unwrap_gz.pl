@@ -5,7 +5,7 @@ use warnings;
 use IO::File;
 
 my $outFile = $ARGV[0];
-$outFile =~ s/^.*UpdatedRSID\.//;
+$outFile =~ s/^.*UpdatedRSID\.1\.//;
 $outFile =~ s/\.gz$//;
 $outFile =~ s/\./\_/g;
 $outFile = "iPSYCH2015_".$outFile.".z";
