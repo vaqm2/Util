@@ -4,7 +4,8 @@ use strict;
 use warnings;
 use IO::File;
 
-my $snps = {};
+my $snps  = {};
+my $stats = {};
 my @studies;
 my $data_dir = "/faststorage/project/xdx2/data";
 my $fh = IO::File->new("$ARGV[0]") || die "ERROR: Cannot open file: $ARGV[0]!\n\n";
@@ -12,8 +13,8 @@ my $fh = IO::File->new("$ARGV[0]") || die "ERROR: Cannot open file: $ARGV[0]!\n\
 while(my $line = $fh->getline) {
     chomp($line);
     my @lineContents = split(/\,/, $line);
-    my $rsid = $lineContents[0];
-    $snps->{$rsid}->{gwas}->{add}   = 1;
+    my $rsid         = $lineContents[0];
+    $snps->{$rsid}   = 1;
 }
 
 $fh->close;
@@ -41,9 +42,9 @@ while(my $line = $fh->getline) {
         my $z_score       = $assocContents[8];
 
         if(exists $snps->{$rsid}) {
-            $snps->{$rsid}->{$gwas}->{beta} = $beta;
-            $snps->{$rsid}->{$gwas}->{p}    = $p_val;
-            $snps->{$rsid}->{$gwas}->{z}    = $z_score;
+            $stats->{$rsid}->{$gwas}->{beta} = $beta;
+            $stats->{$rsid}->{$gwas}->{p}    = $p_val;
+            $stats->{$rsid}->{$gwas}->{z}    = $z_score;
         }
         else {
             next;
@@ -57,13 +58,13 @@ $fh->close;
 
 print "SNP\tGWAS\tB\tP\tZ";
 
-for my $index(sort keys %$snps) {
+for my $index(sort keys %$stats) {
     print $index."\t";
 
     for my $idx2(0..$#studies) {
         print $studies[$idx2]."\t";
-        print $snps->{$index}->{$studies[$idx2]}->{beta}."\t";
-        print $snps->{$index}->{$studies[$idx2]}->{p}."\t";
-        print $snps->{$index}->{$studies[$idx2]}->{z}."\n";
+        print $stats->{$index}->{$studies[$idx2]}->{beta}."\t";
+        print $stats->{$index}->{$studies[$idx2]}->{p}."\t";
+        print $stats->{$index}->{$studies[$idx2]}->{z}."\n";
     }
 }
