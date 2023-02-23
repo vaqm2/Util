@@ -7,7 +7,7 @@ use IO::File;
 my $snps = {};
 my @studies;
 my $data_dir = "/faststorage/project/xdx2/data";
-my $fh = IO::Fle->new("$ARGV[0]") || die "ERROR: Cannot open file: $ARGV[0]!\n\n";
+my $fh = IO::File->new("$ARGV[0]") || die "ERROR: Cannot open file: $ARGV[0]!\n\n";
 
 while(my $line = $fh->getline) {
     chomp($line);
