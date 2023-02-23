@@ -26,7 +26,7 @@ while(my $line = $fh->getline) {
     my $nh   = IO::File->new("$data_dir/$line") || die "ERROR: Cannot open file: $data_dir/$line!\n\n";
     my $gwas = $line;
     $gwas    =~ s/\.assoc$//;
-    $gwas    =~ s/iPSYCH\_EUR\_//;
+    $gwas    =~ s/^iPSYCH2015\_EUR\_//;
     push(@studies, $gwas);
 
     while(my $assoc_line = $nh->getline) {
