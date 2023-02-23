@@ -12,8 +12,8 @@ my $fh = IO::File->new("$ARGV[0]") || die "ERROR: Cannot open file: $ARGV[0]!\n\
 while(my $line = $fh->getline) {
     chomp($line);
     my @lineContents = split(/\,/, $line);
-    my $rsid         = $lineContents[0];
-    $snps->{$rsid}   = 1;
+    my $rsid = $lineContents[0];
+    $snps->{$rsid}->{gwas}->{add}   = 1;
 }
 
 $fh->close;
