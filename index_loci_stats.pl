@@ -38,11 +38,13 @@ while(my $line = $fh->getline) {
         my @assocContents = split(/\s+/, $assoc_line);
         my $rsid          = $assocContents[0];
         my $beta          = $assocContents[6];
-        my $p_val         = $assocContents[7];
-        my $z_score       = $assocContents[8];
+        my $se            = $assocContents[7];
+        my $p_val         = $assocContents[8];
+        my $z_score       = $assocContents[9];
 
         if(exists $snps->{$rsid}) {
             $stats->{$rsid}->{$gwas}->{beta} = $beta;
+            $stats->{$rsid}->{$gwas}->{se}   = $se;
             $stats->{$rsid}->{$gwas}->{p}    = $p_val;
             $stats->{$rsid}->{$gwas}->{z}    = $z_score;
         }
@@ -63,6 +65,7 @@ for my $index(sort keys %$stats) {
         print $index."\t";
         print $studies[$idx2]."\t";
         print $stats->{$index}->{$studies[$idx2]}->{beta}."\t";
+        print $stats->{$index}->{$studies[$idx2]}->{se}."\t";
         print $stats->{$index}->{$studies[$idx2]}->{p}."\t";
         print $stats->{$index}->{$studies[$idx2]}->{z}."\n";
     }
