@@ -62,8 +62,8 @@ for my $index(sort keys %$snps) {
 
     for my $idx2(0..$#studies) {
         print $studies[$idx2]."\t";
-        print $snps->{$studies[$idx2]}->{$index}->{beta}."\t";
-        print $snps->{$studies[$idx2]}->{$index}->{p}."\t";
-        print $snps->{$studies[$idx2]}->{$index}->{z}."\n";
+        print $snps->{$index}->{$studies[$idx2]}->{beta}."\t";
+        print $snps->{$index}->{$studies[$idx2]}->{p}."\t";
+        print $snps->{$index}->{$studies[$idx2]}->{z}."\n";
     }
 }
