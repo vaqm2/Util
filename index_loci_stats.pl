@@ -35,7 +35,7 @@ while(my $line = $fh->getline) {
         next;
        } 
        else {
-        my @assocContents = split(/\,/, $assoc_line);
+        my @assocContents = split(/\s+/, $assoc_line);
         my $rsid          = $assocContents[0];
         my $beta          = $assocContents[6];
         my $p_val         = $assocContents[7];
@@ -56,7 +56,7 @@ while(my $line = $fh->getline) {
 
 $fh->close;
 
-print "SNP\tGWAS\tB\tP\tZ";
+print "SNP\tGWAS\tB\tP\tZ\n";
 
 for my $index(sort keys %$stats) {
     print $index."\t";
