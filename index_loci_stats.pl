@@ -34,7 +34,7 @@ while(my $line = $fh->getline) {
         next;
        } 
        else {
-        my @assocContents = split(/\s+/, $assoc_line);
+        my @assocContents = split(/\,/, $assoc_line);
         my $rsid          = $assocContents[0];
         my $beta          = $assocContents[6];
         my $p_val         = $assocContents[7];
