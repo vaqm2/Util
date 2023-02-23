@@ -59,9 +59,8 @@ $fh->close;
 print "SNP\tGWAS\tB\tP\tZ\n";
 
 for my $index(sort keys %$stats) {
-    print $index."\t";
-
     for my $idx2(0..$#studies) {
+        print $index."\t";
         print $studies[$idx2]."\t";
         print $stats->{$index}->{$studies[$idx2]}->{beta}."\t";
         print $stats->{$index}->{$studies[$idx2]}->{p}."\t";
