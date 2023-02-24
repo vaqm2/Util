@@ -58,7 +58,7 @@ while(my $line = $fh->getline) {
 
 $fh->close;
 
-print "SNP\tGWAS\tB\tP\tZ\n";
+print "SNP\tGWAS\tB\tSE\tP\tZ\n";
 
 for my $index(sort keys %$stats) {
     for my $idx2(0..$#studies) {
