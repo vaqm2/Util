@@ -19,8 +19,8 @@ while(my $line = $fh->getline) {
         my $n_samples = $lineContents[3];
 
         if($cohort == "2015") {
-            my $cmd = "python /faststorage/jail/project/xdx2/scripts/ldsc/munge_sumstats.py";
-            $cmd .= " --sumstats /faststorage/jail/project/xdx2/data/assoc/iPSYCH2015_EUR_${trait_name}.assoc";
+            my $cmd = "python /faststorage/project/xdx2/scripts/ldsc/munge_sumstats.py";
+            $cmd .= " --sumstats /faststorage/project/xdx2/data/assoc/iPSYCH2015_EUR_${trait_name}.assoc";
             $cmd .= " --N $n_samples";
             $cmd .= " --N-cas $n_cases";
             $cmd .= " --a1 A1";
@@ -29,7 +29,7 @@ while(my $line = $fh->getline) {
             $cmd .= " --frq MAF";
             $cmd .= "--signed-sumstats Z,0";
             $cmd .= " --a1-inc";
-            $cmd .= " --merge-alleles /faststorage/jail/project/xdx2/data/w_hm3.snplist";
+            $cmd .= " --merge-alleles /faststorage/project/xdx2/data/w_hm3.snplist";
             $cmd .= " --out iPSYCH2015_EUR_${trait_name}";
 
             `sbatch --error=munge_${trait_name}.err --output=munge_${trait_name}.out --job-name=munge_${trait_name} --mem=8g --time=04:00:00 --account=xdx2 --wrap=\"$cmd\";`
