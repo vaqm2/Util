@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use IO::File;
 
-my $fh = IO::File->new("GWAS_N.csv") || die "ERROR: Cannot open file: GWAS_N.csv!\n";
+my $fh = IO::File->new($ARGV[0]) || die "ERROR: Cannot open file: $ARGV[0]!\n";
 
 while(my $line = $fh->getline) {
     chomp($line);
