@@ -18,7 +18,7 @@ while(my $line = $fh->getline) {
         my $n_cases = $lineContents[2];
         my $n_samples = $lineContents[3];
 
-        if($cohort == "2015") {
+        if($cohort eq "2015") {
             my $cmd = "python /faststorage/project/xdx2/scripts/ldsc/munge_sumstats.py";
             $cmd .= " --sumstats /faststorage/project/xdx2/data/assoc/iPSYCH2015_EUR_${trait_name}.assoc";
             $cmd .= " --N $n_samples";
