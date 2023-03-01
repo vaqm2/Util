@@ -32,8 +32,7 @@ while(my $line = $fh->getline) {
             $cmd .= " --merge-alleles /faststorage/jail/project/xdx2/data/w_hm3.snplist";
             $cmd .= " --out iPSYCH2015_EUR_${trait_name}";
 
-            `sbatch --error=munge_${trait_name}.err --output=munge_${trait_name}.out --jobname=munge_${trait_name} \
-            --mem=8g --time=04:00:00 --account=xdx2 --wrap=\"$cmd\";`
+            `sbatch --error=munge_${trait_name}.err --output=munge_${trait_name}.out --job-name=munge_${trait_name} --mem=8g --time=04:00:00 --account=xdx2 --wrap=\"$cmd\";`
         }
     }
 }
