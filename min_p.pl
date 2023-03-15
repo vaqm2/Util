@@ -44,7 +44,7 @@ while(my $file_name = $fh->getline) {
 
 $fh->close;
 
-print "SNP\tCHR\tBP\tP\n";
+print "SNP\tCHR\tBP\tP\tASSOC\n";
 
 for my $index(keys %$snps) {
     print $index."\t";
