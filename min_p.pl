@@ -43,3 +43,13 @@ while(my $file_name = $fh->getline) {
 }
 
 $fh->close;
+
+print "SNP\tCHR\tBP\tP\n";
+
+for my $index(keys %$snps) {
+    print $index."\t";
+    print $snps->{$index}->{chr}."\t";
+    print $snps->{$index}->{bp}."\t";
+    print $snps->{$index}->{p}."\t";
+    print $snps->{$index}->{assoc}."\n";
+}
