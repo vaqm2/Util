@@ -35,7 +35,7 @@ while(my $file_name = $fh->getline) {
                     $snps->{$snp}->{p} = $p;
                     $snps->{$snp}->{assoc} = $file_name;
                 }
-                elsif($snps->${$snp}->{p} == $p) {
+                elsif($snps->{$snp}->{p} == $p) {
                     $snps->{$snp}->{assoc} .= "\n".$file_name;
                 }
                 else {
