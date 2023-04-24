@@ -17,6 +17,6 @@ result = inner_join(genes, result, by = c("CODE")) %>%
 write.table(result, 
             args[2], 
             row.names = F, 
-            col.names = F, 
+            col.names = T, 
             quote = F, 
             sep = "\t")
