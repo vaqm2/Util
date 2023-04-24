@@ -4,7 +4,7 @@ args = commandArgs(trailingOnly =  TRUE)
 
 library(dplyr)
 
-load("/faststorage/project/xdx2/data/magma/geneAnno_allgenes.rda")
+load("/faststorage/project/xdx2/data/magma/H-Magma/geneAnno_allgenes.rda")
 geneAnno1 = geneAnno1 %>% 
     filter(gene_biotype == "protein_coding" & hgnc_symbol != "") %>% 
     select(ensembl_gene_id, hgnc_symbol)
