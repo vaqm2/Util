@@ -18,6 +18,6 @@ genes_to_test = inner_join(geneAnno1, genes_to_test) %>%
 write.table(genes_to_test, 
             args[2], 
             row.names = F, 
+            col.names = F,
             quote = F, 
-            sep = " ", 
-            header = F)
+            sep = " ")
