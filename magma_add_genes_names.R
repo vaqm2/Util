@@ -10,7 +10,9 @@ colnames(genes) = c("CODE", "CHR", "START", "END", "STRAND", "GENE")
 genes = genes %>% select(CODE, GENE)
 result = read.table(args[1], header = T)
 result = result %>% rename(CODE = GENE)
-result = inner_join(genes, result, by = c("CODE")) %>% select(-CODE)
+result = inner_join(genes, result, by = c("CODE")) %>% 
+    select(-CODE) %>% 
+    arrange(desc(abs(ZSTAT)))
 
 write.table(result, 
             args[2], 
