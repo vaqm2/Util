@@ -20,4 +20,4 @@ write.table(genes_to_test,
             row.names = F, 
             col.names = F,
             quote = F, 
-            sep = " ")
+            sep = "\t")
