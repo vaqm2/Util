@@ -4,7 +4,7 @@ library(dplyr)
 
 args = commandArgs(trailingOnly = TRUE)
 
-genes = read.table("/faststorage/jail/project/xdx2/magma/NCBI37.3.gene.loc", 
+genes = read.table("/faststorage/project/xdx2/data/magma/NCBI37.3.gene.loc", 
                    header = F)
 colnames(genes) = c("CODE", "CHR", "START", "END", "STRAND", "GENE")
 genes = genes %>% select(CODE, GENE)
