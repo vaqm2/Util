@@ -5,8 +5,7 @@ library(gprofiler2)
 
 args = commandArgs(trailingOnly = TRUE)
 
-genes = read.table("/faststorage/project/xdx2/data/magma/NCBI37.3.gene.loc", 
-                   header = F)
+genes = read.table(args[1], header = TRUE)
 genes = genes %>% arrange(desc(abs(ZSTAT)))
 gostres <- gost(query = genes$GENE, 
                 organism = "hsapiens", 
@@ -16,7 +15,6 @@ gostres <- gost(query = genes$GENE,
                 correction_method = "fdr", 
                 sources = c("GO", "KEGG", "REAC", "TF", "MIRNA", 
                             "HPA", "CORUM", "HP", "WP"))
-highlight = gostres$result %>% arrange(p_value) %>% select(term_name)
 write.table(gostres$result,
             paste0(args[2], "_GOResults.txt"), 
             sep = "\t", 
