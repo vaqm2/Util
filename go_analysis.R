@@ -6,8 +6,11 @@ library(gprofiler2)
 args = commandArgs(trailingOnly = TRUE)
 
 genes = read.table(args[1], header = TRUE)
-genes = genes %>% arrange(desc(abs(ZSTAT)))
-gost_out = gost(query = genes$GENE, 
+genes_selected = genes %>% 
+    mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
+    filter(P_ADJ <= 0.05) %>% 
+    arrange(desc(abs(ZSTAT)))
+gost_out = gost(query = genes_selected$GENE, 
                 organism = "hsapiens", 
                 ordered_query = TRUE, 
                 significant = TRUE,
