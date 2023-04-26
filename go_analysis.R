@@ -11,7 +11,6 @@ gost_out = gost(query = genes$GENE,
                 organism = "hsapiens", 
                 ordered_query = TRUE, 
                 significant = TRUE,
-                exclude_iea = TRUE,
                 user_threshold = 0.05, 
                 correction_method = "fdr", 
                 sources = c("GO", "KEGG", "REAC"))
