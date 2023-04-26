@@ -8,7 +8,7 @@ args = commandArgs(trailingOnly = TRUE)
 genes = read.table(args[1], header = TRUE)
 genes_selected = genes %>% 
     mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
-    filter(P_ADJ <= 0.05) %>% 
+    filter(P_ADJ <= 0.1) %>% 
     arrange(desc(abs(ZSTAT)))
 gost_out = gost(query = genes_selected$GENE, 
                 organism = "hsapiens", 
