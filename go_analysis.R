@@ -12,12 +12,13 @@ gost_out = gost(query = genes$GENE,
                 significant = TRUE,
                 user_threshold = 0.05, 
                 correction_method = "fdr", 
+                evcodes = FALSE,
                 sources = c("GO"))
 gost_result = gost_out$result %>% 
     filter(term_size >= 15 & term_size <= 600 & intersection_size >= 5) %>%
     arrange(p_value) %>%
     as.data.frame() %>% 
-    select(-parents, -evidence_codes)
+    select(-parents)
 
 write.table(gost_result,
             paste0(args[2], "_Enrichments.txt"), 
