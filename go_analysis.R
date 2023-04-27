@@ -4,7 +4,8 @@ library(dplyr)
 library(gprofiler2)
 library(logr)
 
-log_open(paste0(args[2], ".log"))
+log_file = paste0(args[2], ".log")
+log_open(log_file)
 
 args = commandArgs(trailingOnly = TRUE)
 
