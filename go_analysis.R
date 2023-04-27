@@ -51,3 +51,4 @@ write.table(gost_result,
 
 log_print("Finished!")
 log_close()
+writeLines(readLines(log_file))
