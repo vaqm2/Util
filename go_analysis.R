@@ -1,12 +1,12 @@
 #!/usr/bin/env Rscript
 
+log_open(paste0(args[2], ".log"))
+
 library(dplyr)
 library(gprofiler2)
 library(logr)
 
 args = commandArgs(trailingOnly = TRUE)
-log_file_path = file.path(paste0(args[2], ".log"))
-log_file = log_open(log_file_path)
 
 genes = read.table(args[1], header = TRUE)
 genes_associated = genes %>% 
@@ -51,4 +51,3 @@ write.table(gost_result,
 
 log_print("Finished!")
 log_close()
-writeLines(readLines(log_file))
