@@ -2,15 +2,30 @@
 
 library(dplyr)
 library(gprofiler2)
+library(logr)
 
 args = commandArgs(trailingOnly = TRUE)
+log_file_path = file.path(paste0(args[2], ".log"))
+log_file = log_open(log_file_path)
 
 genes = read.table(args[1], header = TRUE)
 genes_associated = genes %>% 
     mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
-    filter(P_ADJ < 0.1) %>%
-    arrange(P_ADJ) %>%
-    select(GENE)
+    filter(P_ADJ < 0.1)
+num_associated_genes = length(genes_associated)
+
+log_print(paste0("Number of associated genes at FDR < 0.1: ", 
+                 num_associated_genes))
+
+if(num_associated_genes > 0) {
+    genes_associated %>% 
+        arrange(P_ADJ) %>% 
+        select(GENE)
+    log_print("Proceeding to pathway analysis..")
+} else {
+    log_print("No genes to test, quitting..!")
+    stop()
+}
 genes_background = genes %>% 
     select(GENE) %>% 
     sample()
@@ -33,3 +48,6 @@ write.table(gost_result,
             sep = "\t", 
             row.names = F,
             quote = F)
+
+log_print("Finished!")
+writeLines(readLines(log_file))
