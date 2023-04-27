@@ -17,7 +17,7 @@ for (file in files) {
     genes = read.table(file, header = TRUE)
     genes_selected = genes %>%
         arrange(desc(abs(ZSTAT))) %>%
-        head(500) %>%
+        head(1000) %>%
         select(GENE)
     genes_background = genes %>% 
         select(GENE) %>% 
