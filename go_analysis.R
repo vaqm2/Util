@@ -32,7 +32,7 @@ for (file in files) {
                     custom_bg = genes_background$GENE,
                     evcodes = FALSE,
                     sources = c("GO"))
-    if(!is.NULL(gost_out$result)) {
+    if(!is.null(gost_out$result)) {
         gost_result = gost_out$result %>% 
             arrange(p_value) %>%
             as.data.frame() %>%
