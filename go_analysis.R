@@ -23,8 +23,7 @@ if(num_associated_genes > 0) {
         select(GENE)
     log_print("Proceeding to pathway analysis..")
 } else {
-    log_print("No genes to test, quitting..!")
-    stop()
+    stop("No genes to test, quitting..!")
 }
 genes_background = genes %>% 
     select(GENE) %>% 
@@ -55,8 +54,7 @@ if(num_significant_terms > 0) {
                 row.names = F,
                 quote = F)
 } else {
-    log_print("No siginificant terms, ending analysis..!")
-    stop()
+    stop("No siginificant terms, ending analysis..!")
 }
 
 log_print("Finished!")
