@@ -15,7 +15,7 @@ write(paste("SOURCE", "TERM", "TERM_SIZE", "INTERSECTION_SIZE", "P_FDR", "TEST",
 
 for (file in files) {
     test = gsub("^iPSYCH2015_EUR_", "", file)
-    test = gsub("\\.*$", "", test)
+    test = gsub("\\..*$", "", test)
     print(paste0("Processing", " ", file, "..."))
     genes = read.table(file, header = TRUE)
     genes_selected = genes %>%
