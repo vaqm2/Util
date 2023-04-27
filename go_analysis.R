@@ -2,60 +2,46 @@
 
 library(dplyr)
 library(gprofiler2)
-library(logr)
 
 args = commandArgs(trailingOnly = TRUE)
+files = list.files(path = getwd(), pattern = "*.genes.out")
+outfile = paste0(args[1], "_Enrichments.txt")
+file.create(out_file)
 
-log_open(paste0(as.character(args[2]), ".log"))
+write(paste("SOURCE", "TERM", "TERM_SIZE", "INTERSECTION_SIZE", "P_FDR", "TEST", 
+            sep = "\t"), 
+      out_file,
+      append = TRUE)
 
-genes = read.table(args[1], header = TRUE)
-genes_associated = genes %>% 
-    mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
-    filter(P_ADJ < 0.1)
-num_associated_genes = nrow(genes_associated)
-
-log_print(paste0("Number of associated genes at FDR < 0.1: ", 
-                 num_associated_genes))
-
-if(num_associated_genes > 0) {
-    genes_associated %>% 
-        arrange(P_ADJ) %>% 
+for (file in files) {
+    genes = read.table(file, header = TRUE)
+    genes_selected = genes %>%
+        arrange(desc(abs(ZSTAT))) %>%
+        head(500) %>%
         select(GENE)
-    log_print("Proceeding to pathway analysis..")
-} else {
-    stop("No genes to test, quitting..!")
-}
-genes_background = genes %>% 
-    select(GENE) %>% 
-    sample()
-gost_out = gost(query = genes_associated$GENE, 
-                organism = "hsapiens", 
-                ordered_query = TRUE, 
-                significant = TRUE,
-                user_threshold = 0.05, 
-                correction_method = "fdr",
-                custom_bg = genes_background$GENE,
-                evcodes = FALSE,
-                sources = c("GO"))
-
-num_significant_terms = nrow(gost_out$result)
-log_print(paste0("NUmber of significant terms: ", num_significant_terms))
-
-if(num_significant_terms > 0) {
-    log_print("Writing to output..")
+    genes_background = genes %>% 
+        select(GENE) %>% 
+        sample()
+    gost_out = gost(query = genes_selected$GENE, 
+                    organism = "hsapiens", 
+                    ordered_query = TRUE, 
+                    significant = TRUE,
+                    user_threshold = 0.05, 
+                    correction_method = "fdr",
+                    custom_bg = genes_background$GENE,
+                    evcodes = FALSE,
+                    sources = c("GO"))
     gost_result = gost_out$result %>% 
         arrange(p_value) %>%
         as.data.frame() %>%
-        select(-parents)
+        filter(term_size >= 15 & term_size <= 600 & intersection_size >= 5) %>%
+        select(source, term_name, term_size, intersection_size, p_value) %>% 
+        mutate(query = args[1])
     
     write.table(gost_result,
-                paste0(args[2], "_Enrichments.txt"), 
+                out_file, 
                 sep = "\t", 
                 row.names = F,
-                quote = F)
-} else {
-    stop("No siginificant terms, ending analysis..!")
+                quote = F,
+                append = TRUE)
 }
-
-log_print("Finished!")
-log_close()
