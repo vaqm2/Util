@@ -4,10 +4,9 @@ library(dplyr)
 library(gprofiler2)
 library(logr)
 
-log_file = paste0(as.character(args[2]), ".log")
-log_open(log_file)
-
 args = commandArgs(trailingOnly = TRUE)
+
+log_open(paste0(as.character(args[2]), ".log"))
 
 genes = read.table(args[1], header = TRUE)
 genes_associated = genes %>% 
