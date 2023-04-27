@@ -6,7 +6,7 @@ args = commandArgs(trailingOnly = T)
 files = list.files(path = getwd(), pattern = "*.genes.out")
 file.create(args[1])
 
-write(paste("GENE", "ZSTAT", "P", "P_FDR", "TEST", sep = "\t"), 
+write(paste("GENE", "ZSTAT", "P", "P_ADJ", "TEST", sep = "\t"), 
       args[1], 
       append = TRUE)
 
@@ -16,9 +16,9 @@ for (file in files) {
     test = gsub("^iPSYCH2015_EUR_", "", file)
     test = gsub("\\..*", "", test)
     significant = association %>% 
-        mutate(P_FDR = p.adjust(P, method = c("fdr"))) %>%
-        filter(P_FDR < 0.1) %>%
-        select(GENE, ZSTAT, P, P_FDR) %>%
+        mutate(P_ADJ = p.adjust(P, method = c("bonferroni"))) %>%
+        filter(P_ADJ < 0.05) %>%
+        select(GENE, ZSTAT, P, P_ADJ) %>%
         mutate(TEST = test)
     
     if(nrow(significant) > 0) {
