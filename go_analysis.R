@@ -17,7 +17,7 @@ for (file in files) {
     genes = read.table(file, header = TRUE)
     genes_selected = genes %>%
         arrange(desc(abs(ZSTAT))) %>%
-        head(1000) %>%
+        head(500) %>%
         select(GENE)
     genes_background = genes %>% 
         select(GENE) %>% 
@@ -31,11 +31,10 @@ for (file in files) {
                     custom_bg = genes_background$GENE,
                     evcodes = FALSE,
                     sources = c("GO"))
-    gost_result = gost_out$result %>% 
-        arrange(p_value) %>%
-        as.data.frame()
-    if(!is.NULL(dim(gost_result))) {
-        gost_result %>% 
+    if(!is.NULL(gost_out$result)) {
+        gost_result = gost_out$result %>% 
+            arrange(p_value) %>%
+            as.data.frame() %>%
             filter(term_size >= 15 & term_size <= 600 & intersection_size >= 5) %>%
             select(source, term_name, term_size, intersection_size, p_value) %>% 
             mutate(query = args[1])
