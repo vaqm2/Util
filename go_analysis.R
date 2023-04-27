@@ -33,15 +33,19 @@ for (file in files) {
                     sources = c("GO"))
     gost_result = gost_out$result %>% 
         arrange(p_value) %>%
-        as.data.frame() %>%
-        filter(term_size >= 15 & term_size <= 600 & intersection_size >= 5) %>%
-        select(source, term_name, term_size, intersection_size, p_value) %>% 
-        mutate(query = args[1])
+        as.data.frame()
+    if(!is.NULL(dim(gost_result))) {
+        gost_result %>% 
+            filter(term_size >= 15 & term_size <= 600 & intersection_size >= 5) %>%
+            select(source, term_name, term_size, intersection_size, p_value) %>% 
+            mutate(query = args[1])
     
-    write.table(gost_result,
-                out_file, 
-                sep = "\t", 
-                row.names = F,
-                quote = F,
-                append = TRUE)
+        write.table(gost_result,
+                    out_file, 
+                    sep = "\t", 
+                    row.names = F,
+                    col.names = F,
+                    quote = F,
+                    append = TRUE)
+    }
 }
