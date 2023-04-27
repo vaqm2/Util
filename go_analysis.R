@@ -1,10 +1,10 @@
 #!/usr/bin/env Rscript
 
-log_open(paste0(args[2], ".log"))
-
 library(dplyr)
 library(gprofiler2)
 library(logr)
+
+log_open(paste0(args[2], ".log"))
 
 args = commandArgs(trailingOnly = TRUE)
 
