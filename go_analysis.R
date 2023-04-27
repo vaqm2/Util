@@ -38,16 +38,26 @@ gost_out = gost(query = genes_associated$GENE,
                 custom_bg = genes_background$GENE,
                 evcodes = FALSE,
                 sources = c("GO"))
-gost_result = gost_out$result %>% 
-    arrange(p_value) %>%
-    as.data.frame() %>%
-    select(-parents)
 
-write.table(gost_result,
-            paste0(args[2], "_Enrichments.txt"), 
-            sep = "\t", 
-            row.names = F,
-            quote = F)
+num_significant_terms = length(gost_out$result)
+log_print(paste0("NUmber of significant terms: ", num_significant_terms))
+
+if(num_significant_terms > 0) {
+    log_print("Writing to output..")
+    gost_result = gost_out$result %>% 
+        arrange(p_value) %>%
+        as.data.frame() %>%
+        select(-parents)
+    
+    write.table(gost_result,
+                paste0(args[2], "_Enrichments.txt"), 
+                sep = "\t", 
+                row.names = F,
+                quote = F)
+} else {
+    log_print("No siginificant terms, ending analysis..!")
+    stop()
+}
 
 log_print("Finished!")
 log_close()
