@@ -5,7 +5,7 @@ library(gprofiler2)
 
 args = commandArgs(trailingOnly = TRUE)
 files = list.files(path = getwd(), pattern = "*.genes.out")
-outfile = paste0(args[1], "_Enrichments.txt")
+out_file = paste0(args[1], "_Enrichments.txt")
 file.create(out_file)
 
 write(paste("SOURCE", "TERM", "TERM_SIZE", "INTERSECTION_SIZE", "P_FDR", "TEST", 
