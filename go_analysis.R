@@ -50,4 +50,4 @@ write.table(gost_result,
             quote = F)
 
 log_print("Finished!")
-writeLines(readLines(log_file))
+log_close()
