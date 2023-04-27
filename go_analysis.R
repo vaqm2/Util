@@ -14,6 +14,7 @@ write(paste("SOURCE", "TERM", "TERM_SIZE", "INTERSECTION_SIZE", "P_FDR", "TEST",
       append = TRUE)
 
 for (file in files) {
+    print(paste0("Processing", " ", file, "..."))
     genes = read.table(file, header = TRUE)
     genes_selected = genes %>%
         arrange(desc(abs(ZSTAT))) %>%
@@ -47,4 +48,5 @@ for (file in files) {
                     quote = F,
                     append = TRUE)
     }
+    print("Done!")
 }
