@@ -12,7 +12,7 @@ genes = read.table(args[1], header = TRUE)
 genes_associated = genes %>% 
     mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
     filter(P_ADJ < 0.1)
-num_associated_genes = length(genes_associated)
+num_associated_genes = nrow(genes_associated)
 
 log_print(paste0("Number of associated genes at FDR < 0.1: ", 
                  num_associated_genes))
@@ -38,7 +38,7 @@ gost_out = gost(query = genes_associated$GENE,
                 evcodes = FALSE,
                 sources = c("GO"))
 
-num_significant_terms = length(gost_out$result)
+num_significant_terms = nrow(gost_out$result)
 log_print(paste0("NUmber of significant terms: ", num_significant_terms))
 
 if(num_significant_terms > 0) {
