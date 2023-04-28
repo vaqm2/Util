@@ -13,10 +13,14 @@ result = result %>% rename(CODE = V1)
 result = inner_join(genes, result, by = c("CODE")) %>% 
     select(-CODE)
 
+write("# VERSION = 110
+    # COVAR = NSAMP MAC", out_file)
+
 write.table(result, 
             args[2], 
             row.names = F, 
             col.names = F, 
             na = "",
             quote = F, 
-            sep = "\t")
+            sep = " ",
+            append = TRUE)
