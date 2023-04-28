@@ -4,7 +4,7 @@ library(dplyr)
 
 base_data_dir = "/faststorage/project/xdx2/data/magma"
 load(paste0(base_data_dir, "/H-Magma/geneAnno_allgenes.rda"))
-geneAnno1 %>% 
+geneAnno1 = geneAnno1 %>% 
     filter(hgnc_symbol != "") %>% 
     select(ensembl_gene_id, hgnc_symbol)
 
