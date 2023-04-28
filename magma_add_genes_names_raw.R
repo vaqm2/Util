@@ -13,8 +13,7 @@ result = result %>% rename(CODE = V1)
 result = inner_join(genes, result, by = c("CODE")) %>% 
     select(-CODE)
 
-write("# VERSION = 110
-    # COVAR = NSAMP MAC", args[2])
+write("# VERSION = 110\n# COVAR = NSAMP MAC", args[2])
 
 write.table(result, 
             args[2], 
