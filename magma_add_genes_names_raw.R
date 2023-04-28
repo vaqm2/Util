@@ -9,7 +9,7 @@ genes = read.table("/faststorage/project/xdx2/data/magma/NCBI37.3.gene.loc",
 colnames(genes) = c("CODE", "CHR", "START", "END", "STRAND", "GENE")
 genes = genes %>% select(CODE, GENE)
 result = read.table(args[1], header = F, fill = T)
-result = result %>% rename(V1 = GENE)
+result = result %>% rename(GENE = V1)
 result = inner_join(genes, result, by = c("CODE")) %>% 
     select(-CODE)
 
