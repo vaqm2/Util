@@ -17,5 +17,6 @@ write.table(result,
             args[2], 
             row.names = F, 
             col.names = F, 
+            na = "",
             quote = F, 
             sep = "\t")
