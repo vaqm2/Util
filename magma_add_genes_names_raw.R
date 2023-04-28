@@ -14,7 +14,7 @@ result = inner_join(genes, result, by = c("CODE")) %>%
     select(-CODE)
 
 write("# VERSION = 110
-    # COVAR = NSAMP MAC", out_file)
+    # COVAR = NSAMP MAC", args[2])
 
 write.table(result, 
             args[2], 
