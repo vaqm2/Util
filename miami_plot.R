@@ -30,4 +30,4 @@ ggsave(p,
        width = 10, 
        height = 10, 
        units = "in", 
-       res = 300)
+       dpi = 300)
