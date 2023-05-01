@@ -26,7 +26,7 @@ while(my $line = $fh->getline) {
         next;
     }
     else {
-        my @lineContents = split(/\t/, $line);
+        my @lineContents = split(/\s+/, $line);
         my $raw_id       = $lineContents[0];
 
         if(exists $map->{$raw_id}) {
