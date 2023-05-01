@@ -3,6 +3,7 @@
 library(dplyr, quietly = TRUE)
 library(miamiplot, quietly = TRUE)
 library(data.table, quietly = TRUE)
+library(ggplot2, quietly = TRUE)
 
 args    = commandArgs(trailingOnly = TRUE)
 study1  = fread(args[1], header = T)
