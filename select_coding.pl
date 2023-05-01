@@ -13,13 +13,13 @@ while(my $line = $fh->getline) {
         next;
     }
     else {
-        my @lineContents = split(/\s+/, $line);
+        my @lineContents = split(/\t/, $line);
         my $ensembl_id   = $lineContents[0];
         my $hgnc_symbol  = $lineContents[1];
         my $geneType     = $lineContents[7];
 
         if($geneType eq "protein_coding") {
-            if($hgnc_symbol == "") {
+            if($hgnc_symbol eq "") {
                 print STDERR "Skipping gene symbol: $ensembl_id due to missing HGNC ID\n";
             }
             else {
@@ -38,7 +38,7 @@ $fh = IO::File->new("$ARGV[1]") || die "Cannot open file: $ARGV[1]!\n";
 
 while(my $line = $fh->getline) {
     chomp($line);
-    my @lineContents = split(/\s+/, $line);
+    my @lineContents = split(/\t/, $line);
     my $ensembl_id   = $lineContents[0];
 
     if(exists $map->{$ensembl_id}) {
