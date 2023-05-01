@@ -20,9 +20,12 @@ p = ggmiami(data = results,
             p = "P",
             upper_ylab = "Case vs Cohort",
             lower_ylab = "Case vs Other Cases",
-            hits_label_col = c("GENE", "ZSTAT"),
+            hits_label_col = c("GENE"),
             top_n_hits = 10,
-            genome_line = 2.5e-6)
+            genome_line = 2.5e-6,
+            suggestive_line = NULL,
+            upper_highlight_color = "green",
+            lower_highlight_color = "green")
 
 ggsave(p, 
        filename = paste0(args[3], ".png"), 
