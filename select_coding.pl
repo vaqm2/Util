@@ -44,7 +44,7 @@ while(my $line = $fh->getline) {
     if(exists $map->{$ensembl_id}) {
         print $map->{$ensembl_id};
 
-        for my $index(0..$#lineContents) {
+        for my $index(1..$#lineContents) {
             print "\t".$lineContents[$index];
         }
 
