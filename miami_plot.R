@@ -4,7 +4,7 @@ library(dplyr, quietly = TRUE)
 library(miamiplot, quietly = TRUE)
 library(data.table, quietly = TRUE)
 
-args    = commandArgs(trailingOnly = FALSE)
+args    = commandArgs(trailingOnly = TRUE)
 study1  = fread(args[1], header = T)
 study1  = study1 %>% mutate(study = "Case vs Cohort")
 study2  = fread(args[2], header = T)
