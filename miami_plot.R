@@ -19,6 +19,8 @@ plot_data = prep_miami_data(data = results,
                             pos = "START",
                             p = "P")
 
+head(plot_data)
+
 studyA_labels <- plot_data$upper %>%
     mutate(label = paste0(GENE, "\n", PHENOTYPE)) %>%
     filter(logged_p < log(2.5e-5)) %>%
