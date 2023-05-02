@@ -7,17 +7,17 @@ use IO::File;
 my $fof    = IO::File->new($ARGV[0]) || die "Error: Cannot open $ARGV[0]!\n";
 my $genes  = {};
 
-while(my $line = $fof->getline) {
-    chomp($line);
+while(my $file = $fof->getline) {
+    chomp($file);
+    my $gwas = $file;
+    $gwas =~ s/\.genes\.out$//;
+    $gwas =~ s/^iPSYCH2015\_EUR\_//;
     
-    print STDERR "Processing $line .."."\n";
-    my $fh = IO::File->new($line) || die "Error: Cannot open Magma assoc file: file!\n";
+    print STDERR "Processing $file .."."\n";
+    my $fh = IO::File->new($file) || die "Error: Cannot open Magma assoc file: $file!\n";
 
     while(my $line = $fh->getline) {
-        chomp($line);
-        my $gwas = $line;
-        $gwas =~ s/\.genes\.out$//;
-        $gwas =~ s/^iPSYCH2015\_EUR\_//;
+        chomp($line)
         
         if($line =~ /^GENE/) {
             next;
