@@ -12,27 +12,15 @@ study2  = fread(args[2], header = T)
 study2  = study2 %>% mutate(study = "Case vs Other Cases")
 results = rbind(study1, study2)
 
-plot_data = prep_miami_data(data = results, 
-                            split_by = "study", 
-                            split_at = "Case vs Cohort", 
-                            chr = "CHR",
-                            pos = "START",
-                            p = "P")
-
-head(plot_data)
-
 studyA_labels <- plot_data$upper %>%
     mutate(label = paste0(GENE, "\n", PHENOTYPE)) %>%
-    filter(logged_p < -log10(2.5e-5)) %>%
+    filter(logged_p >= -log10(2.5e-5)) %>%
     select(rel_pos, logged_p, label)
 
 studyB_labels <- plot_data$lower %>%
     mutate(label = paste0(GENE, "\n", PHENOTYPE)) %>%
-    filter(logged_p < -log10(2.5e-5)) %>%
+    filter(logged_p >= -log10(2.5e-5)) %>%
     select(rel_pos, logged_p, label)
-
-studyA_labels
-studyB_labels
 
 png(filename = paste0(args[3], ".png"), 
     width    = 10, 
