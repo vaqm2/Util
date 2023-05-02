@@ -24,9 +24,9 @@ for (file in files) {
     gost_out = gost(query = genes_selected$GENE, 
                     organism = "hsapiens", 
                     ordered_query = TRUE, 
-                    significant = TRUE,
+                    significant = FALSE,
                     user_threshold = 0.05, 
-                    correction_method = "fdr",
+                    correction_method = "bonferroni",
                     evcodes = FALSE,
                     domain_scope = "annotated",
                     sources = c("GO"))
