@@ -12,6 +12,7 @@ while(my $file = $fof->getline) {
     my $gwas = $file;
     $gwas =~ s/\.genes\.out$//;
     $gwas =~ s/^iPSYCH2015\_EUR\_//;
+    $gwas =~ s/\_CC//;
     
     print STDERR "Processing $file .."."\n";
     my $fh = IO::File->new($file) || die "Error: Cannot open Magma assoc file: $file!\n";
