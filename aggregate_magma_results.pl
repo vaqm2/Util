@@ -18,7 +18,7 @@ while(my $line = $fof->getline) {
         $gwas =~ s/\.genes\.out$//;
         $gwas =~ s/^iPSYCH2015\_EUR\_//;
 
-        print "Processing $line .."."\n";
+        print STDERR "Processing $line .."."\n";
         
         if($line =~ /^GENE/) {
             next;
