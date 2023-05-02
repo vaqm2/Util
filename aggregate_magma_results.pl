@@ -10,6 +10,7 @@ my $genes  = {};
 while(my $line = $fof->getline) {
     chomp($line);
     
+    print STDERR "Processing $line .."."\n";
     my $fh = IO::File->new($line) || die "Error: Cannot open Magma assoc file: file!\n";
 
     while(my $line = $fh->getline) {
@@ -17,8 +18,6 @@ while(my $line = $fof->getline) {
         my $gwas = $line;
         $gwas =~ s/\.genes\.out$//;
         $gwas =~ s/^iPSYCH2015\_EUR\_//;
-
-        print STDERR "Processing $line .."."\n";
         
         if($line =~ /^GENE/) {
             next;
