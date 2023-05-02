@@ -13,7 +13,6 @@ study2  = study2 %>% mutate(study = "Case vs Other Cases")
 results = rbind(study1, study2)
 
 png(filename = paste0(args[3], ".png"), 
-    device   = "png", 
     width    = 10, 
     height   = 10, 
     units    = "in", 
