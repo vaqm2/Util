@@ -17,7 +17,7 @@ while(my $file = $fof->getline) {
     my $fh = IO::File->new($file) || die "Error: Cannot open Magma assoc file: $file!\n";
 
     while(my $line = $fh->getline) {
-        chomp($line)
+        chomp($line);
         
         if($line =~ /^GENE/) {
             next;
