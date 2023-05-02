@@ -58,7 +58,7 @@ for my $index(keys %$genes) {
     print $genes->{$index}->{chr}."\t";
     print $genes->{$index}->{start}."\t";
     print $genes->{$index}->{stop}."\t";
-    print $genes->{$index}->{min_p};
+    print $genes->{$index}->{min_p}."\t";
 
     if($genes->{$index}->{pheno} ne "-") {
         $genes->{$index}->{pheno} =~ s/^\-\;//;
