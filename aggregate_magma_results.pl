@@ -41,7 +41,12 @@ while(my $line = $fof->getline) {
                 }
             }
             if($p_value <= 2.5e-5) {
-                $genes->{$gene}->{pheno} .= ";".$gwas;
+                if($genes->{$gene}->{pheno} eq "-") {
+                    $genes->{$gene}->{pheno} = $gwas;
+                }
+                else {
+                    $genes->{$gene}->{pheno} .= ";".$gwas;
+                }
             }
         }
     }
@@ -59,10 +64,5 @@ for my $index(keys %$genes) {
     print $genes->{$index}->{start}."\t";
     print $genes->{$index}->{stop}."\t";
     print $genes->{$index}->{min_p}."\t";
-
-    if($genes->{$index}->{pheno} ne "-") {
-        $genes->{$index}->{pheno} =~ s/^\;//;
-    }
-
     print $genes->{$index}->{pheno}."\n";
 }
