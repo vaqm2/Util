@@ -12,6 +12,23 @@ study2  = fread(args[2], header = T)
 study2  = study2 %>% mutate(study = "Case vs Other Cases")
 results = rbind(study1, study2)
 
+plot_data = prep_miami_data(data = results, 
+                            split_by = "study", 
+                            split_at = "Case vs Cohort", 
+                            chr = "CHR",
+                            pos = "START",
+                            p = "P")
+
+studyA_labels <- plot_data$upper %>%
+    mutate(label = paste0(GENE, "\n", PHENOTYPE)) %>%
+    filter(logged_p < log(2.5e-5)) %>%
+    select(rel_pos, logged_p, label)
+
+studyB_labels <- plot_data$lower %>%
+    mutate(label = paste0(GENE, "\n", PHENOTYPE)) %>%
+    filter(logged_p < log(2.5e-5)) %>%
+    select(rel_pos, logged_p, label)
+
 png(filename = paste0(args[3], ".png"), 
     width    = 10, 
     height   = 10, 
@@ -27,9 +44,10 @@ ggmiami(data                  = results,
         upper_ylab            = "Case vs Cohort",
         lower_ylab            = "Case vs Other Cases",
         hits_label_col        = c("GENE", "PHENOTYPE"),
-        top_n_hits            = NULL,
         genome_line           = 2.5e-6,
         suggestive_line       = NULL,
+        upper_labels_df       = studyA_labels,
+        lower_labels_df       = studyB_labels,
         upper_highlight_color = "green",
         lower_highlight_color = "green")
 
