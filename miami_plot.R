@@ -29,6 +29,9 @@ studyB_labels <- plot_data$lower %>%
     filter(logged_p < log(2.5e-5)) %>%
     select(rel_pos, logged_p, label)
 
+studyA_labels
+studyB_labels
+
 png(filename = paste0(args[3], ".png"), 
     width    = 10, 
     height   = 10, 
