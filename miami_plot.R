@@ -21,12 +21,12 @@ plot_data = prep_miami_data(data = results,
 
 studyA_labels <- plot_data$upper %>%
     mutate(label = paste0(GENE, "\n", PHENOTYPE)) %>%
-    filter(logged_p >= -log10(2.5e-5)) %>%
+    filter(logged_p >= -log10(2.5e-6)) %>%
     select(rel_pos, logged_p, label)
 
 studyB_labels <- plot_data$lower %>%
     mutate(label = paste0(GENE, "\n", PHENOTYPE)) %>%
-    filter(logged_p >= -log10(2.5e-5)) %>%
+    filter(logged_p >= -log10(2.5e-6)) %>%
     select(rel_pos, logged_p, label)
 
 png(filename = paste0(args[3], ".png"), 
