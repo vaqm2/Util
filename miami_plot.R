@@ -12,25 +12,26 @@ study2  = fread(args[2], header = T)
 study2  = study2 %>% mutate(study = "Case vs Other Cases")
 results = rbind(study1, study2)
 
-p = ggmiami(data = results, 
-            split_by = "study", 
-            split_at = "Case vs Cohort",
-            chr = "CHR",
-            pos = "START",
-            p = "P",
-            upper_ylab = "Case vs Cohort",
-            lower_ylab = "Case vs Other Cases",
-            hits_label_col = c("GENE"),
-            top_n_hits = 10,
-            genome_line = 2.5e-6,
-            suggestive_line = NULL,
-            upper_highlight_color = "green",
-            lower_highlight_color = "green")
+png(filename = paste0(args[3], ".png"), 
+    device   = "png", 
+    width    = 10, 
+    height   = 10, 
+    units    = "in", 
+    res      = 300)
 
-ggsave(p, 
-       filename = paste0(args[3], ".png"), 
-       device = "png", 
-       width = 10, 
-       height = 10, 
-       units = "in", 
-       dpi = 300)
+ggmiami(data                  = results, 
+        split_by              = "study", 
+        split_at              = "Case vs Cohort",
+        chr                   = "CHR",
+        pos                   = "START",
+        p                     = "P",
+        upper_ylab            = "Case vs Cohort",
+        lower_ylab            = "Case vs Other Cases",
+        hits_label_col        = c("GENE", "PHENOTYPE"),
+        top_n_hits            = NULL,
+        genome_line           = 2.5e-6,
+        suggestive_line       = NULL,
+        upper_highlight_color = "green",
+        lower_highlight_color = "green")
+
+dev.off()
