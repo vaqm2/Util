@@ -59,36 +59,36 @@ pairwise$FULL_NAME = gsub("_", " ", pairwise$FULL_NAME)
 
 png(paste0(args[1], "_xDx.png"), res = 300, width = 8, height = 8, units = "in")
 
-ggplot(xdx, aes(y = FULL_NAME, x = -log10(P))) +
+ggplot(xdx, aes(x = FULL_NAME, y = -log10(P))) +
     geom_bar(stat = "identity") +
-    scale_y_discrete(labels = label_wrap(20)) +
+    scale_x_discrete(labels = label_wrap(20)) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, face = "bold")) +
     theme_classic() +
-    xlab("") +
-    ylab("")
+    xlab("")
 
 dev.off()
 
-png(paste0(args[1], "_Case_Case.png"), res = 300, width = 12, height = 15, units = "in")
+png(paste0(args[1], "_Case_Case.png"), res = 300, width = 15, height = 15, units = "in")
 
-ggplot(case_case, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) + 
+ggplot(case_case, aes(x = FULL_NAME, y = -log10(P), fill = GWAS)) + 
     geom_bar(stat = "identity", position = position_dodge(width = 0.9)) +
     scale_y_discrete(labels = label_wrap(30)) + 
     theme_classic() + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, face = "bold")) +
     facet_wrap(TRAIT ~ ., scales = "free", ncol = 2) + 
     scale_fill_manual(values = c("red", "blue")) +
-    xlab("") + 
-    ylab("")
+    xlab("")
 
 dev.off()
 
-png(paste0(args[1], "_Pairwise.png"), res = 300, width = 15, height = 20, units = "in")
+png(paste0(args[1], "_Pairwise.png"), res = 300, width = 15, height = 15, units = "in")
 
-ggplot(pairwise, aes(y = FULL_NAME, x = -log10(P))) + 
+ggplot(pairwise, aes(x = FULL_NAME, y = -log10(P))) + 
     geom_bar(stat = "identity") +
     scale_y_discrete(labels = label_wrap(30)) +
     theme_classic() + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, face = "bold")) +
     xlab("") + 
-    ylab("") + 
     facet_wrap(TRAIT ~ ., scales = "free", ncol = 3)
 
 dev.off()
