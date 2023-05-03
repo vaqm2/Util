@@ -72,7 +72,7 @@ ggplot(case_case, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) +
     scale_fill_manual(values = c("red", "blue")) +
     xlab("") + 
     ylab("") +
-    scale_y_discrete(labels = label_wrap(10)
+    scale_y_discrete(labels = label_wrap(10))
 
 dev.off()
 
@@ -84,6 +84,6 @@ ggplot(pairwise, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) +
     xlab("") + 
     ylab("") + 
     facet_wrap(TRAIT ~ ., scales = "free", ncol = 3) +
-    scale_y_discrete(labels = label_wrap(10)
+    scale_y_discrete(labels = label_wrap(10))
 
 dev.off()
