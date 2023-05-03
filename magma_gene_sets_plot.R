@@ -22,8 +22,10 @@ for (trait in c("ADHD", "ANO", "AUT", "BIP", "MDD", "SCZ")) {
     top_10_cc = file_cc %>% arrange(P) %>% head(10) %>% select(FULL_NAME)
     to_subset = rbind(top_10, top_10_cc) %>% unique()
     file      = inner_join(to_subset, file, by = c("FULL_NAME")) %>%
+        select(FULL_NAME, BETA, BETA_STD, P) %>%
         mutate(GWAS = "Case vs Cohort")
     file_cc   = inner_join(to_subset, file_cc, by = c("FULL_NAME")) %>%
+        select(FULL_NAME, BETA, BETA_STD, P) %>%
         mutate(GWAS = "Case vs Other Cases")
     merged    = rbind(file, file_cc) %>% mutate(TRAIT = trait)
     results   = rbind(results, merged)
