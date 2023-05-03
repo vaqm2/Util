@@ -16,7 +16,7 @@ results = results %>%
     mutate(TRAIT = "xDx") %>% 
     mutate(GWAS = "Case vs Cohort")
 
-
+if(FALSE) {
 for (trait in c("ADHD", "ANO", "AUT", "BIP", "MDD", "SCZ")) {
     file      = read.table(paste0(prefix, trait, suffix), header = T)
     file_cc   = read.table(paste0(prefix, trait, "_CC", suffix), header = T)
@@ -33,7 +33,7 @@ for (trait in c("ADHD", "ANO", "AUT", "BIP", "MDD", "SCZ")) {
     results   = rbind(results, merged)
 }
 
-if(FALSE) {
+
 for (trait in c("ADHD_AUT", "ADHD_ANO", "ADHD_BIP", "ADHD_MDD", "ADHD_SCZ",
                 "ANO_AUT", "ANO_BIP", "ANO_MDD", "ANO_SCZ",
                 "AUT_BIP", "AUT_MDD", "AUT_SCZ",
