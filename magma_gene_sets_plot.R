@@ -2,6 +2,7 @@
 
 library(dplyr)
 library(ggplot2)
+library(scales)
 
 args = commandArgs(trailingOnly = TRUE)
 
