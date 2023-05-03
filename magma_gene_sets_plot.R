@@ -8,13 +8,16 @@ args = commandArgs(trailingOnly = TRUE)
 prefix = "iPSYCH2015_EUR_"
 suffix = "_C5_GO.gsa.out"
 
-results = read.table(paste0(prefix, "xDx", suffix), header = T)
-results = results %>%
+xdx = read.table(paste0(prefix, "xDx", suffix), header = T)
+xdx = xdx %>%
     arrange(P) %>%
     head(10) %>%
     select(FULL_NAME, BETA, BETA_STD, P) %>%
     mutate(TRAIT = "xDx") %>% 
     mutate(GWAS = "Case vs Cohort")
+
+case_case = xdx[FALSE,]
+pariwise  = xdx[FALSE, ]
 
 for (trait in c("ADHD", "ANO", "AUT", "BIP", "MDD", "SCZ")) {
     file      = read.table(paste0(prefix, trait, suffix), header = T)
@@ -29,7 +32,7 @@ for (trait in c("ADHD", "ANO", "AUT", "BIP", "MDD", "SCZ")) {
         select(FULL_NAME, BETA, BETA_STD, P) %>%
         mutate(GWAS = "Case vs Other Cases")
     merged    = rbind(file, file_cc) %>% mutate(TRAIT = trait)
-    results   = rbind(results, merged)
+    case_case = rbind(case_case, merged)
 }
 
 
@@ -45,17 +48,38 @@ for (trait in c("ADHD_AUT", "ADHD_ANO", "ADHD_BIP", "ADHD_MDD", "ADHD_SCZ",
         select(FULL_NAME, BETA, BETA_STD, P) %>%
         mutate(TRAIT = trait) %>% 
         mutate(GWAS = "Case vs Case Pairwise")
-    results   = rbind(results, file)
+    pairwise = rbind(pairwise, file)
 }
 
-png(paste0(args[1], ".png"), res = 300, width = 20, height = 20, units = "in")
+png(paste0(args[1], "_xDx.png"), res = 300, width = 8, height = 8, units = "in")
 
-ggplot(results, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) + 
+ggplot(xdx, aes(y = FULL_NAME, x = -log10(P))) +
+    geom_bar(stat = "identity") +
+    theme_classic() +
+    xlab("") +
+    ylab("")
+
+dev.off()
+
+png(paste0(args[1], "_Case_Caase.png"), res = 300, width = 12, height = 12, units = "in")
+
+ggplot(case_case, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) + 
     geom_bar(stat = "identity") +
     theme_classic() + 
-    facet_wrap(TRAIT ~ ., scales = "free", ncol = 3) + 
-    scale_fill_manual(values = c("red", "blue", "green")) +
-    xlab("") + ylab("") +
-    theme(axis.text.y = element_text(size = 8))
+    facet_wrap(TRAIT ~ ., scales = "free", ncol = 2) + 
+    scale_fill_manual(values = c("red", "blue")) +
+    xlab("") + 
+    ylab("")
+
+dev.off()
+
+png(paste0(args[1], "_Pairwise.png"), res = 300, width = 15, height = 15, units = "in")
+
+ggplot(pairwise, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) + 
+    geom_bar(stat = "identity") +
+    theme_classic() + 
+    xlab("") + 
+    ylab("") + 
+    facet_wrap(TRAIT ~ ., scales = "free", ncol = 3)
 
 dev.off()
