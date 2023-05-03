@@ -54,6 +54,6 @@ ggplot(results, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) +
     geom_bar(stat = "identity") +
     theme_classic() + 
     facet_wrap(TRAIT ~ .) + 
-    scale_fill_gradient2(low = "blue", mid = "white", high = "red")
+    scale_fill_manual(values = c("red", "blue", "green"))
 
 dev.off()
