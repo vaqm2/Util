@@ -17,7 +17,7 @@ xdx = xdx %>%
     mutate(GWAS = "Case vs Cohort")
 
 case_case = xdx[FALSE,]
-pariwise  = xdx[FALSE, ]
+pariwise  = xdx[FALSE,]
 
 for (trait in c("ADHD", "ANO", "AUT", "BIP", "MDD", "SCZ")) {
     file      = read.table(paste0(prefix, trait, suffix), header = T)
