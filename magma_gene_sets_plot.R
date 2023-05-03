@@ -33,6 +33,7 @@ for (trait in c("ADHD", "ANO", "AUT", "BIP", "MDD", "SCZ")) {
     results   = rbind(results, merged)
 }
 
+if(FALSE) {
 for (trait in c("ADHD_AUT", "ADHD_ANO", "ADHD_BIP", "ADHD_MDD", "ADHD_SCZ",
                 "ANO_AUT", "ANO_BIP", "ANO_MDD", "ANO_SCZ",
                 "AUT_BIP", "AUT_MDD", "AUT_SCZ",
@@ -47,13 +48,14 @@ for (trait in c("ADHD_AUT", "ADHD_ANO", "ADHD_BIP", "ADHD_MDD", "ADHD_SCZ",
         mutate(GWAS = "Case vs Case Pairwise")
     results   = rbind(results, file)
 }
-
+}
 png(paste0(args[1], ".png"), res = 300, width = 12, height = 12, units = "in")
 
 ggplot(results, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) + 
     geom_bar(stat = "identity") +
     theme_classic() + 
     facet_wrap(TRAIT ~ ., scales = "free") + 
-    scale_fill_manual(values = c("red", "blue", "green"))
+    scale_fill_manual(values = c("red", "blue", "green")) +
+    xlab("") + ylab("")
 
 dev.off()
