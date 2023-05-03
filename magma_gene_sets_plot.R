@@ -48,14 +48,14 @@ for (trait in c("ADHD_AUT", "ADHD_ANO", "ADHD_BIP", "ADHD_MDD", "ADHD_SCZ",
     results   = rbind(results, file)
 }
 
-png(paste0(args[1], ".png"), res = 300, width = 12, height = 12, units = "in")
+png(paste0(args[1], ".png"), res = 300, width = 20, height = 20, units = "in")
 
 ggplot(results, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) + 
     geom_bar(stat = "identity") +
     theme_classic() + 
-    facet_wrap(TRAIT ~ ., scales = "free") + 
+    facet_wrap(TRAIT ~ ., scales = "free", ncol = 3) + 
     scale_fill_manual(values = c("red", "blue", "green")) +
     xlab("") + ylab("") +
-    theme(axis.text.y = element_text(size = 3))
+    theme(axis.text.y = element_text(size = 8))
 
 dev.off()
