@@ -57,11 +57,12 @@ ggplot(xdx, aes(y = FULL_NAME, x = -log10(P))) +
     geom_bar(stat = "identity") +
     theme_classic() +
     xlab("") +
-    ylab("")
+    ylab("") +
+    scale_y_discrete(labels = label_wrap(10))
 
 dev.off()
 
-png(paste0(args[1], "_Case_Caase.png"), res = 300, width = 12, height = 12, units = "in")
+png(paste0(args[1], "_Case_Case.png"), res = 300, width = 12, height = 12, units = "in")
 
 ggplot(case_case, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) + 
     geom_bar(stat = "identity") +
@@ -69,7 +70,8 @@ ggplot(case_case, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) +
     facet_wrap(TRAIT ~ ., scales = "free", ncol = 2) + 
     scale_fill_manual(values = c("red", "blue")) +
     xlab("") + 
-    ylab("")
+    ylab("") +
+    scale_y_discrete(labels = label_wrap(10)
 
 dev.off()
 
@@ -80,6 +82,7 @@ ggplot(pairwise, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) +
     theme_classic() + 
     xlab("") + 
     ylab("") + 
-    facet_wrap(TRAIT ~ ., scales = "free", ncol = 3)
+    facet_wrap(TRAIT ~ ., scales = "free", ncol = 3) +
+    scale_y_discrete(labels = label_wrap(10)
 
 dev.off()
