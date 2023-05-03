@@ -37,7 +37,7 @@ for (trait in c("ADHD", "ANO", "AUT", "BIP", "MDD", "SCZ")) {
     case_case = rbind(case_case, merged)
 }
 
-case_case$FULL_NAME = gsub("_", " ", xdx$case_case)
+case_case$FULL_NAME = gsub("_", " ", case_case$FULL_NAME)
 
 
 for (trait in c("ADHD_AUT", "ADHD_ANO", "ADHD_BIP", "ADHD_MDD", "ADHD_SCZ",
