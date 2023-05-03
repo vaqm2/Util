@@ -61,9 +61,9 @@ png(paste0(args[1], "_xDx.png"), res = 300, width = 8, height = 8, units = "in")
 
 ggplot(xdx, aes(x = FULL_NAME, y = -log10(P))) +
     geom_bar(stat = "identity") +
+    theme_classic() +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, face = "bold")) +
     scale_x_discrete(labels = label_wrap(20)) +
-    theme_classic() +
     xlab("")
 
 dev.off()
@@ -73,7 +73,8 @@ png(paste0(args[1], "_Case_Case.png"), res = 300, width = 15, height = 15, units
 ggplot(case_case, aes(x = FULL_NAME, y = -log10(P), fill = GWAS)) + 
     geom_bar(stat = "identity", position = position_dodge(width = 0.9)) +
     theme_classic() + 
-    theme(axis.text.x = element_text(angle = 90, hjust = 1, face = "bold")) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, face = "bold"),
+          legend.position = "bottom") +
     scale_x_discrete(labels = label_wrap(30)) +
     facet_wrap(TRAIT ~ ., scales = "free") + 
     scale_fill_manual(values = c("red", "blue")) +
