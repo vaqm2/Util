@@ -16,6 +16,7 @@ xdx = xdx %>%
     select(FULL_NAME, BETA, BETA_STD, P) %>%
     mutate(TRAIT = "xDx") %>% 
     mutate(GWAS = "Case vs Cohort")
+xdx$FULL_NAME = gsub("_", " ", xdx$FULL_NAME)
 
 case_case = xdx[FALSE,]
 pairwise  = xdx[FALSE,]
@@ -36,6 +37,8 @@ for (trait in c("ADHD", "ANO", "AUT", "BIP", "MDD", "SCZ")) {
     case_case = rbind(case_case, merged)
 }
 
+case_case$FULL_NAME = gsub("_", " ", xdx$case_case)
+
 
 for (trait in c("ADHD_AUT", "ADHD_ANO", "ADHD_BIP", "ADHD_MDD", "ADHD_SCZ",
                 "ANO_AUT", "ANO_BIP", "ANO_MDD", "ANO_SCZ",
@@ -51,6 +54,8 @@ for (trait in c("ADHD_AUT", "ADHD_ANO", "ADHD_BIP", "ADHD_MDD", "ADHD_SCZ",
         mutate(GWAS = "Case vs Case Pairwise")
     pairwise = rbind(pairwise, file)
 }
+
+pairwise$FULL_NAME = gsub("_", " ", pairwise$FULL_NAME)
 
 png(paste0(args[1], "_xDx.png"), res = 300, width = 8, height = 8, units = "in")
 
