@@ -3,6 +3,8 @@
 library(dplyr)
 library(ggplot2)
 
+args = commandArgs(trailingOnly = TRUE)
+
 prefix = "iPSYCH2015_EUR_"
 suffix = "_C5_GO.gsa.out"
 
