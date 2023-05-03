@@ -56,10 +56,10 @@ png(paste0(args[1], "_xDx.png"), res = 300, width = 8, height = 8, units = "in")
 
 ggplot(xdx, aes(y = FULL_NAME, x = -log10(P))) +
     geom_bar(stat = "identity") +
+    scale_y_discrete(labels = label_wrap(10)) +
     theme_classic() +
     xlab("") +
-    ylab("") +
-    scale_y_discrete(labels = wrap_format(10))
+    ylab("")
 
 dev.off()
 
@@ -67,12 +67,12 @@ png(paste0(args[1], "_Case_Case.png"), res = 300, width = 12, height = 12, units
 
 ggplot(case_case, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) + 
     geom_bar(stat = "identity") +
+    scale_y_discrete(labels = label_wrap(10)) + 
     theme_classic() + 
     facet_wrap(TRAIT ~ ., scales = "free", ncol = 2) + 
     scale_fill_manual(values = c("red", "blue")) +
     xlab("") + 
-    ylab("") +
-    scale_y_discrete(labels = wrap_format(10))
+    ylab("")
 
 dev.off()
 
@@ -80,10 +80,10 @@ png(paste0(args[1], "_Pairwise.png"), res = 300, width = 15, height = 15, units 
 
 ggplot(pairwise, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) + 
     geom_bar(stat = "identity") +
+    scale_y_discrete(labels = label_wrap(10)) +
     theme_classic() + 
     xlab("") + 
     ylab("") + 
-    facet_wrap(TRAIT ~ ., scales = "free", ncol = 3) +
-    scale_y_discrete(labels = wrap_format(10))
+    facet_wrap(TRAIT ~ ., scales = "free", ncol = 3)
 
 dev.off()
