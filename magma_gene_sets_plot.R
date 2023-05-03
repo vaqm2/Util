@@ -16,7 +16,6 @@ results = results %>%
     mutate(TRAIT = "xDx") %>% 
     mutate(GWAS = "Case vs Cohort")
 
-if(FALSE) {
 for (trait in c("ADHD", "ANO", "AUT", "BIP", "MDD", "SCZ")) {
     file      = read.table(paste0(prefix, trait, suffix), header = T)
     file_cc   = read.table(paste0(prefix, trait, "_CC", suffix), header = T)
@@ -48,7 +47,7 @@ for (trait in c("ADHD_AUT", "ADHD_ANO", "ADHD_BIP", "ADHD_MDD", "ADHD_SCZ",
         mutate(GWAS = "Case vs Case Pairwise")
     results   = rbind(results, file)
 }
-}
+
 png(paste0(args[1], ".png"), res = 300, width = 12, height = 12, units = "in")
 
 ggplot(results, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) + 
@@ -56,6 +55,7 @@ ggplot(results, aes(y = FULL_NAME, x = -log10(P), fill = GWAS)) +
     theme_classic() + 
     facet_wrap(TRAIT ~ ., scales = "free") + 
     scale_fill_manual(values = c("red", "blue", "green")) +
-    xlab("") + ylab("")
+    xlab("") + ylab("") +
+    theme(axis.text.y = element_text(size = 3))
 
 dev.off()
