@@ -11,12 +11,15 @@ suffix = "_C5_GO.gsa.out"
 
 xdx = read.table(paste0(prefix, "xDx", suffix), header = T)
 xdx = xdx %>%
+    filter(NGENES < 600) %>% 
     arrange(P) %>%
     head(20) %>%
     select(VARIABLE, FULL_NAME, BETA, BETA_STD, P) %>%
     rename(GO = VARIABLE) %>%
     mutate(TRAIT = "xDx") %>% 
-    mutate(GWAS = "Case vs Cohort")
+    mutate(GWAS = "Case vs Cohort") %>%
+    mutate(BETA_HIGH = BETA + 1.96 * BETA_STD) %>%
+    mutate(BETA_LOW = BETA - 1.96 * BETA_STD)
 xdx$GO = gsub("_.*", "", xdx$GO)
 xdx$GO = gsub("^GO", "", xdx$GO)
 xdx$FULL_NAME = substr(xdx$FULL_NAME, 6, nchar(xdx$FULL_NAME))
@@ -32,13 +35,19 @@ for (trait in c("ADHD", "ANO", "AUT", "BIP", "MDD", "SCZ")) {
     top_5_cc = file_cc %>% arrange(P) %>% head(5) %>% select(FULL_NAME)
     to_subset = rbind(top_5, top_5_cc) %>% unique()
     file      = inner_join(to_subset, file, by = c("FULL_NAME")) %>%
+        filter(NGENES < 600) %>%
         select(VARIABLE, FULL_NAME, BETA, BETA_STD, P) %>%
         rename(GO = VARIABLE) %>%
-        mutate(GWAS = "Case vs Cohort")
+        mutate(GWAS = "Case vs Cohort") %>%
+        mutate(BETA_HIGH = BETA + 1.96 * BETA_STD) %>%
+        mutate(BETA_LOW = BETA - 1.96 * BETA_STD)
     file_cc   = inner_join(to_subset, file_cc, by = c("FULL_NAME")) %>%
+        filter(NGENES < 600) %>%
         select(VARIABLE, FULL_NAME, BETA, BETA_STD, P) %>%
         rename(GO = VARIABLE) %>%
-        mutate(GWAS = "Case vs Other Cases")
+        mutate(GWAS = "Case vs Other Cases") %>%
+        mutate(BETA_HIGH = BETA + 1.96 * BETA_STD) %>%
+        mutate(BETA_LOW = BETA - 1.96 * BETA_STD)
     merged    = rbind(file, file_cc) %>% mutate(TRAIT = trait)
     case_case = rbind(case_case, merged)
 }
@@ -56,12 +65,15 @@ for (trait in c("ADHD_AUT", "ADHD_ANO", "ADHD_BIP", "ADHD_MDD", "ADHD_SCZ",
                 "MDD_SCZ")) {
     file = read.table(paste0(prefix, trait, "_CC", suffix), header = T)
     file = file %>%
+        filter(NGENES < 600) %>%
         arrange(P) %>%
         head(5) %>%
         select(VARIABLE, FULL_NAME, BETA, BETA_STD, P) %>%
         rename(GO = VARIABLE) %>%
         mutate(TRAIT = trait) %>% 
-        mutate(GWAS = "Case vs Case Pairwise")
+        mutate(GWAS = "Case vs Case Pairwise") %>%
+        mutate(BETA_HIGH = BETA + 1.96 * BETA_STD) %>%
+        mutate(BETA_LOW = BETA - 1.96 * BETA_STD)
     pairwise = rbind(pairwise, file)
 }
 
@@ -72,16 +84,17 @@ pairwise$FULL_NAME = gsub("_", " ", pairwise$FULL_NAME)
 
 png(paste0(args[1], "_xDx.png"), res = 300, width = 8, height = 8, units = "in")
 
-ggplot(xdx, aes(y = FULL_NAME, x = BETA, shape = GO, size = -log10(P))) +
-    geom_point() +
+ggplot(xdx, aes(y = FULL_NAME, x = BETA, shape = GO, fill = -log10(P))) +
+    geom_point(size = 3) +
     geom_errorbarh(aes(xmin = BETA - 1.96 * BETA_STD, 
                        xmax = BETA + 1.96 * BETA_STD),
-                   height = 0.01, size = 0.5) +
+                   height = 0.01, linewidth = 0.5) +
     theme_classic() +
     theme(axis.text.x = element_text(face = "bold"),
           axis.text.y = element_text(face = "bold")) +
     ylab("") +
-    scale_shape_manual(values = c(21, 22, 23))
+    scale_shape_manual(values = c(21, 22, 23)) +
+    scale_fill_gradient(low = "blue", high = "red")
 
 dev.off()
 
@@ -104,7 +117,7 @@ ggplot(case_case, aes(y = FULL_NAME,
           legend.position = "bottom") +
     scale_y_discrete(labels = label_wrap(40), guide = guide_axis(n.dodge = 2)) +
     facet_grid(TRAIT ~ GWAS, scales = "free", space = "free") + 
-    scale_fill_gradient2(high = "red", low = "blue", mid = "white") +
+    scale_fill_gradient(high = "red", low = "blue") +
     ylab("") +
     scale_shape_manual(values = c(21, 22, 23)) +
     geom_vline(xintercept = 0, lty = 2)
@@ -128,6 +141,6 @@ ggplot(pairwise, aes(y = FULL_NAME, x = BETA, shape = GO, fill = -log10(P))) +
     ylab("") + 
     facet_wrap(TRAIT ~ ., scales = "free") +
     scale_shape_manual(values = c(21, 22, 23)) +
-    scale_fill_gradient2(low = "blue", mid = "white", high = "red")
+    scale_fill_gradient(low = "blue", high = "red")
 
 dev.off()

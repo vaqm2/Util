@@ -12,12 +12,12 @@ study2  = fread(args[2], header = T)
 study2  = study2 %>% mutate(study = "Case vs Other Cases")
 results = rbind(study1, study2)
 
-plot_data = prep_miami_data(data = results, 
+plot_data = prep_miami_data(data     = results, 
                             split_by = "study", 
                             split_at = "Case vs Cohort", 
-                            chr = "CHR",
-                            pos = "START",
-                            p = "P")
+                            chr      = "CHR",
+                            pos      = "START",
+                            p        = "P")
 
 studyA_labels <- plot_data$upper %>%
     mutate(label = paste0(GENE, "\n", PHENOTYPE)) %>%
