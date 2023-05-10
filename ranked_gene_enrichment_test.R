@@ -96,7 +96,7 @@ p_xx_xy_dose = phyper(q = xx_xy_dose_overlap - 1,
                       lower.tail = FALSE)
 
 print(paste(args[1], 
-            "X:", p_x_dose, 
-            "Y:", p_y_dose, 
-            "XX-XY:", p_xx_xy_dose, 
+            "X:", x_dose_overlap, p_x_dose, 
+            "Y:", y_dose_overlap, p_y_dose, 
+            "XX-XY:", xx_xy_dose_overlap, p_xx_xy_dose, 
             sep = " "))
