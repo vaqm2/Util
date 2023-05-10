@@ -8,7 +8,7 @@ args = commandArgs(trailingOnly = TRUE)
 
 # Reading the MAGMA association results
 association = fread(args[1], header = T)
-head(association)
+
 # total genes is the number tested for magma association
 total_genes = nrow(association)
 
@@ -76,6 +76,15 @@ xx_xy_dose_overlap = inner_join(enriched_genes,
 
 # Hypergeometric test for enrichment of MAGMA associations in ranked dosage
 # sensitivity gene lists
+
+print(paste(x_dose_overlap,
+      nrow(genes_x_dose),
+      y_dose_overlap,
+      nrow(genes_y_dose),
+      xx_xy_dose_overlap,
+      nrow(genes_xx_xy_dose),
+      total_genes,
+      num_enriched_genes), sep = " ")
 
 p_x_dose = phyper(q = x_dose_overlap - 1, 
        m = nrow(genes_x_dose),
