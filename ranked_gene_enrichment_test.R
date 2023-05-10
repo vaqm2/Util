@@ -29,15 +29,19 @@ association = fread(args[1], header = T)
 # Reading the dosage sensitivity gene lists
 symbol_map = readxl::read_xlsx(args[2],
                                sheet = 1,
+                               skip = 1,
                                col_names = c("ENSEMBL", "CHR", "GENE"))
 genes_x_dose = readxl::read_xlsx(args[2], 
-                                 sheet = 2, 
+                                 sheet = 2,
+                                 skip = 1,
                                  col_names = c("ENSEMBL", "P_ADJ"))
 genes_y_dose = readxl::read_xlsx(args[2], 
-                                 sheet = 3, 
+                                 sheet = 3,
+                                 skip = 1,
                                  col_names = c("ENSEMBL", "P_ADJ"))
 genes_xx_xy_dose = readxl::read_xlsx(args[2], 
-                                     sheet = 4, 
+                                     sheet = 4,
+                                     skip = 1,
                                      col_names = c("ENSEMBL", "MEAN_EXP"))
 
 p_x = test_hyper(genes_x_dose, association, symbol_map)
