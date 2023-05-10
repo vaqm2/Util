@@ -23,7 +23,7 @@ test_hyper = function(x_df, y_df, map_df) {
                     m = n_dose_sensitive,
                     n = n_total - n_dose_sensitive,
                     k = n_enriched)
-    return(p_test)
+    return(c(n_overlap, p_test))
 }
 
 args = commandArgs(trailingOnly = TRUE)
@@ -49,12 +49,12 @@ genes_xx_xy_dose = readxl::read_xlsx(args[2],
                                      skip = 1,
                                      col_names = c("ENSEMBL", "MEAN_EXP"))
 
-p_x = test_hyper(genes_x_dose, association, symbol_map)
-p_y = test_hyper(genes_y_dose, association, symbol_map)
-p_xx_xy = test_hyper(genes_xx_xy_dose, association, symbol_map)
+test_x = test_hyper(genes_x_dose, association, symbol_map)
+test_y = test_hyper(genes_y_dose, association, symbol_map)
+test_xx_xy = test_hyper(genes_xx_xy_dose, association, symbol_map)
 pheno = gsub("^iPSYCH2015_EUR_", "", args[1])
 pheno = gsub(".hgnc.out$", "", pheno)
 
-print(paste(pheno, "X :", p_x, sep = " "))
-print(paste(pheno, "Y :", p_y, sep = " "))
-print(paste(pheno, "XX XY :", p_xx_xy, sep = " "))
+print(paste(pheno, "X :", test_x[1], test_x[2], sep = " "))
+print(paste(pheno, "Y :", test_y[1], test_y[2], sep = " "))
+print(paste(pheno, "XX XY :", test_xx_xy[1], test_xx_xy[2], sep = " "))
