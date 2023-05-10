@@ -4,104 +4,48 @@ library(dplyr)
 library(ggplot2)
 library(data.table)
 
+test_hyper = function(x_df, y_df, map_df) {
+    dose_sensitive = inner_join(x_df, map_df) %>% 
+        filter(P_ADJ <= 0.05)
+    n_dose_sensitive = nrow(dose_sensitive)
+    enriched = y_df %>% 
+        mutate(P_FDR = p.adjust(P, method = c("fdr"))) %>%
+        filter(P_FDR <= 0.05)
+    n_enriched = nrow(enriched)
+    n_overlap = inner_join(n_dose_sensitive, enriched) %>% nrow()
+    n_total = nrow(y_df)
+    p_test = phyper(q = n_overlap - 1,
+                    m = n_dose_sensitive,
+                    n = n_total - n_dose_sensitive,
+                    k = n_enriched)
+    return(p_test)
+}
+
 args = commandArgs(trailingOnly = TRUE)
 
 # Reading the MAGMA association results
 association = fread(args[1], header = T)
 
-# total genes is the number tested for magma association
-total_genes = nrow(association)
-
-# Enriched genes are selected as the subset that passes FDR correction 
-enriched_genes = association %>% 
-    mutate(P_FDR = p.adjust(P, method = c("fdr"))) %>%
-    filter(P_FDR <= 0.05)
-num_enriched_genes = nrow(enriched_genes)
-
 # Reading the dosage sensitivity gene lists
 symbol_map = readxl::read_xlsx(args[2],
                                sheet = 1,
-                               col_names = TRUE)
+                               col_names = c("ENSEMBL", "CHR", "GENE"))
 genes_x_dose = readxl::read_xlsx(args[2], 
                                  sheet = 2, 
-                                 col_names = c("Gene", "Padj"))
+                                 col_names = c("ENSEMBL", "P_ADJ"))
 genes_y_dose = readxl::read_xlsx(args[2], 
                                  sheet = 3, 
-                                 col_names = c("Gene", "Padj"))
+                                 col_names = c("ENSEMBL", "P_ADJ"))
 genes_xx_xy_dose = readxl::read_xlsx(args[2], 
                                      sheet = 4, 
-                                     col_names = c("Gene", "MeanExp"))
+                                     col_names = c("ENSEMBL", "MEAN_EXP"))
 
-# Dump genes with blanks in HGNC identifiers
+p_x = test_hyper(genes_x_dose, association, symbol_map)
+p_y = test_hyper(genes_y_dose, association, symbol_map)
+p_xx_xy = test_hyper(genes_xx_xy_dose, association, symbol_map)
+pheno = gsub("^iPSYCH2015_EUR_", "", args[1])
+pheno = gsub("\.hgnc\.out$", "", pheno)
 
-symbol_map = symbol_map %>% 
-    filter(Symbol != "") %>%
-    select(Gene, Symbol)
-
-# Intersect MAGMA associations and dosage sensitivity gene lists
-# Restrict dose sensitivity genes to FDR adjusted P <= 0.05
-# Pick top 100 when no significance threshold available
-
-genes_x_dose_sig = inner_join(genes_x_dose, symbol_map, by = c("Gene")) %>% 
-    select(-Gene) %>%
-    rename(GENE = Symbol) %>%
-    filter(Padj <= 0.05)
-genes_y_dose_sig = inner_join(genes_y_dose, symbol_map, by = c("Gene")) %>%
-    select(-Gene) %>% 
-    rename(GENE = Symbol) %>% 
-    filter(Padj <= 0.05)
-genes_xx_xy_dose_sig = inner_join(genes_xx_xy_dose, symbol_map, by = c("Gene")) %>%
-    select(-Gene) %>%
-    rename(GENE = Symbol) %>% 
-    head()
-
-# Count overlaps
-
-x_dose_overlap = inner_join(enriched_genes, 
-                            genes_x_dose_sig, 
-                            by = c("GENE")) %>%
-    nrow()
-y_dose_overlap = inner_join(enriched_genes, 
-                            genes_y_dose_sig, 
-                            by = c("GENE")) %>%
-    nrow()
-xx_xy_dose_overlap = inner_join(enriched_genes, 
-                                genes_xx_xy_dose_sig, 
-                                by = c("GENE")) %>%
-    nrow()
-
-# Hypergeometric test for enrichment of MAGMA associations in ranked dosage
-# sensitivity gene lists
-
-print(paste(x_dose_overlap,
-      nrow(genes_x_dose_sig),
-      y_dose_overlap,
-      nrow(genes_y_dose_sig),
-      xx_xy_dose_overlap,
-      nrow(genes_xx_xy_dose_sig),
-      total_genes,
-      num_enriched_genes), sep = " ")
-
-p_x_dose = phyper(q = x_dose_overlap - 1, 
-       m = nrow(genes_x_dose_sig),
-       n = total_genes - nrow(genes_x_dose_sig),
-       k = num_enriched_genes,
-       lower.tail = FALSE)
-
-p_y_dose = phyper(q = y_dose_overlap - 1, 
-                  m = nrow(genes_y_dose_sig),
-                  n = total_genes - nrow(genes_y_dose_sig),
-                  k = num_enriched_genes,
-                  lower.tail = FALSE)
-
-p_xx_xy_dose = phyper(q = xx_xy_dose_overlap - 1,
-                      m = nrow(genes_xx_xy_dose_sig),
-                      n = total_genes - nrow(genes_xx_xy_dose_sig),
-                      k = num_enriched_genes,
-                      lower.tail = FALSE)
-
-print(paste(args[1], 
-            "X:", x_dose_overlap, p_x_dose, 
-            "Y:", y_dose_overlap, p_y_dose, 
-            "XX-XY:", xx_xy_dose_overlap, p_xx_xy_dose, 
-            sep = " "))
+print(paste(pheno, "X :", p_x, sep = " "))
+print(paste(pheno, "Y :", p_y, sep = " "))
+print(paste(pheno, "XX XY :", p_xx_xy, sep = " "))
