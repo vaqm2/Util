@@ -21,16 +21,16 @@ num_enriched_genes = nrow(enriched_genes)
 # Reading the dosage sensitivity gene lists
 symbol_map = readxl::read_xlsx(args[2],
                                sheet = 1,
-                               header = TRUE)
+                               col_names = TRUE)
 genes_x_dose = readxl::read_xlsx(args[2], 
                                  sheet = 2, 
-                                 header = TRUE)
+                                 col_names = c("Gene", "Padj"))
 genes_y_dose = readxl::read_xlsx(args[2], 
                                  sheet = 3, 
-                                 header = TRUE)
+                                 col_names = c("Gene", "Padj"))
 genes_xx_xy_dose = readxl::read_xlsx(args[2], 
                                      sheet = 4, 
-                                     header = TRUE)
+                                     col_names = c("Gene", "MeanExp"))
 
 # Dump genes with blanks in HGNC identifiers
 
