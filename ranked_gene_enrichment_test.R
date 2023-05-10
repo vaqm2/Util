@@ -5,15 +5,20 @@ library(ggplot2)
 library(data.table)
 
 args = commandArgs(trailingOnly = TRUE)
+
+# Reading the MAGMA association results
 association = fread(args[1], header = T)
+# total genes is the number tested for magma association
+total_genes = nrow(association)
+# Enriched genes are selected as the subset that passes FDR correction 
 enriched_genes = association %>% 
     mutate(P_FDR = p.adjust(P, method = c("fdr"))) %>%
     filter(P_FDR <= 0.05) %>%
     arrange(desc(abs(ZSTAT)))
+num_enriched_genes = nrow(enriched_genes)
+
+# Reading the dosage sensitivity gene lists
 genes_xls = args[2]
-
-# Read input lists from xls
-
 symbol_map = readxl::read_xlsx(args[2],
                                sheet = 1,
                                header = TRUE)
@@ -74,22 +79,20 @@ xx_xy_dose_overlap = inner_join(enriched_genes,
 
 p_x_dose = phyper(q = x_dose_overlap - 1, 
        m = nrow(genes_x_dose),
-       n = nrow(symbol_map) - nrow(genes_x_dose),
-       k = length(enriched_genes),
+       n = total_genes - nrow(genes_x_dose),
+       k = num_enriched_genes,
        lower.tail = FALSE)
 
 p_y_dose = phyper(q = y_dose_overlap - 1, 
                   m = nrow(genes_y_dose),
-                  n = nrow(symbol_map) - nrow(genes_y_dose),
-                  k = length(enriched_genes),
+                  n = total_genes - nrow(genes_y_dose),
+                  k = num_enriched_genes,
                   lower.tail = FALSE)
 
 p_xx_xy_dose = phyper(q = xx_xy_dose_overlap - 1,
                       m = nrow(genes_x_dose),
-                      n = nrow(symbol_map) - nrow(genes_x_dose),
-                      k = length(enriched_genes),
+                      n = total_genes - nrow(genes_x_dose),
+                      k = num_enriched_genes,
                       lower.tail = FALSE)
 
-print(paste0("X dose enrichment: ", p_x_dose))
-print(paste0("Y dose enrichment: ", p_y_dose))
-print(paste0("XX XY dose enrichment: ", p_xx_xy_dose))
+print(paste(args[1], "X:", p_x_dose, "Y:", p_y_dose, "XX-XY:", p_xx_xy_dose, sep = " "))
