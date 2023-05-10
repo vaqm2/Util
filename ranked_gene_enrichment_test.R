@@ -6,13 +6,18 @@ library(data.table)
 
 test_hyper = function(x_df, y_df, map_df) {
     dose_sensitive = inner_join(x_df, map_df) %>% 
-        filter(P_ADJ <= 0.05)
+        select(-CHR)
+    if("P_ADJ" %in% colnames(dose_sensitive)) {
+        dose_sensitive = dose_sensitive %>% filter(P_ADJ <= 0.05)
+    } else {
+        dose_sensitive = dose_sensitive %>% head(100)
+    }
     n_dose_sensitive = nrow(dose_sensitive)
     enriched = y_df %>% 
         mutate(P_FDR = p.adjust(P, method = c("fdr"))) %>%
         filter(P_FDR <= 0.05)
     n_enriched = nrow(enriched)
-    n_overlap = inner_join(n_dose_sensitive, enriched) %>% nrow()
+    n_overlap = inner_join(dose_sensitive, enriched) %>% nrow()
     n_total = nrow(y_df)
     p_test = phyper(q = n_overlap - 1,
                     m = n_dose_sensitive,
@@ -48,7 +53,7 @@ p_x = test_hyper(genes_x_dose, association, symbol_map)
 p_y = test_hyper(genes_y_dose, association, symbol_map)
 p_xx_xy = test_hyper(genes_xx_xy_dose, association, symbol_map)
 pheno = gsub("^iPSYCH2015_EUR_", "", args[1])
-pheno = gsub("\.hgnc\.out$", "", pheno)
+pheno = gsub(".hgnc.out$", "", pheno)
 
 print(paste(pheno, "X :", p_x, sep = " "))
 print(paste(pheno, "Y :", p_y, sep = " "))
