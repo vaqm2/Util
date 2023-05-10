@@ -8,17 +8,17 @@ args = commandArgs(trailingOnly = TRUE)
 
 # Reading the MAGMA association results
 association = fread(args[1], header = T)
+hed(association)
 # total genes is the number tested for magma association
 total_genes = nrow(association)
+
 # Enriched genes are selected as the subset that passes FDR correction 
 enriched_genes = association %>% 
     mutate(P_FDR = p.adjust(P, method = c("fdr"))) %>%
-    filter(P_FDR <= 0.05) %>%
-    arrange(desc(abs(ZSTAT)))
+    filter(P_FDR <= 0.05)
 num_enriched_genes = nrow(enriched_genes)
 
 # Reading the dosage sensitivity gene lists
-genes_xls = args[2]
 symbol_map = readxl::read_xlsx(args[2],
                                sheet = 1,
                                header = TRUE)
@@ -95,4 +95,8 @@ p_xx_xy_dose = phyper(q = xx_xy_dose_overlap - 1,
                       k = num_enriched_genes,
                       lower.tail = FALSE)
 
-print(paste(args[1], "X:", p_x_dose, "Y:", p_y_dose, "XX-XY:", p_xx_xy_dose, sep = " "))
+print(paste(args[1], 
+            "X:", p_x_dose, 
+            "Y:", p_y_dose, 
+            "XX-XY:", p_xx_xy_dose, 
+            sep = " "))
