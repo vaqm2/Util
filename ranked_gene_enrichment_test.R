@@ -38,39 +38,35 @@ symbol_map = symbol_map %>%
     filter(Symbol != "") %>%
     select(Gene, Symbol)
 
-# Restrict dose sensitivity genes to FDR adjusted P <= 0.05
-
-genes_x_dose = genes_x_dose %>% filter(Padj <= 0.05)
-genes_y_dose_sig = genes_y_dose %>% filter(Padj <= 0.05)
-
-# Pick top 100 when no significance threshold available.
-
-genes_xx_xy_dose = genes_xx_xy_dose %>% head(100)
-
 # Intersect MAGMA associations and dosage sensitivity gene lists
+# Restrict dose sensitivity genes to FDR adjusted P <= 0.05
+# Pick top 100 when no significance threshold available
 
-genes_x_dose = inner_join(genes_x_dose, symbol_map, by = c("Gene")) %>% 
+genes_x_dose_sig = inner_join(genes_x_dose, symbol_map, by = c("Gene")) %>% 
     select(-Gene) %>%
-    rename(GENE = Symbol)
-genes_y_dose = inner_join(genes_y_dose, symbol_map, by = c("Gene")) %>%
+    rename(GENE = Symbol) %>%
+    filter(Padj <= 0.05)
+genes_y_dose_sig = inner_join(genes_y_dose, symbol_map, by = c("Gene")) %>%
     select(-Gene) %>% 
-    rename(GENE = Symbol)
-genes_xx_xy_dose = inner_join(genes_xx_xy_dose, symbol_map, by = c("Gene")) %>%
+    rename(GENE = Symbol) %>% 
+    filter(Padj <= 0.05)
+genes_xx_xy_dose_sig = inner_join(genes_xx_xy_dose, symbol_map, by = c("Gene")) %>%
     select(-Gene) %>%
-    rename(GENE = Symbol)
+    rename(GENE = Symbol) %>% 
+    head()
 
 # Count overlaps
 
 x_dose_overlap = inner_join(enriched_genes, 
-                            genes_x_dose, 
+                            genes_x_dose_sig, 
                             by = c("GENE")) %>%
     nrow()
 y_dose_overlap = inner_join(enriched_genes, 
-                            genes_y_dose, 
+                            genes_y_dose_sig, 
                             by = c("GENE")) %>%
     nrow()
 xx_xy_dose_overlap = inner_join(enriched_genes, 
-                                genes_xx_xy_dose, 
+                                genes_xx_xy_dose_sig, 
                                 by = c("GENE")) %>%
     nrow()
 
@@ -78,29 +74,29 @@ xx_xy_dose_overlap = inner_join(enriched_genes,
 # sensitivity gene lists
 
 print(paste(x_dose_overlap,
-      nrow(genes_x_dose),
+      nrow(genes_x_dose_sig),
       y_dose_overlap,
-      nrow(genes_y_dose),
+      nrow(genes_y_dose_sig),
       xx_xy_dose_overlap,
-      nrow(genes_xx_xy_dose),
+      nrow(genes_xx_xy_dose_sig),
       total_genes,
       num_enriched_genes), sep = " ")
 
 p_x_dose = phyper(q = x_dose_overlap - 1, 
-       m = nrow(genes_x_dose),
-       n = total_genes - nrow(genes_x_dose),
+       m = nrow(genes_x_dose_sig),
+       n = total_genes - nrow(genes_x_dose_sig),
        k = num_enriched_genes,
        lower.tail = FALSE)
 
 p_y_dose = phyper(q = y_dose_overlap - 1, 
-                  m = nrow(genes_y_dose),
-                  n = total_genes - nrow(genes_y_dose),
+                  m = nrow(genes_y_dose_sig),
+                  n = total_genes - nrow(genes_y_dose_sig),
                   k = num_enriched_genes,
                   lower.tail = FALSE)
 
 p_xx_xy_dose = phyper(q = xx_xy_dose_overlap - 1,
-                      m = nrow(genes_x_dose),
-                      n = total_genes - nrow(genes_x_dose),
+                      m = nrow(genes_xx_xy_dose_sig),
+                      n = total_genes - nrow(genes_xx_xy_dose_sig),
                       k = num_enriched_genes,
                       lower.tail = FALSE)
 
