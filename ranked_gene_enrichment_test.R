@@ -8,7 +8,7 @@ args = commandArgs(trailingOnly = TRUE)
 
 # Reading the MAGMA association results
 association = fread(args[1], header = T)
-hed(association)
+head(association)
 # total genes is the number tested for magma association
 total_genes = nrow(association)
 
