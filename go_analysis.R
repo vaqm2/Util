@@ -39,31 +39,33 @@ for (file in files) {
         filter(P_ADJ <= 0.05) %>% 
         arrange(desc(abs(ZSTAT))) %>%
         select(GENE)
-    gost_out = gost(query = genes_selected$GENE, 
-                    organism = "hsapiens", 
-                    ordered_query = TRUE, 
-                    significant = TRUE,
-                    user_threshold = 0.05, 
-                    correction_method = "g_SCS",
-                    evcodes = TRUE,
-                    domain_scope = "annotated",
-                    custom_bg = genes$GENE,
-                    sources = c("GO", "KEGG"))
-    if(!is.null(gost_out$result)) {
-        gost_result = gost_out$result %>% 
-            arrange(p_value) %>%
-            as.data.frame() %>%
-            filter(term_size >= 15 & term_size <= 600 & intersection_size >= 5)
+    if(nrow(genes_selected) > 0) {
+        gost_out = gost(query = genes_selected$GENE, 
+                        organism = "hsapiens", 
+                        ordered_query = TRUE, 
+                        significant = TRUE,
+                        user_threshold = 0.05, 
+                        correction_method = "g_SCS",
+                        evcodes = TRUE,
+                        domain_scope = "annotated",
+                        custom_bg = genes$GENE,
+                        sources = c("GO", "KEGG"))
+        if(!is.null(gost_out$result)) {
+            gost_result = gost_out$result %>% 
+                arrange(p_value) %>%
+                as.data.frame() %>%
+                filter(term_size >= 15 & term_size <= 600 & intersection_size >= 5)
         
-        gost_result$query = test
+            gost_result$query = test
     
-        fwrite(gost_result,
-                    out_file, 
-                    sep = "\t", 
-                    row.names = F,
-                    col.names = F,
-                    quote = F,
-                    append = TRUE)
+            fwrite(gost_result,
+                   out_file, 
+                   sep = "\t", 
+                   row.names = F,
+                   col.names = F,
+                   quote = F,
+                   append = TRUE)
+        }
     }
     print("Done!")
 }
