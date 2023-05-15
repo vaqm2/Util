@@ -54,7 +54,7 @@ for (file in files) {
             gost_result = gost_out$result %>% 
                 arrange(p_value) %>%
                 as.data.frame() %>%
-                filter(term_size >= 15 & term_size <= 600)
+                filter(term_size >= 10 & term_size <= 500 & intersection_size >= 5)
             
             if(nrow(gost_result) > 0) {
                 gost_result$query = test
