@@ -43,7 +43,7 @@ for (file in files) {
     if(nrow(genes_selected) > 0) {
         gost_out = gost(query = genes_selected$GENE, 
                         organism = "hsapiens", 
-                        ordered_query = TRUE, 
+#                        ordered_query = TRUE, 
                         significant = TRUE,
                         user_threshold = 0.05, 
                         correction_method = "g_SCS",
