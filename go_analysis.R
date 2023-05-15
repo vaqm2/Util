@@ -54,17 +54,19 @@ for (file in files) {
             gost_result = gost_out$result %>% 
                 arrange(p_value) %>%
                 as.data.frame() %>%
-                filter(term_size >= 15 & term_size <= 600 & intersection_size >= 5)
-        
-            gost_result$query = test
-    
-            fwrite(gost_result,
-                   out_file, 
-                   sep = "\t", 
-                   row.names = F,
-                   col.names = F,
-                   quote = F,
-                   append = TRUE)
+                filter(term_size >= 15 & term_size <= 600)
+            
+            if(nrow(gost_result) > 0) {
+                gost_result$query = test
+                
+                fwrite(gost_result,
+                       out_file, 
+                       sep = "\t", 
+                       row.names = F,
+                       col.names = F,
+                       quote = F,
+                       append = TRUE)
+            }
         }
     }
     print("Done!")
