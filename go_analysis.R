@@ -45,7 +45,7 @@ for (file in files) {
                     correction_method = "g_SCS",
                     evcodes = TRUE,
                     domain_scope = "annotated",
-                    custon_bg = genes$GENE,
+                    custom_bg = genes$GENE,
                     sources = c("GO", "KEGG"))
     if(!is.null(gost_out$result)) {
         gost_result = gost_out$result %>% 
