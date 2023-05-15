@@ -1,7 +1,9 @@
 #!/usr/bin/env Rscript
 
+suppressPackageStartupMessages({
 library(dplyr)
 library(gprofiler2)
+library(data.table)})
 
 args = commandArgs(trailingOnly = TRUE)
 files = list.files(path = getwd(), pattern = "*.genes.out")
@@ -31,7 +33,7 @@ for (file in files) {
     test = gsub("^iPSYCH2015_EUR_", "", file)
     test = gsub("\\..*$", "", test)
     print(paste0("Processing", " ", file, "..."))
-    genes = read.table(file, header = TRUE)
+    genes = fread(file, header = TRUE)
     genes_selected = genes %>%
         mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
         filter(P_ADJ <= 0.05) %>% 
@@ -55,7 +57,7 @@ for (file in files) {
         
         gost_result$query = test
     
-        write.table(gost_result,
+        fwrite(gost_result,
                     out_file, 
                     sep = "\t", 
                     row.names = F,
