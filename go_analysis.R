@@ -48,8 +48,8 @@ for (file in files) {
                         user_threshold = 0.05, 
                         correction_method = "g_SCS",
                         evcodes = TRUE,
-                        domain_scope = "annotated",
-                        custom_bg = genes$GENE,
+#                        domain_scope = "annotated",
+#                        custom_bg = genes$GENE,
                         sources = c("GO", "KEGG", "REAC", "WP", "TF", "HPA"))
         if(!is.null(gost_out$result)) {
             gost_result = gost_out$result %>% 
