@@ -36,7 +36,7 @@ for (file in files) {
     genes = fread(file, header = TRUE)
     genes_selected = genes %>%
         mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
-        filter(P_ADJ <= 0.05) %>% 
+        filter(P_ADJ <= 0.1) %>% 
         arrange(desc(abs(ZSTAT))) %>%
         select(GENE)
     if(nrow(genes_selected) > 0) {
@@ -49,7 +49,7 @@ for (file in files) {
                         evcodes = TRUE,
                         domain_scope = "annotated",
                         custom_bg = genes$GENE,
-                        sources = c("GO", "KEGG"))
+                        sources = c("GO", "KEGG", "REAC", "WP", "TF", "HPA"))
         if(!is.null(gost_out$result)) {
             gost_result = gost_out$result %>% 
                 arrange(p_value) %>%
