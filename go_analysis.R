@@ -35,21 +35,20 @@ for (file in files) {
     print(paste0("Processing", " ", file, "..."))
     genes = fread(file, header = TRUE)
     genes_selected = genes %>%
-#       mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
-#       filter(P_ADJ <= 0.1) %>% 
+       mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
+       filter(P_ADJ <= 0.05) %>% 
         arrange(desc(abs(ZSTAT))) %>%
-        head(0.05 * nrow(genes)) %>%
         select(GENE)
     if(nrow(genes_selected) > 0) {
         gost_out = gost(query = genes_selected$GENE, 
                         organism = "hsapiens", 
-#                        ordered_query = TRUE, 
-                        significant = FALSE,
-                        user_threshold = 1, 
+                        ordered_query = TRUE, 
+                        significant = TRUE,
+                        user_threshold = 0.05, 
                         correction_method = "g_SCS",
                         evcodes = TRUE,
-#                        domain_scope = "annotated",
-#                        custom_bg = genes$GENE,
+                        domain_scope = "annotated",
+                        custom_bg = genes$GENE,
                         sources = c("GO", "KEGG", "REAC", "WP", "TF", "HPA"))
         if(!is.null(gost_out$result)) {
             gost_result = gost_out$result %>% 
