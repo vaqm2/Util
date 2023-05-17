@@ -26,7 +26,8 @@ gsea_result = fgsea(pathways = go_resource,
 
 concise_pathways = collapsePathways(as.data.table(gsea_result),
                                     pathways = go_resource,
-                                    stats = ranked_genes)
+                                    stats = ranked_genes) %>%
+    as.data.frame()
 gsea_concise_result = inner_join(gsea_result, 
                                  concise_pathways, 
                                  join_by(pathway == mainPathways))
