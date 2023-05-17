@@ -46,7 +46,7 @@ for (file in files) {
                         significant = TRUE,
                         user_threshold = 0.05, 
                         correction_method = "g_SCS",
-                        evcodes = TRUE,
+                        evcodes = FALSE,
                         sources = c("GO", "KEGG"))
         if(!is.null(gost_out$result)) {
             gost_result = gost_out$result %>% 
