@@ -35,8 +35,8 @@ for (file in files) {
     print(paste0("Processing", " ", file, "..."))
     genes = fread(file, header = TRUE)
     genes_selected = genes %>%
-       mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
-       filter(P_ADJ <= 0.05) %>% 
+#       mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
+#       filter(P_ADJ <= 0.05) %>% 
         arrange(desc(ZSTAT)) %>%
         select(GENE)
     if(nrow(genes_selected) > 0) {
