@@ -8,12 +8,12 @@ library(ggplot2)
 library(data.table)
 library(fgsea)})
 
-magma_genes = fread("/Users/vapp0002/Desktop/iPSYCH2015_EUR_xDx.hgnc.out", header = T)
+magma_genes = fread(args[1], header = T)
 magma_genes = magma_genes %>% 
     arrange(desc(ZSTAT)) # Sort by MAGMA Z to get ranked list
 ranked_genes = magma_genes$ZSTAT
 names(ranked_genes) = magma_genes$GENE
-go_resource = gmtPathways("/Users/vapp0002/Desktop/c5.all.v2023.1.Hs.symbols.gmt")
+go_resource = gmtPathways(args[2])
 gsea_result = fgsea(pathways = go_resource,
                     stats = ranked_genes,
                     minSize = 15,
