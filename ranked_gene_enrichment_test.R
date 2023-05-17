@@ -18,8 +18,7 @@ gsea_result = fgsea(pathways = go_resouce,
                     stats = ranked_genes,
                     minSize = 15,
                     maxSize = 500,
-                    nperm = 10000,
-                    eps = 0.0) %>%
+                    nperm = 10000) %>%
     as.data.frame() %>%
     arrange(desc(padj))
 
