@@ -14,11 +14,12 @@ magma_genes = magma_genes %>%
 ranked_genes = magma_genes$ZSTAT
 names(ranked_genes) = magma_genes$GENE
 go_resource = gmtPathways(args[2])
-gsea_result = fgsea(pathways = go_resource,
+gsea_result = fgseaMultilevel(pathways = go_resource,
                     stats = ranked_genes,
                     minSize = 15,
                     maxSize = 500,
-                    nperm = 10000) %>%
+                    eps = 0,
+                    nPermSimple = 10000) %>%
     as.data.frame() %>%
     arrange(desc(padj))
 
