@@ -37,7 +37,7 @@ for (file in files) {
     genes_selected = genes %>%
        mutate(P_ADJ = p.adjust(P, method = c("fdr"))) %>%
        filter(P_ADJ <= 0.05) %>% 
-        arrange(desc(abs(ZSTAT))) %>%
+        arrange(desc(ZSTAT)) %>%
         select(GENE)
     if(nrow(genes_selected) > 0) {
         gost_out = gost(query = genes_selected$GENE, 
@@ -54,7 +54,7 @@ for (file in files) {
             gost_result = gost_out$result %>% 
                 arrange(p_value) %>%
                 as.data.frame() %>%
-                filter(term_size >= 10 & term_size <= 500 & intersection_size >= 5)
+                filter(term_size >= 15 & term_size <= 500 & intersection_size >= 5)
             
             if(nrow(gost_result) > 0) {
                 gost_result$query = test
