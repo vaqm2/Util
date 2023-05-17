@@ -14,7 +14,7 @@ magma_genes = magma_genes %>%
 ranked_genes = magma_genes$ZSTAT
 names(ranked_genes) = magma_genes$GENE
 go_resource = gmtPathways(args[2])
-gsea_result = fgsea(pathways = go_resouce,
+gsea_result = fgsea(pathways = go_resource,
                     stats = ranked_genes,
                     minSize = 15,
                     maxSize = 500,
