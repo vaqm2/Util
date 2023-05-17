@@ -32,3 +32,9 @@ gsea_concise_result = inner_join(gsea_result,
                                  concise_pathways, 
                                  by.x = "pathway",
                                  by.y = "mainPathways")
+
+fwrite(gsea_concise_result,
+       args[3],
+       sep = "\t",
+       row.names = F,
+       quote = F)
