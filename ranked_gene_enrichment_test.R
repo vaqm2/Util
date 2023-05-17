@@ -29,8 +29,7 @@ concise_pathways = collapsePathways(as.data.table(gsea_result),
                                     stats = ranked_genes)
 gsea_concise_result = inner_join(gsea_result, 
                                  concise_pathways, 
-                                 by.x = "pathway",
-                                 by.y = "mainPathways")
+                                 join_by(pathway == mainPathways))
 
 fwrite(gsea_concise_result,
        args[3],
