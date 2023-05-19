@@ -41,7 +41,7 @@ fwrite(gsea_result,
        quote = F)
 
 fwrite(gsea_concise_result,
-       paste0(args[3], "GSEA_Concise_Results.txt"),
+       paste0(args[3], "_GSEA_Concise_Results.txt"),
        sep = "\t",
        row.names = F,
        quote = F)
