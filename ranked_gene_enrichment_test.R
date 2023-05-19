@@ -19,7 +19,7 @@ gsea_result = fgseaMultilevel(pathways = go_resource,
                     minSize = 15,
                     maxSize = 500,
                     eps = 0,
-                    nPermSimple = 10000) %>%
+                    nPermSimple = 100000) %>%
     as.data.frame() %>%
     arrange(desc(padj))
 
@@ -34,8 +34,14 @@ gsea_concise_result = inner_join(gsea_result,
                                  concise_pathways,
                                  by = c("pathway"))
 
+fwrite(gsea_result, 
+       paste0(args[3], "_GSEA_Results.txt"),
+       sep = "\t",
+       row.names = F,
+       quote = F)
+
 fwrite(gsea_concise_result,
-       args[3],
+       paste0(args[3], "GSEA_Concise_Results.txt"),
        sep = "\t",
        row.names = F,
        quote = F)
