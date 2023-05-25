@@ -14,7 +14,7 @@ genes = read.table("/faststorage/project/xdx2/data/magma/NCBI37.3.gene.loc",
 genes = genes %>% 
     select(V1, V6) %>% 
     rename(entrez_id = V1,
-           hgnc_symbol = V2)
+           hgnc_symbol = V6)
 
 genes = genes %>% inner_join(geneAnno1, genes, by = c("hgnc_symbol")) %>% 
     rename(GENE = entrez_id)
