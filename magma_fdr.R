@@ -5,7 +5,7 @@ library(dplyr)
 args = commandArgs(trailingOnly = T)
 files = list.files(path = getwd(), pattern = "*.genes.out")
 file.create(args[1])
-load("/faststorage/project/xdx2/data/magma/H-Magma/geneAnno_allgenes.rda") %>% 
+load("/faststorage/project/xdx2/data/magma/H-Magma/geneAnno_allgenes.rda")
 geneAnno1 = geneAnno1 %>%    
     filter(gene_biotype == "protein_coding" & hgnc_symbol != "") %>% 
     select(hgnc_symbol, ensembl_gene_id)
