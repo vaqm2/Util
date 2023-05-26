@@ -17,7 +17,7 @@ go_resource = gmtPathways(args[2])
 gsea_result = fgseaMultilevel(pathways = go_resource,
                     stats = ranked_genes,
                     minSize = 15,
-                    maxSize = 3000,
+                    maxSize = 2000,
                     eps = 0,
                     nPermSimple = 100000) %>%
     as.data.frame() %>%
