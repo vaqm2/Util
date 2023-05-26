@@ -10,7 +10,7 @@ my $out = IO::File->new("> Konrad_Raznahan.gmt") || die "ERROR: Cannot create fi
 
 for my $index(0..2) {
     print "Processing $files[$index]..\n";
-    my $fh = IO::File->new("/Users/vapp0002/Desktop/$files[$index].txt") ||  die "ERROR: Cannot open file: $files[$index].txt\n";
+    my $fh = IO::File->new("$files[$index].txt") ||  die "ERROR: Cannot open file: $files[$index].txt\n";
 
     while(my $line = $fh->getline) {
         chomp($line);
