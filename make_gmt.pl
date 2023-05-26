@@ -18,7 +18,7 @@ for my $index(0..2) {
         my ($set, $gene) = split(/\s+/, $line);
 
         if(exists $sets->{$set}) {
-            $sets->{$set}->{genes} .= $sets->{$set}->{genes}."\t".$gene;
+            $sets->{$set}->{genes} .= "\t".$gene;
             next;
         }
         else {
