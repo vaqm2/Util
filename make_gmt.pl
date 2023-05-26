@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use IO::File;
 
-my @files = ("Konrad_Raznahan_Sets", "Konrad_Raznahan_Modules", "DOSE_SENSITIVITY_GENES");
+my @files = ("Konrad_Raznahan_Sets", "Konrad_Raznahan_Modules", "Konrad_Raznahan_WGCNA_Modules.txt", "DOSE_SENSITIVITY_GENES");
 my $sets = {};
 my $out = IO::File->new("> Konrad_Raznahan.gmt") || die "ERROR: Cannot create file:Konrad_Raznahan.gmt\n";
 
@@ -30,7 +30,7 @@ for my $index(0..2) {
     $fh->close;
 }
 
-for my $index(keys %$sets) {
+for my $index(sort keys %$sets) {
     print $out $index."\t";
     print $out $index."\t";
     print $out $sets->{$index}->{genes}."\n";
