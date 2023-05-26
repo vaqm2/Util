@@ -32,6 +32,7 @@ for my $index(0..2) {
 
 for my $index(keys %$sets) {
     print $out $index."\t";
+    print $out $index."\t";
     print $out $sets->{$index}->{genes}."\n";
 }
 
