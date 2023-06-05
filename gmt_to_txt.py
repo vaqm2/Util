@@ -2,10 +2,9 @@
 
 import sys
 
-gmt = open(sys.argv[1], "r")
+gmt = open(sys.argv[1], 'r')
 
-for set in gmt.readline():
-    print(set)
+for set in gmt:
     set_contents = set.split('\s+')
     set_name = set_contents[0]
     for gene in set_contents[2:]:
